@@ -77,7 +77,9 @@ Los ejercicios del libro **no cuentan para la nota**: son práctica. La evaluaci
 **Autor:** Pablo Sánchez-Núñez, profesor de Biblioteconomía y Documentación en la Universidad Carlos III de Madrid (grupo OpenScienceLab).
 ORCID: [0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Web: [pablosancheznunez.com](https://pablosancheznunez.com)
 
-> Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Libro en Quarto.
+> Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Zenodo. <https://doi.org/10.5281/zenodo.24500934>
+
+DOI de todas las versiones: [10.5281/zenodo.24500934](https://doi.org/10.5281/zenodo.24500934) (apunta siempre a la última). DOI de esta edición (v1.0.0): [10.5281/zenodo.24500935](https://doi.org/10.5281/zenodo.24500935).
 
 ## Normativa básica de la asignatura
 

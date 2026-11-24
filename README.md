@@ -1,5 +1,7 @@
 # Reutilización de datos abiertos y documentos — tutoriales interactivos en R (webR)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24500934.svg)](https://doi.org/10.5281/zenodo.24500934)
+
 **Autor:** Pablo Sánchez-Núñez · [ORCID 0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · [pablosancheznunez.com](https://pablosancheznunez.com)
 Universidad Carlos III de Madrid, Departamento de Biblioteconomía y Documentación, OpenScienceLab
 
@@ -9,9 +11,9 @@ Libro en [Quarto](https://quarto.org) para la asignatura *Reutilización de dato
 
 ## Cómo citar
 
-> Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)* (v1.0.0). Universidad Carlos III de Madrid. Zenodo.
+> Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Zenodo. https://doi.org/10.5281/zenodo.24500934
 
-El DOI se añadirá aquí cuando Zenodo archive la primera versión. GitHub muestra también la cita en «Cite this repository» (`CITATION.cff`).
+DOI de todas las versiones: 10.5281/zenodo.24500934 (siempre la última). DOI de v1.0.0: 10.5281/zenodo.24500935. GitHub muestra también la cita en «Cite this repository» (`CITATION.cff`).
 
 ## Generar el libro
 

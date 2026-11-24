@@ -18,6 +18,7 @@ book:
   date-format: "D [de] MMMM [de] YYYY"
   language: es
   site-url: https://pablosancheznunez.com/reutilizacion-datos/
+  doi: 10.5281/zenodo.24500934
   search: true
   page-navigation: true
   page-footer:
