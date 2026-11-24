@@ -1,0 +1,49 @@
+---
+engine: markdown
+---
+
+# Chuleta de R {#sec-chuleta}
+
+Todas las funciones que usa el libro, en una página.
+
+| Para… | Función | Ejemplo |
+|---|---|---|
+| Guardar un valor | `<-` | `x <- 5` |
+| Crear un vector | `c()` | `c(1, 2, 3)` |
+| Contar elementos | `length()` | `length(x)` |
+| Sumar, media, máximo | `sum()`, `mean()`, `max()` | `sum(x, na.rm = TRUE)` |
+| Redondear | `round()` | `round(3.14159, 2)` |
+| ¿Está en la lista? | `%in%` | `"CC BY 4.0" %in% abiertas` |
+| Y / O / NO | `&`, `|`, `!` | `x > 1 & x < 5` |
+| Crear una tabla | `data.frame()` | `data.frame(a = 1:3, b = c("x", "y", "z"))` |
+| Leer un CSV | `read.csv()` | `read.csv("datos/fichero.csv")` |
+| Guardar un CSV | `write.csv()` | `write.csv(df, "salida.csv", row.names = FALSE)` |
+| Dimensiones | `nrow()`, `ncol()`, `dim()` | `nrow(df)` |
+| Ver el principio | `head()` | `head(df, 10)` |
+| Estructura | `str()` | `str(df)` |
+| Una columna | `$` | `df$municipio` |
+| Filtrar filas | `subset()` | `subset(df, municipio == "Getafe")` |
+| Ordenar | `order()` | `df[order(df$fecha), ]` |
+| Valores únicos | `unique()` | `unique(df$municipio)` |
+| Contar valores | `table()` | `table(df$municipio)` |
+| Proporciones | `prop.table()` | `prop.table(table(df$efecto))` |
+| Sumar por grupos | `aggregate()` | `aggregate(prestamos ~ municipio, data = df, FUN = sum)` |
+| Unir tablas | `merge()` | `merge(tabla1, tabla2)` |
+| Duplicados | `duplicated()` | `df[!duplicated(df), ]` |
+| Ausentes | `is.na()` | `sum(is.na(df$prestamos))` |
+| Quitar espacios | `trimws()` | `trimws(" Getafe ")` |
+| Minúsculas | `tolower()` | `tolower("GETAFE")` |
+| Sustituir caracteres | `chartr()` | `chartr("áé", "ae", "Leganés")` |
+| ¿Contiene un patrón? | `grepl()` | `grepl("/", "01/03/2025")` |
+| Texto a fecha | `as.Date()` | `as.Date("01/03/2025", format = "%d/%m/%Y")` |
+| Secuencia de fechas | `seq()` | `seq(fecha, by = "1 month", length.out = 2)` |
+| Rellenar plantilla | `sprintf()` | `sprintf("Hola, %s", "Getafe")` |
+| Lista a JSON | `jsonlite::toJSON()` | `jsonlite::toJSON(lista, auto_unbox = TRUE, pretty = TRUE)` |
+| Gráfico de barras | `barplot()` | `barplot(table(df$usuario))` |
+
+Prueba cualquiera de ellas aquí:
+
+```{webr}
+df <- read.csv("datos/prestamos_bibliotecas_practica.csv")
+head(df)
+```

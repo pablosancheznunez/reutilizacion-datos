@@ -1,0 +1,10 @@
+/*-- scss:defaults --*/
+$primary: #000e78;
+$link-color: #000e78;
+$font-size-root: 17px;
+
+/*-- scss:rules --*/
+.exercise-cell .card-header { background-color: #eef0fb; }
+.lectura { border-left: 4px solid $primary; padding: .6rem 1rem; background: #f6f7fc; margin: 1rem 0; }
+.lectura p:last-child { margin-bottom: 0; }
+table { font-size: .92rem; }

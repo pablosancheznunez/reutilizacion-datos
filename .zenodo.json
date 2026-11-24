@@ -1,0 +1,37 @@
+{
+  "title": "Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)",
+  "upload_type": "publication",
+  "publication_type": "book",
+  "description": "<p>Libro en Quarto para la asignatura <em>Reutilización de datos abiertos y documentos</em> (17300) del Máster Universitario en Bibliotecas, Archivos y Continuidad Digital Online de la Universidad Carlos III de Madrid. Cada tema combina contenidos, lectura obligatoria, tutoriales de R que se ejecutan en el navegador mediante webR y ejercicios autocorregidos. Temas: introducción a los datos abiertos; reutilización de la información del sector público (RISP); proyectos de reutilización; gestión documental y open data; normalización e interoperabilidad; empresas infomediarias y oportunidades de negocio.</p><p>Versión web: <a href=\"https://pablosancheznunez.com/reutilizacion-datos/\">https://pablosancheznunez.com/reutilizacion-datos/</a></p>",
+  "creators": [
+    {
+      "name": "Sánchez-Núñez, Pablo",
+      "affiliation": "Universidad Carlos III de Madrid, Departamento de Biblioteconomía y Documentación, OpenScienceLab",
+      "orcid": "0000-0001-7845-9506"
+    }
+  ],
+  "language": "spa",
+  "license": "cc-by-4.0",
+  "access_right": "open",
+  "keywords": [
+    "datos abiertos",
+    "open data",
+    "reutilización de la información del sector público",
+    "RISP",
+    "interoperabilidad",
+    "datos enlazados",
+    "calidad de datos",
+    "R",
+    "webR",
+    "Quarto",
+    "recursos educativos abiertos"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://pablosancheznunez.com/reutilizacion-datos/",
+      "relation": "isIdenticalTo",
+      "resource_type": "publication-book"
+    }
+  ],
+  "notes": "Textos bajo licencia CC BY 4.0; código bajo licencia MIT. Incluye webR (r-wasm, MIT) y paquetes de R binarios para WebAssembly, cada uno con su propia licencia. Los datos de práctica son sintéticos."
+}

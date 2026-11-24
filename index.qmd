@@ -1,0 +1,86 @@
+---
+engine: markdown
+---
+
+# Presentación {.unnumbered}
+
+Este libro acompaña a la asignatura **Reutilización de datos abiertos y documentos** (código 17300) del Máster Universitario en Bibliotecas, Archivos y Continuidad Digital *Online* de la Universidad Carlos III de Madrid: optativa de 3 ECTS, primer curso, segundo cuatrimestre.
+
+Cada capítulo corresponde a un tema de la asignatura y combina tres cosas:
+
+1. **Una síntesis de los contenidos**, con la lectura obligatoria del tema y los recursos de referencia.
+2. **Tutoriales interactivos en R** que se ejecutan en el propio navegador gracias a [webR](https://docs.r-wasm.org/webr/latest/). No hay que instalar nada.
+3. **Ejercicios autocorregidos**, con pistas y solución, para practicar lo que después se evalúa en los cuestionarios de Aula Global.
+
+## Objetivos de la asignatura
+
+Según la ficha de la asignatura, al terminar el curso deberías:
+
+- Conocer los principios jurídicos y éticos, y la legislación, que sustentan la reutilización de la información.
+- Conocer las principales iniciativas y proyectos de reutilización de información del sector público en distintos ámbitos administrativos y geográficos.
+- Ser capaz de plantear un proyecto de reutilización de información y documentos.
+- Aplicar normas y herramientas que favorecen la normalización y la interoperabilidad de datos y documentos.
+- Conocer los principios de los datos abiertos.
+
+## Mapa del libro
+
+Cada tema sigue la estructura del temario oficial: empieza por sus **objetivos**, desarrolla los **contenidos** con la misma numeración del temario y termina con una sección de **práctica en R** cuyos pasos indican a qué apartado corresponden.
+
+| Capítulo | Contenidos del temario | Práctica en R |
+|---|---|---|
+| [Primeros pasos](00a-primeros-pasos.qmd) | — | Ejecutar código, vectores, tablas, leer un CSV |
+| [Tema 0. Introducción a los datos abiertos y la reutilización de la información](00-datos-abiertos.qmd) | Sociedad de la información y del conocimiento · Internet y la WWW · Evolución de la Web · Gobierno abierto y datos abiertos · Cinco estrellas · FAIR · Datos abiertos y públicos · Formatos abiertos y propietarios · Licencias abiertas · Recursos y portales | Auditar el CSV: estrellas, licencias, formatos, público frente a abierto |
+| [Tema 1. Reutilización de la información del sector público](01-risp.qmd) | Conceptos básicos · Evolución de las políticas · Marco europeo · Marco español · Transparencia y acceso · Derechos y obligaciones · Licencias de reutilización | Cronología normativa, plazos en meses y en días hábiles, régimen sancionador |
+| [Tema 2. Proyectos relevantes de reutilización](02-proyectos.qmd) | Open Data en España · En la UE · Portales internacionales · Casos de éxito · Iniciativas públicas y privadas · Datos para la investigación y la innovación | Clasificar casos con Safarov et al., autoevaluación FAIR |
+| [Tema 3. Gestión documental y *open data*](03-calidad.qmd) | Gestión documental aplicada · Ciclo de vida · Metadatos · Calidad · Publicación · Preservación y actualización | Laboratorio de calidad, metadatos DCAT, sumas de control y versiones |
+| [Tema 4. Normalización e interoperabilidad](04-interoperabilidad.qmd) | Estándares abiertos · Interoperabilidad técnica, semántica y organizativa · ENI · Formatos CSV, XML, JSON y RDF · Linked Open Data · Vocabularios y ontologías | XML, JSON, JSON-LD y Turtle; consultas sobre un grafo; tesauro en SKOS |
+| [Tema 5. Empresas infomediarias y oportunidades de negocio](05-infomediarias.qmd) | Sector infomediario · Modelos de negocio · Servicios de valor añadido · Emprendimiento e innovación · IA y reutilización · Tendencias de futuro | Enriquecer datos, punto de equilibrio *freemium*, licencias combinadas |
+
+## El conjunto de datos de práctica
+
+Todo el libro usa el mismo fichero, `prestamos_bibliotecas_practica.csv`: préstamos y usuarios activos mensuales (enero a junio de 2025) de seis bibliotecas municipales de cinco municipios del sur de Madrid.
+
+::: {.callout-important}
+## Datos sintéticos
+Las bibliotecas y las cifras son **inventadas** para la docencia. El fichero contiene, a propósito, errores típicos de los datos reales: variantes del mismo municipio, fechas en dos formatos, valores ausentes codificados de dos maneras, un valor negativo y filas duplicadas. Los descubrirás y corregirás en el Tema 3.
+:::
+
+[Descargar el CSV](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary download="prestamos_bibliotecas_practica.csv"}
+
+## Cómo funcionan las celdas interactivas
+
+Las cajas de código de este libro son editables. Al abrir una página, el navegador descarga un entorno de R (tarda unos segundos la primera vez). Después:
+
+- **Run Code** ejecuta el código de la caja.
+- **Start Over** devuelve la caja a su estado inicial.
+- En los ejercicios, los huecos `______` son lo que tienes que completar. **Show Hint** muestra pistas progresivas; **Show Solution**, la solución. Al ejecutar, el sistema comprueba tu respuesta y te dice si es correcta.
+
+Prueba ahora: cambia el número y pulsa **Run Code**.
+
+```{webr}
+#| autorun: true
+anio <- 2026
+paste("Bienvenida al curso", anio)
+```
+
+::: {.callout-tip}
+## Si algo no funciona
+Usa un navegador de escritorio actualizado (Chrome, Firefox, Edge o Safari). Si una caja no responde, recarga la página. Las celdas de un mismo capítulo comparten memoria: si una celda usa un objeto creado antes, ejecuta primero las celdas anteriores.
+:::
+
+## Relación con la evaluación
+
+Los ejercicios del libro **no cuentan para la nota**: son práctica. La evaluación continua (50 %) se hace con los cuestionarios de Aula Global, los foros y los trabajos; el examen final (50 %) es presencial en la UC3M y hay que aprobarlo para superar la asignatura. Los cuestionarios de Aula Global preguntan sobre los mismos conceptos y, en los Temas 0, 3 y 4, sobre el mismo CSV de práctica.
+
+## Autoría y cómo citar
+
+**Autor:** Pablo Sánchez-Núñez, profesor de Biblioteconomía y Documentación en la Universidad Carlos III de Madrid (grupo OpenScienceLab).
+ORCID: [0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Web: [pablosancheznunez.com](https://pablosancheznunez.com)
+
+> Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Libro en Quarto.
+
+## Normativa básica de la asignatura
+
+- [Directiva (UE) 2019/1024](https://eur-lex.europa.eu/eli/dir/2019/1024/oj?locale=es), relativa a los datos abiertos y la reutilización de la información del sector público.
+- [Ley 37/2007](https://www.boe.es/buscar/act.php?id=BOE-A-2007-19814), sobre reutilización de la información del sector público (texto consolidado).
+- [Ley 19/2013](https://www.boe.es/buscar/act.php?id=BOE-A-2013-12887), de transparencia, acceso a la información pública y buen gobierno.

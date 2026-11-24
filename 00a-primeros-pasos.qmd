@@ -1,0 +1,208 @@
+---
+engine: markdown
+---
+
+# Primeros pasos con R en el navegador {#sec-primeros-pasos}
+
+No hace falta saber programar para seguir este libro. Este capítulo enseña lo mínimo para entender y modificar el código de los tutoriales: unos 30 minutos.
+
+## R como calculadora
+
+Escribe una operación y pulsa **Run Code**. R devuelve el resultado precedido de `[1]` (el número indica la posición del primer valor de la línea).
+
+```{webr}
+#| autorun: true
+2637 + 2626 + 2374
+```
+
+## Objetos: guardar un valor con un nombre
+
+La flecha `<-` guarda un valor en un objeto. Después puedes usar el nombre en lugar del valor.
+
+```{webr}
+#| autorun: true
+prestamos_enero <- 2637
+prestamos_febrero <- 2626
+prestamos_enero + prestamos_febrero
+```
+
+## Vectores: varios valores del mismo tipo
+
+`c()` («combinar») crea un vector. Muchas funciones trabajan sobre vectores enteros: `sum()`, `mean()`, `length()`, `max()`…
+
+```{webr}
+#| autorun: true
+prestamos <- c(2637, 2626, 2374, 2227, 2656, 2319)
+sum(prestamos)
+mean(prestamos)
+length(prestamos)
+```
+
+Los textos van entre comillas:
+
+```{webr}
+#| autorun: true
+municipios <- c("Getafe", "Leganés", "Alcorcón")
+toupper(municipios)
+```
+
+### Ejercicio 1 {.unnumbered}
+
+Calcula el **máximo** de préstamos del vector `prestamos`.
+
+```{webr}
+#| exercise: pp_max
+#| setup: true
+prestamos <- c(2637, 2626, 2374, 2227, 2656, 2319)
+```
+
+```{webr}
+#| exercise: pp_max
+______(prestamos)
+```
+
+::: {.hint exercise="pp_max"}
+La función se llama igual que en una hoja de cálculo, en minúsculas.
+:::
+
+::: {.solution exercise="pp_max"}
+```r
+max(prestamos)
+```
+:::
+
+```{webr}
+#| exercise: pp_max
+#| check: true
+if (identical(.result, 2656)) {
+  list(correct = TRUE, message = "Correcto: el mes con más préstamos tuvo 2656.")
+} else {
+  list(correct = FALSE, message = "Todavía no. El resultado debería ser un único número, el mayor del vector.")
+}
+```
+
+## Comparaciones y valores lógicos
+
+Una comparación devuelve `TRUE` o `FALSE` para cada elemento. `sum()` sobre un vector lógico cuenta los `TRUE`.
+
+```{webr}
+#| autorun: true
+prestamos > 2500
+sum(prestamos > 2500)
+```
+
+El operador `%in%` pregunta si cada elemento está en una lista:
+
+```{webr}
+#| autorun: true
+licencias <- c("CC BY 4.0", "CC BY-NC 4.0", "CC0 1.0")
+licencias %in% c("CC BY 4.0", "CC0 1.0")
+```
+
+### Ejercicio 2 {.unnumbered}
+
+¿Cuántos meses tuvieron **menos de 2400** préstamos?
+
+```{webr}
+#| exercise: pp_menos
+#| setup: true
+prestamos <- c(2637, 2626, 2374, 2227, 2656, 2319)
+```
+
+```{webr}
+#| exercise: pp_menos
+sum(prestamos ______ 2400)
+```
+
+::: {.solution exercise="pp_menos"}
+```r
+sum(prestamos < 2400)
+```
+:::
+
+```{webr}
+#| exercise: pp_menos
+#| check: true
+if (identical(.result, 3L)) {
+  list(correct = TRUE, message = "Correcto: tres meses por debajo de 2400.")
+} else {
+  list(correct = FALSE, message = "Revisa el operador de comparación: «menor que» se escribe <.")
+}
+```
+
+## Tablas de datos (*data frames*)
+
+Un *data frame* es una tabla: cada columna es un vector. Con `$` se accede a una columna.
+
+```{webr}
+#| autorun: true
+bibliotecas <- data.frame(
+  nombre = c("Centro", "Sur", "Norte"),
+  municipio = c("Getafe", "Getafe", "Leganés"),
+  prestamos = c(14839, 15319, 7547)
+)
+bibliotecas
+bibliotecas$prestamos
+nrow(bibliotecas)
+```
+
+Para quedarse con algunas filas se usa `subset()`:
+
+```{webr}
+#| autorun: true
+subset(bibliotecas, municipio == "Getafe")
+```
+
+## Leer un fichero CSV
+
+El CSV de práctica está disponible en la carpeta `datos`. `read.csv()` lo convierte en un *data frame*; `head()` muestra las primeras filas y `str()` describe las columnas.
+
+```{webr}
+#| autorun: true
+prestamos_df <- read.csv("datos/prestamos_bibliotecas_practica.csv")
+head(prestamos_df)
+str(prestamos_df)
+```
+
+Fíjate en `str()`: la columna `prestamos` aparece como `chr` (texto), no como número. Algo en el fichero impide que R la reconozca como numérica. Lo resolverás en el Tema 3.
+
+### Ejercicio 3 {.unnumbered}
+
+¿Cuántas filas tiene el CSV de práctica?
+
+```{webr}
+#| exercise: pp_filas
+#| setup: true
+prestamos_df <- read.csv("datos/prestamos_bibliotecas_practica.csv")
+```
+
+```{webr}
+#| exercise: pp_filas
+______(prestamos_df)
+```
+
+::: {.hint exercise="pp_filas"}
+Lo usaste unas líneas más arriba con la tabla `bibliotecas`.
+:::
+
+::: {.solution exercise="pp_filas"}
+```r
+nrow(prestamos_df)
+```
+:::
+
+```{webr}
+#| exercise: pp_filas
+#| check: true
+esperado <- nrow(read.csv("datos/prestamos_bibliotecas_practica.csv"))
+if (identical(as.integer(.result), as.integer(esperado))) {
+  list(correct = TRUE, message = paste0("Correcto: ", esperado, " filas (sin contar la cabecera)."))
+} else {
+  list(correct = FALSE, message = "Necesitas una función que cuente filas, no columnas.")
+}
+```
+
+::: {.callout-note}
+## Para seguir
+El [Apéndice A](90-chuleta-r.qmd) reúne en una página todas las funciones que usa el libro.
+:::

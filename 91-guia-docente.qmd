@@ -1,0 +1,80 @@
+---
+engine: markdown
+---
+
+# Guía para el profesorado {#sec-guia}
+
+## Cómo encaja el libro con Aula Global
+
+El libro es material de estudio y práctica; la evaluación sigue en los cuestionarios de Aula Global. Cada capítulo prepara la actividad evaluable de su tema:
+
+| Capítulo | Actividad de Aula Global | Qué practica el libro |
+|---|---|---|
+| Tema 0 | «Clasifica y audita» | Estrellas, Open Definition y auditoría del CSV |
+| Tema 1 | «Del derecho de acceso a la reutilización» | Cronología de normas, plazos de la Ley 19/2013, datos de alto valor |
+| Tema 2 | «WebQuest de reutilización» | Dimensiones de Safarov et al.; lectura de la ficha ODM 2025 |
+| Tema 3 | «Laboratorio de calidad con OpenRefine» | Completitud, duplicados, municipios, fechas y total de Getafe en R |
+| Tema 4 | «Taller de datos enlazados» | Turtle, JSON-LD y consultas sobre un grafo fijo |
+| Tema 5 | «Caso de empresa infomediaria» | Patrones de negocio y obligaciones de licencias |
+
+Para enlazarlo desde Aula Global basta un recurso **URL** por tema que apunte al capítulo correspondiente. También puede incrustarse un capítulo en una **Página** con un `<iframe>`, aunque la lectura es más cómoda en pestaña aparte.
+
+## El conjunto de datos de práctica
+
+El fichero `datos/prestamos_bibliotecas_practica.csv` de este libro es sintético. Si en Aula Global se usa otra versión del CSV, sustituye el fichero de la carpeta `datos/` por esa versión con el mismo nombre y vuelve a publicar. Las comprobaciones de los ejercicios que dependen del CSV (Primeros pasos, Temas 3, 4 y 5) calculan la respuesta esperada a partir del fichero, así que se adaptan solas, con dos condiciones:
+
+- Las columnas deben llamarse igual (`id`, `biblioteca`, `municipio`, `fecha`, `prestamos`, `usuarios_activos`).
+- La tabla de equivalencias de municipios (`forma_correcta`, en los Temas 3, 4 y 5) y la tabla de población ficticia del Tema 5 debe incluir todos los municipios del fichero.
+
+## Publicar y actualizar el libro
+
+El libro es un proyecto de [Quarto](https://quarto.org) con la extensión [quarto-live](https://r-wasm.github.io/quarto-live/), que ya va incluida en la carpeta `_extensions/`. Los capítulos usan `engine: markdown`, así que para renderizar no hace falta R instalado: el código se ejecuta en el navegador del estudiante.
+
+```bash
+quarto preview          # vista previa local
+quarto render           # genera el sitio en _book/
+```
+
+Opciones de publicación:
+
+- **GitHub Pages**: el repositorio incluye `.github/workflows/publicar.yml`, que renderiza y publica el libro en cada *push* a `main`. En *Settings → Pages*, elige *GitHub Actions* como origen.
+- **Cualquier servidor web**: sube el contenido de `_book/`. Debe servirse por HTTP(S); abrir `index.html` con doble clic no funciona, porque webR necesita un servidor.
+
+## Mantenimiento
+
+- **Datos que cambian cada año**: el Tema 2 remite a la ficha del Open Data Maturity 2025 y el Tema 5 al informe de ASEDIE. El libro no incluye esas cifras, solo los enlaces; basta con actualizar los enlaces cuando salga una nueva edición.
+- **DCAT-AP-ES y NTI-RISP**: antes de cada curso, comprueba si la NTI modificada se ha publicado en el BOE y ajusta el párrafo del Tema 3.
+- **Versión de webR**: quarto-live carga webR desde su CDN. Para actualizarlo, ejecuta `quarto update r-wasm/quarto-live` en la carpeta del proyecto.
+
+## Añadir un ejercicio
+
+Un ejercicio autocorregido tiene hasta cuatro bloques con la misma etiqueta `exercise`:
+
+````markdown
+```{{webr}}
+#| exercise: mi_ejercicio
+#| setup: true
+datos <- read.csv("datos/prestamos_bibliotecas_practica.csv")
+```
+
+```{{webr}}
+#| exercise: mi_ejercicio
+nrow(______)
+```
+
+::: {.solution exercise="mi_ejercicio"}
+`nrow(datos)`
+:::
+
+```{{webr}}
+#| exercise: mi_ejercicio
+#| check: true
+if (identical(.result, nrow(read.csv("datos/prestamos_bibliotecas_practica.csv")))) {
+  list(correct = TRUE, message = "Correcto")
+} else {
+  list(correct = FALSE, message = "Revisa el objeto que cuentas")
+}
+```
+````
+
+En el bloque `check`, `.result` es el valor de la última línea del código del estudiante y `.user_code` es el texto del código. La [documentación de quarto-live](https://r-wasm.github.io/quarto-live/exercises/grading.html) explica más opciones.

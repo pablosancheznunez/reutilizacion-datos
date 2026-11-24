@@ -1,0 +1,61 @@
+project:
+  type: book
+  output-dir: _book
+  resources:
+    - datos
+    - webr
+    - webr-repo
+
+book:
+  title: "Reutilización de datos abiertos y documentos"
+  subtitle: "Tutoriales interactivos en R (webR)"
+  author:
+    - name: "Pablo Sánchez-Núñez"
+      orcid: 0000-0001-7845-9506
+      url: https://pablosancheznunez.com
+      affiliation: "Universidad Carlos III de Madrid · Departamento de Biblioteconomía y Documentación · OpenScienceLab"
+  date: last-modified
+  date-format: "D [de] MMMM [de] YYYY"
+  language: es
+  site-url: https://pablosancheznunez.com/reutilizacion-datos/
+  search: true
+  page-navigation: true
+  page-footer:
+    left: "© 2026 [Pablo Sánchez-Núñez](https://pablosancheznunez.com) · [ORCID 0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Texto bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es)"
+    right: "Universidad Carlos III de Madrid · Hecho con [Quarto](https://quarto.org) y [webR](https://docs.r-wasm.org/webr/latest/)"
+  chapters:
+    - index.qmd
+    - 00a-primeros-pasos.qmd
+    - part: "Temas"
+      chapters:
+        - 00-datos-abiertos.qmd
+        - 01-risp.qmd
+        - 02-proyectos.qmd
+        - 03-calidad.qmd
+        - 04-interoperabilidad.qmd
+        - 05-infomediarias.qmd
+  appendices:
+    - 90-chuleta-r.qmd
+    - 91-guia-docente.qmd
+
+lang: es
+
+format:
+  live-html:
+    theme:
+      light: [cosmo, estilos.scss]
+    toc: true
+    toc-depth: 3
+    number-sections: false
+    code-copy: true
+    link-external-newwindow: true
+    callout-appearance: simple
+
+webr:
+  engine-url: webr/
+  repos:
+    - webr-repo
+  packages:
+    - jsonlite
+  resources:
+    - datos
