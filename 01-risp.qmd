@@ -34,6 +34,10 @@ Clabo, N.; Ramos-Vielba, I. (2015). [Reutilización de datos abiertos en la admi
 El artículo es anterior a la Directiva (UE) 2019/1024. Léelo junto con la normativa vigente: lo que ha cambiado desde entonces (datos de alto valor, datos de investigación, tarifas, licencias) es justo lo que trabaja este capítulo.
 :::
 
+### Lecturas complementarias {.unnumbered}
+
+- Janssen, K. (2011). [The influence of the PSI directive on open government data: An overview of recent developments](https://doi.org/10.1016/j.giq.2011.01.004). *Government Information Quarterly*, 28(4), 446-456. Cómo la primera directiva de reutilización se relaciona con el movimiento de datos abiertos.
+
 ## 1. Conceptos básicos de reutilización de la información
 
 La Ley 37/2007 entiende por **reutilización** el uso, por personas físicas o jurídicas, de documentos en poder del sector público con fines comerciales o no comerciales **distintos del propósito inicial** de servicio público para el que se produjeron. El intercambio de documentos entre administraciones en el ejercicio de sus funciones no es reutilización.
@@ -93,7 +97,7 @@ El Reglamento de Ejecución (UE) 2023/138 concreta seis categorías temáticas: 
 |---|---|---|
 | Ley 37/2007 | 16/11/2007 | Norma básica de reutilización (texto consolidado vigente) |
 | Real Decreto 1495/2011 | 24/10/2011 | Desarrolla la Ley 37/2007 para el sector público estatal |
-| NTI de reutilización de recursos de información (NTI-RISP) | 19/02/2013 | Pautas técnicas comunes: identificación, metadatos, formatos, condiciones de uso |
+| NTI de reutilización de recursos de información (NTI-RISP) | 19/02/2013 | Pautas técnicas comunes: identificación, metadatos, formatos, condiciones de uso (BOE de 4/3/2013) |
 | Ley 19/2013 | 09/12/2013 | Transparencia, acceso a la información pública y buen gobierno |
 | Ley 18/2015 | 09/07/2015 | Modifica la Ley 37/2007 para transponer la Directiva 2013/37/UE |
 | Real Decreto-ley 24/2021 | 02/11/2021 | Modifica la Ley 37/2007 para transponer la Directiva (UE) 2019/1024 |

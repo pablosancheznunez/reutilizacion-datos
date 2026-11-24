@@ -47,7 +47,7 @@ end
 local function texto(t) return pandoc.Inlines({ pandoc.Space(), pandoc.Emph(pandoc.Str(t)) }) end
 
 local function select_html(opts)
-  local o = { "<select class='webex-select'><option value='blank'></option>" }
+  local o = { "<select class='webex-select' aria-label='Elige una respuesta'><option value='blank'></option>" }
   for _, op in ipairs(opts) do
     table.insert(o, string.format("<option value='%s'>%s</option>", op.correct and "answer" or "x", esc(op.text)))
   end
@@ -80,7 +80,7 @@ local function longmcq(args)
   end
   counter = counter + 1
   local qname = "radio_libro_" .. counter
-  local o = { "<div class='webex-radiogroup' id='" .. qname .. "'>" }
+  local o = { "<div class='webex-radiogroup' role='radiogroup' aria-label='Opciones de respuesta' id='" .. qname .. "'>" }
   for _, op in ipairs(options(args)) do
     table.insert(o, string.format('<label><input type="radio" autocomplete="off" name="%s" value="%s"></input> <span>%s</span></label>',
       qname, op.correct and "answer" or "x", esc(op.text)))
@@ -104,7 +104,7 @@ local function fitb(args, kwargs)
   local tol = str(kwargs["tol"] or "")
   local tolattr = tol ~= "" and (" data-tol='" .. tol .. "'") or ""
   local json = "[" .. table.concat(answers, ",") .. "]"
-  return raw(string.format("<input class='%s'%s size='%d' data-answer='%s'/>", cls, tolattr, math.max(width, 3) + 2, json:gsub("'", "&apos;")))
+  return raw(string.format("<input class='%s'%s size='%d' aria-label='Escribe tu respuesta' data-answer='%s'/>", cls, tolattr, math.max(width, 3) + 2, json:gsub("'", "&apos;")))
 end
 
 return {

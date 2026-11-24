@@ -6,3 +6,5 @@
 
 **/*.quarto_ipynb
 /_pdf/
+node_modules/
+package*.json

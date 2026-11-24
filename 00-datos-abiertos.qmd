@@ -37,6 +37,11 @@ Janssen, M.; Charalabidis, Y.; Zuiderwijk, A. (2012). [Benefits, adoption barrie
 Complementaria: Wilkinson, M. D. et al. (2016). [The FAIR Guiding Principles for scientific data management and stewardship](https://doi.org/10.1038/sdata.2016.18). *Scientific Data*, 3, 160018 (acceso abierto).
 :::
 
+### Lecturas complementarias {.unnumbered}
+
+- Attard, J.; Orlandi, F.; Scerri, S.; Auer, S. (2015). [A systematic review of open government data initiatives](https://doi.org/10.1016/j.giq.2015.07.006). *Government Information Quarterly*, 32(4), 399-418. Revisión de iniciativas de datos abiertos de gobierno y de su ciclo de vida.
+- Zuiderwijk, A.; Janssen, M. (2014). [Open data policies, their implementation and impact: A framework for comparison](https://doi.org/10.1016/j.giq.2013.04.003). *Government Information Quarterly*, 31(1), 17-29. Marco para comparar políticas de datos abiertos.
+
 ## 1. Sociedad de la información y sociedad del conocimiento
 
 La expresión **sociedad de la información** se generaliza en las décadas de 1970 a 1990 para describir sociedades en las que producir, tratar y transmitir información se convierte en la actividad económica y social central, apoyada en las tecnologías digitales. El énfasis está en la **infraestructura**: redes, ordenadores, volumen de datos que circula.

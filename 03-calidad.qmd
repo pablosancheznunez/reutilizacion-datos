@@ -34,6 +34,11 @@ Vetrò, A.; Canova, L.; Torchiano, M.; Orozco Minotas, C.; Iemma, R.; Morando, F
 Norma de referencia: [ISO/IEC 25012:2008](https://www.iso.org/standard/35736.html), modelo de calidad de datos (norma de pago; basta con la descripción).
 :::
 
+### Lecturas complementarias {.unnumbered}
+
+- Batini, C.; Cappiello, C.; Francalanci, C.; Maurino, A. (2009). [Methodologies for data quality assessment and improvement](https://doi.org/10.1145/1541880.1541883). *ACM Computing Surveys*, 41(3). Revisión clásica de metodologías de evaluación de la calidad de datos.
+- Umbrich, J.; Neumaier, S.; Polleres, A. (2015). [Quality assessment and evolution of open data portals](https://doi.org/10.1109/FiCloud.2015.82). En *2015 3rd International Conference on Future Internet of Things and Cloud*, 404-411. Métricas de calidad aplicadas a portales de datos abiertos.
+
 ## 1. Gestión documental aplicada a los datos abiertos
 
 Un conjunto de datos publicado es, a todos los efectos, un **documento** de la administración: tiene un productor, un contexto de creación, un valor (administrativo, informativo, histórico) y un plazo de conservación. Por eso la publicación de datos abiertos no empieza en el portal, sino en el **sistema de gestión documental** de la organización.
@@ -501,6 +506,57 @@ por_muni[order(por_muni$ratio, decreasing = TRUE), ]
 Con los datos ya depurados se puede, por fin, comparar municipios. Los huecos de las líneas son los meses en que el dato era ausente o negativo: la limpieza no los inventa, los deja a la vista.
 
 ![Préstamos mensuales por municipio tras la limpieza, enero a junio de 2025 (datos sintéticos). Getafe suma dos bibliotecas; el resto, una.](figuras/tema3_prestamos_municipio.svg){#fig-prestamos fig-alt="Gráfico de líneas de enero a junio. Getafe se mantiene entre unos 4.800 y 5.300 préstamos. Fuenlabrada ronda los 1.700-2.100; Leganés, Móstoles y Alcorcón entre unos 1.000 y 1.750. Leganés y Alcorcón no tienen dato en febrero."}
+
+### Explora los datos limpios
+
+Marca y desmarca municipios: la gráfica se recalcula en tu navegador con R.
+
+```{ojs}
+//| echo: false
+viewof municipios_sel = Inputs.checkbox(
+  ["Getafe", "Leganés", "Alcorcón", "Móstoles", "Fuenlabrada"],
+  { value: ["Leganés", "Alcorcón", "Móstoles", "Fuenlabrada"], label: "Municipios:" }
+)
+viewof por_biblioteca = Inputs.toggle({ label: "Media por biblioteca", value: false })
+```
+
+```{webr}
+#| input:
+#|   - municipios_sel
+#|   - por_biblioteca
+#| autorun: true
+#| max-lines: 6
+#| fig-height: 4.2
+b <- read.csv("datos/prestamos_bibliotecas_practica.csv", colClasses = "character")
+b <- b[!duplicated(b), ]
+k <- chartr("áéíóúüñ", "aeiouun", tolower(trimws(b$municipio)))
+b$municipio <- unname(c(getafe = "Getafe", leganes = "Leganés", alcorcon = "Alcorcón",
+                        mostoles = "Móstoles", fuenlabrada = "Fuenlabrada")[k])
+b$mes <- as.integer(ifelse(grepl("/", b$fecha), substr(b$fecha, 4, 5), substr(b$fecha, 6, 7)))
+b$prestamos <- suppressWarnings(as.numeric(b$prestamos))
+b$prestamos[which(b$prestamos < 0)] <- NA
+colores <- c(Getafe = "#2a78d6", "Leganés" = "#eb6834", "Alcorcón" = "#1baf7a",
+             "Móstoles" = "#eda100", Fuenlabrada = "#e87ba4")
+sel <- unlist(municipios_sel)
+if (length(sel) == 0) {
+  plot.new(); text(0.5, 0.5, "Marca al menos un municipio")
+} else {
+  fun <- if (isTRUE(por_biblioteca)) function(x) mean(x) else function(x) sum(x)
+  tabla <- aggregate(prestamos ~ municipio + mes, data = b[b$municipio %in% sel, ], FUN = fun)
+  rango <- range(tabla$prestamos)
+  plot(NA, xlim = c(1, 6.8), ylim = rango, xaxt = "n", bty = "l",
+       xlab = "", ylab = if (isTRUE(por_biblioteca)) "Préstamos por biblioteca" else "Préstamos")
+  axis(1, at = 1:6, labels = c("ene", "feb", "mar", "abr", "may", "jun"))
+  for (m in sel) {
+    d <- merge(data.frame(mes = 1:6), tabla[tabla$municipio == m, ], all.x = TRUE)
+    lines(d$mes, d$prestamos, col = colores[m], lwd = 2)
+    points(d$mes, d$prestamos, col = colores[m], pch = 19)
+    text(6.1, tail(na.omit(d$prestamos), 1), m, pos = 4, cex = 0.8)
+  }
+}
+```
+
+Activa la **media por biblioteca**: Getafe deja de destacar, porque tiene dos bibliotecas en la muestra. Elegir bien el indicador es parte de la calidad de un servicio de datos.
 
 ### Paso 7. Publicar el resultado con metadatos (apartados 3 y 5)
 

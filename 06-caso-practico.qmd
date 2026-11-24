@@ -1,0 +1,316 @@
+---
+engine: markdown
+---
+
+# Caso práctico: las bibliotecas públicas municipales de Madrid {#sec-caso}
+
+*Recorrido completo por los seis temas con un conjunto de datos real*
+
+::: {.callout-note appearance="default"}
+## Objetivos
+- Aplicar en un caso real lo aprendido en los Temas 0 a 5.
+- Reconocer los problemas que presentan los datos abiertos publicados «de verdad».
+- Plantear un servicio de valor añadido sobre datos públicos y evaluar sus limitaciones.
+:::
+
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del caso
+[Licencia abierta](92-glosario.qmd#gl-licencia-abierta) · [Cinco estrellas](92-glosario.qmd#gl-cinco-estrellas) · [Metadatos](92-glosario.qmd#gl-metadatos) · [Completitud](92-glosario.qmd#gl-completitud) · [Distribución](92-glosario.qmd#gl-distribucion) · [JSON-LD](92-glosario.qmd#gl-jsonld) · [Valor añadido](92-glosario.qmd#gl-valor-anadido)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del caso](plantillas/caso_practico_madrid.R){.btn .btn-outline-primary .btn-sm download="caso_practico_madrid.R"}
+[CSV original (Latin-1)](datos/bibliotecas_madrid_2026-11-24.csv){.btn .btn-outline-primary .btn-sm download="bibliotecas_madrid_2026-11-24.csv"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+:::
+
+## Los datos
+
+::: {.lectura}
+**Fuente:** Ayuntamiento de Madrid, Portal de Datos Abiertos. *Bibliotecas de Madrid*. Responsable: Dirección General de Bibliotecas, Archivos y Museos. Licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/legalcode.es). <https://datos.madrid.es/dataset/201747-0-bibliobuses-bibliotecas>
+
+Copia descargada el 24 de noviembre de 2026, sin modificar. El portal actualiza el conjunto a diario, así que la versión vigente puede ser distinta.
+:::
+
+A diferencia del CSV de práctica, este fichero no se ha preparado para la docencia: es lo que publica una administración. Cada sección del caso corresponde a un tema del libro.
+
+## Tema 0. Auditar el conjunto
+
+### Leerlo… y fallar
+
+Lo primero que hace cualquier reutilizador es abrir el fichero. Si lo leemos como el CSV de práctica, el resultado no tiene sentido:
+
+```{webr}
+#| autorun: true
+f <- "datos/bibliotecas_madrid_2026-11-24.csv"
+mal <- read.csv(f)
+dim(mal)
+names(mal)[1:3]
+```
+
+R ha leído una sola columna: el separador no es la coma, sino el punto y coma, algo habitual en los portales españoles porque la coma es el separador decimal. Además, el fichero no está en UTF-8, sino en **Latin-1 (ISO-8859-1)**: sin indicarlo, las tildes se estropean.
+
+```{webr}
+#| autorun: true
+bib <- read.csv(f, sep = ";", fileEncoding = "latin1")
+dim(bib)
+head(bib$NOMBRE, 4)
+```
+
+### Ejercicio C.1 {.unnumbered}
+
+¿Cuántas bibliotecas incluye el conjunto? Lee el fichero correctamente y cuenta las filas.
+
+```{webr}
+#| exercise: caso_filas
+bib <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = "______", fileEncoding = "______")
+nrow(bib)
+```
+
+::: {.hint exercise="caso_filas"}
+El separador es el punto y coma. La codificación se llama `"latin1"` en R.
+:::
+
+::: {.solution exercise="caso_filas"}
+```r
+bib <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1")
+nrow(bib)
+```
+:::
+
+```{webr}
+#| exercise: caso_filas
+#| check: true
+esp <- nrow(read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1"))
+if (identical(as.integer(.result), as.integer(esp))) {
+  list(correct = TRUE, message = paste0("Correcto: ", esp, " bibliotecas públicas municipales."))
+} else {
+  list(correct = FALSE, message = "Revisa el separador (;) y la codificación (latin1).")
+}
+```
+
+### Valoración
+
+| Criterio | Valoración |
+|---|---|
+| Licencia | CC BY 4.0: abierta según la Open Definition |
+| Formato | CSV: estructurado y no propietario |
+| Estrellas | ★★★ (las URI de `CONTENT-URL` son páginas web, no identificadores de las bibliotecas como entidades) |
+| FAIR | Localizable y accesible en el portal; la reutilización mejoraría con un diccionario de datos legible por máquina |
+
+## Tema 1. Condiciones de reutilización
+
+La licencia CC BY 4.0 permite cualquier uso, también comercial, con una obligación: **citar la fuente**. Una atribución correcta indica el autor, el título, la licencia y si se ha modificado el original. Por ejemplo:
+
+> Datos: «Bibliotecas de Madrid», Ayuntamiento de Madrid, Portal de Datos Abiertos, CC BY 4.0. Modificados: selección de columnas y conversión a UTF-8.
+
+Si lo reutilizáramos con licencia tipo y sin citar la fuente, cometeríamos el tipo de infracción leve que estudiaste en el Tema 1.
+
+## Tema 2. ¿Quién podría reutilizarlo?
+
+Antes de tocar los datos, conviene pensar en usos posibles con las dimensiones de Safarov et al.:
+
+| Uso posible | Usuario | Efecto |
+|---|---|---|
+| Mapa de bibliotecas en una app de ocio | Empresas o desarrolladores | Económico |
+| Estudio de la cobertura bibliotecaria por distrito | Investigadores, administraciones | Social y de buen gobierno |
+| Buscador de bibliotecas accesibles | Ciudadanía, asociaciones | Social |
+
+## Tema 3. Calidad y metadatos
+
+### Columnas vacías y completitud
+
+```{webr}
+#| autorun: true
+vacia <- function(x) is.na(x) | trimws(as.character(x)) == ""
+ausentes <- sapply(bib, function(col) sum(vacia(col)))
+sort(ausentes[ausentes > 0], decreasing = TRUE)
+```
+
+Tres columnas (`PLANTA`, `PUERTA`, `ESCALERAS`) están **completamente vacías**: forman parte de un modelo de datos genérico de equipamientos que, para las bibliotecas, no se rellena.
+
+### Ejercicio C.2 {.unnumbered}
+
+Calcula el porcentaje de celdas completas del conjunto, redondeado a dos decimales, con la misma métrica de Vetrò et al. que en el Tema 3.
+
+```{webr}
+#| exercise: caso_celdas
+#| setup: true
+bib <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1")
+vacia <- function(x) is.na(x) | trimws(as.character(x)) == ""
+```
+
+```{webr}
+#| exercise: caso_celdas
+celdas_vacias <- sum(sapply(bib, function(col) sum(vacia(col))))
+celdas_totales <- ______
+round(100 * (celdas_totales - celdas_vacias) / celdas_totales, 2)
+```
+
+::: {.hint exercise="caso_celdas"}
+Celdas totales = filas × columnas.
+:::
+
+::: {.solution exercise="caso_celdas"}
+```r
+celdas_vacias <- sum(sapply(bib, function(col) sum(vacia(col))))
+celdas_totales <- nrow(bib) * ncol(bib)
+round(100 * (celdas_totales - celdas_vacias) / celdas_totales, 2)
+```
+:::
+
+```{webr}
+#| exercise: caso_celdas
+#| check: true
+b <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1")
+v <- sum(sapply(b, function(col) sum(is.na(col) | trimws(as.character(col)) == "")))
+esp <- round(100 * (nrow(b) * ncol(b) - v) / (nrow(b) * ncol(b)), 2)
+if (isTRUE(all.equal(as.numeric(.result), esp))) {
+  list(correct = TRUE, message = paste0("Correcto: ", format(esp, decimal.mark = ","), " %. Las tres columnas vacías pesan mucho: quítalas y compara."))
+} else {
+  list(correct = FALSE, message = "Multiplica nrow(bib) por ncol(bib).")
+}
+```
+
+### Códigos sin explicar
+
+```{webr}
+#| autorun: true
+table(bib$ACCESIBILIDAD)
+```
+
+La columna `ACCESIBILIDAD` contiene códigos («1,6», «1,5,6»…) cuyo significado no está en el propio fichero, sino en un documento PDF del portal («Equipamientos. Contenido y estructura del fichero»). Es un problema de **comprensibilidad**: los datos son abiertos, pero no se entienden sin documentación externa. Un diccionario de datos legible por máquina (por ejemplo, con CSV on the Web o Frictionless) lo resolvería.
+
+### Bibliotecas por distrito
+
+```{webr}
+#| autorun: true
+#| fig-height: 5
+por_distrito <- sort(table(bib$DISTRITO), decreasing = TRUE)
+op <- par(mar = c(4, 11, 1, 1))
+barplot(rev(por_distrito), horiz = TRUE, las = 1, col = "#2a78d6", border = NA,
+        cex.names = 0.7, xlab = "Bibliotecas públicas municipales")
+par(op)
+```
+
+### Metadatos del conjunto derivado
+
+Si publicáramos nuestra versión depurada, deberíamos describirla y declarar su procedencia con `dct:source`:
+
+```{webr}
+#| autorun: true
+meta <- list(
+  "@type" = "dcat:Dataset",
+  "dct:title" = "Bibliotecas públicas municipales de Madrid (versión depurada)",
+  "dct:source" = "https://datos.madrid.es/dataset/201747-0-bibliobuses-bibliotecas",
+  "dct:license" = "https://creativecommons.org/licenses/by/4.0/",
+  "dct:modified" = "2026-11-24",
+  "dct:description" = "Selección de columnas, conversión a UTF-8 y eliminación de columnas vacías."
+)
+cat(jsonlite::toJSON(meta, auto_unbox = TRUE, pretty = TRUE))
+```
+
+## Tema 4. De CSV a datos enlazados
+
+Cada biblioteca tiene coordenadas. Con schema.org podemos describirla como `Library` con su ubicación geográfica:
+
+```{webr}
+#| autorun: true
+a_jsonld <- function(b) {
+  list("@context" = "https://schema.org/", "@type" = "Library",
+       "name" = b$NOMBRE,
+       "url" = b$CONTENT.URL,
+       "address" = list("@type" = "PostalAddress",
+                        "streetAddress" = paste(b$CLASE.VIAL, b$NOMBRE.VIA, b$NUM),
+                        "postalCode" = as.character(b$CODIGO.POSTAL),
+                        "addressLocality" = "Madrid"),
+       "geo" = list("@type" = "GeoCoordinates", "latitude" = b$LATITUD, "longitude" = b$LONGITUD))
+}
+cat(jsonlite::toJSON(a_jsonld(bib[1, ]), auto_unbox = TRUE, pretty = TRUE, digits = NA))
+```
+
+Fíjate en que R ha cambiado los guiones de los nombres de columna por puntos (`CONTENT-URL` → `CONTENT.URL`): otro detalle que conviene conocer al reutilizar.
+
+Las coordenadas permiten incluso un «mapa» sin cartografía de fondo:
+
+```{webr}
+#| autorun: true
+#| fig-height: 5.5
+plot(bib$LONGITUD, bib$LATITUD, pch = 19, col = "#2a78d6", asp = 1 / cos(40.4 * pi / 180),
+     xlab = "Longitud", ylab = "Latitud", main = "Bibliotecas públicas municipales de Madrid")
+```
+
+## Tema 5. Un servicio de valor añadido
+
+Idea: un buscador que diga qué bibliotecas abren los sábados. La columna `HORARIO` es **texto libre**, así que lo más sencillo es buscar la palabra «sábado»:
+
+```{webr}
+#| autorun: true
+menciona_sabado <- grepl("s[áa]bado", bib$HORARIO, ignore.case = TRUE)
+sum(menciona_sabado)
+cat(bib$HORARIO[1])
+```
+
+Pero mencionar el sábado no significa abrir el sábado: el texto también recoge **días de cierre** («Días de cierre: sábados: …») y periodos de verano. Un servicio fiable necesitaría que el portal publicara los horarios estructurados (por ejemplo, con la propiedad `openingHoursSpecification` de schema.org). Este es el tipo de mejora que un infomediario puede proponer al publicador, o asumir como trabajo propio de valor añadido.
+
+### Ejercicio C.3 {.unnumbered}
+
+¿Cuántas bibliotecas mencionan la palabra «domingo» en su horario? Compara el resultado con el de los sábados: ¿te parece verosímil que tantas bibliotecas abran en domingo?
+
+```{webr}
+#| exercise: caso_domingo
+#| setup: true
+bib <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1")
+```
+
+```{webr}
+#| exercise: caso_domingo
+sum(grepl("______", bib$HORARIO, ignore.case = TRUE))
+```
+
+::: {.solution exercise="caso_domingo"}
+```r
+sum(grepl("domingo", bib$HORARIO, ignore.case = TRUE))
+```
+Salen incluso más menciones del domingo que del sábado. Si lees los horarios, verás que mezclan aperturas («sábados y domingos de 8:30 a 14 horas»), cierres («domingos: todos») y periodos («Semana Santa, de jueves a domingo»). El recuento de palabras no responde a la pregunta: hacen falta horarios estructurados.
+:::
+
+```{webr}
+#| exercise: caso_domingo
+#| check: true
+b <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1")
+esp <- sum(grepl("domingo", b$HORARIO, ignore.case = TRUE))
+if (identical(as.integer(.result), as.integer(esp))) {
+  list(correct = TRUE, message = paste0("Correcto: ", esp, " menciones. Lee algunos horarios: unas son aperturas, otras cierres y otras periodos como Semana Santa."))
+} else {
+  list(correct = FALSE, message = "Busca la cadena \"domingo\".")
+}
+```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. El fichero del Ayuntamiento de Madrid está codificado en {{< mcq "UTF-8" "*Latin-1 (ISO-8859-1)" "UTF-16" >}}
+2. Con la licencia CC BY 4.0, una empresa puede usar estos datos en una aplicación de pago si cita la fuente. {{< torf true >}}
+3. El conjunto tiene {{< fitb "3" >}} estrellas en el modelo de Berners-Lee.
+4. Que la columna `ACCESIBILIDAD` solo se entienda con un PDF aparte es un problema de {{< mcq "exactitud" "actualidad" "*comprensibilidad" >}}
+5. ¿Por qué no basta con buscar «sábado» en `HORARIO` para saber qué bibliotecas abren ese día?
+
+{{< longmcq "Porque R no distingue tildes" "*Porque el texto también recoge días y periodos de cierre" "Porque la columna está vacía" >}}
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- El fichero se lee con `fileEncoding = "latin1"`; sin ello, las tildes se estropean.
+- CC BY 4.0 permite el uso comercial y solo exige atribución.
+- Licencia abierta, estructurado y formato no propietario; no usa URI para identificar las bibliotecas.
+- Los datos son correctos, pero no se entienden sin documentación externa.
+- El horario es texto libre que mezcla aperturas y cierres; harían falta horarios estructurados.
+:::
+
+## Para practicar fuera del libro
+
+Repite el caso con el conjunto de bibliotecas de otro portal (tu comunidad autónoma o tu ayuntamiento) y redacta el resultado con la plantilla de informe. Compara: ¿qué portal publica mejor sus datos, y por qué?

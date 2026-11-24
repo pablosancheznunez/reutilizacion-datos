@@ -44,6 +44,7 @@ Cada tema sigue la estructura del temario oficial: empieza por sus **objetivos**
 | [Tema 3. Gestión documental y *open data*](03-calidad.qmd) | Gestión documental aplicada · Ciclo de vida · Metadatos · Calidad · Publicación · Preservación y actualización | Laboratorio de calidad, metadatos DCAT, sumas de control y versiones |
 | [Tema 4. Normalización e interoperabilidad](04-interoperabilidad.qmd) | Estándares abiertos · Interoperabilidad técnica, semántica y organizativa · ENI · Formatos CSV, XML, JSON y RDF · Linked Open Data · Vocabularios y ontologías | XML, JSON, JSON-LD y Turtle; consultas sobre un grafo; tesauro en SKOS |
 | [Tema 5. Empresas infomediarias y oportunidades de negocio](05-infomediarias.qmd) | Sector infomediario · Modelos de negocio · Servicios de valor añadido · Emprendimiento e innovación · IA y reutilización · Tendencias de futuro | Enriquecer datos, punto de equilibrio *freemium*, licencias combinadas |
+| [Caso práctico: bibliotecas de Madrid](06-caso-practico.qmd) | Recorrido por los seis temas con datos reales del Ayuntamiento de Madrid | Codificación, completitud, JSON-LD con coordenadas, límites del texto libre |
 
 ## El conjunto de datos de práctica
 

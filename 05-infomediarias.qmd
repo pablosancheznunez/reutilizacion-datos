@@ -32,6 +32,12 @@ El script reúne todo el código del capítulo para trabajar en RStudio o Positr
 Ahmadi Zeleti, F.; Ojo, A.; Curry, E. (2016). [Exploring the economic value of open government data](https://doi.org/10.1016/j.giq.2016.01.008). *Government Information Quarterly*, 33(3), 535-551. [Versión en acceso abierto (MURAL)](https://mural.maynoothuniversity.ie/12848/1/AO_exploring.pdf).
 :::
 
+### Lecturas complementarias {.unnumbered}
+
+- Magalhaes, G.; Roseira, C. (2020). [Open government data and the private sector: An empirical view on business models and value creation](https://doi.org/10.1016/j.giq.2017.08.004). *Government Information Quarterly*, 37(3), 101248. Modelos de negocio de empresas que usan datos abiertos de gobierno.
+- Abella, A.; Ortiz-de-Urbina-Criado, M.; De-Pablos-Heredero, C. (2017). [A model for the analysis of data-driven innovation and value generation in smart cities' ecosystems](https://doi.org/10.1016/j.cities.2017.01.011). *Cities*, 64, 47-53. Innovación y generación de valor con datos en ecosistemas urbanos.
+- Jetzek, T.; Avital, M.; Bjørn-Andersen, N. (2014). [Data-driven innovation through open government data](https://doi.org/10.4067/S0718-18762014000200008). *Journal of Theoretical and Applied Electronic Commerce Research*, 9(2). Mecanismos por los que los datos abiertos generan valor.
+
 ## 1. El sector infomediario
 
 Las empresas **infomediarias** crean productos y servicios de valor añadido a partir de información, en buena parte del sector público, para venderlos a terceros. Se agrupan por el tipo de información que reutilizan: geográfica y cartográfica, económica, financiera y mercantil, jurídica, de mercado y consumo, meteorológica, de movilidad y transporte, sociodemográfica, cultural…
@@ -240,6 +246,39 @@ plot(u, ingresos_mensuales(u, conversion, precio), type = "l", lwd = 2, col = "#
      main = "Ingresos frente a costes fijos")
 abline(h = costes_fijos, lty = 2, col = "firebrick")
 legend("topleft", c("Ingresos", "Costes fijos"), lty = c(1, 2), col = c("#000e78", "firebrick"), bty = "n")
+```
+
+### Simulador del punto de equilibrio
+
+Mueve los controles y observa cómo cambia el número de usuarios gratuitos necesarios para cubrir los costes.
+
+```{ojs}
+//| echo: false
+viewof conversion_pct = Inputs.range([1, 12], { value: 4, step: 0.5, label: "Conversión (%)" })
+viewof precio_mes = Inputs.range([2, 30], { value: 9, step: 1, label: "Precio (€/mes)" })
+viewof costes_mes = Inputs.range([500, 8000], { value: 2700, step: 100, label: "Costes fijos (€/mes)" })
+```
+
+```{webr}
+#| input:
+#|   - conversion_pct
+#|   - precio_mes
+#|   - costes_mes
+#| autorun: true
+#| max-lines: 6
+#| fig-height: 4
+conv <- conversion_pct / 100
+equilibrio <- costes_mes / (conv * precio_mes)
+u <- seq(0, max(12000, equilibrio * 1.4), length.out = 200)
+plot(u, u * conv * precio_mes, type = "l", lwd = 2, col = "#2a78d6", bty = "l",
+     xlab = "Usuarios de la versión gratuita", ylab = "Euros al mes",
+     ylim = c(0, max(u * conv * precio_mes, costes_mes) * 1.05))
+abline(h = costes_mes, lty = 2, col = "#52514e")
+points(equilibrio, costes_mes, pch = 19, cex = 1.4, col = "#eb6834")
+legend("topleft", bty = "n", legend = c("Ingresos", "Costes fijos"),
+       col = c("#2a78d6", "#52514e"), lty = c(1, 2), lwd = c(2, 1))
+cat("Punto de equilibrio:", format(round(equilibrio), big.mark = ".", decimal.mark = ","), "usuarios gratuitos\n")
+cat("Cada usuario gratuito aporta", format(round(conv * precio_mes, 2), decimal.mark = ","), "€ al mes de media\n")
 ```
 
 ### Ejercicio 5.2 {.unnumbered}

@@ -10,6 +10,7 @@ CAPS = {
  "03-calidad.qmd": ("tema3_calidad", "Tema 3. Gestión documental y open data"),
  "04-interoperabilidad.qmd": ("tema4_interoperabilidad", "Tema 4. Normalización e interoperabilidad"),
  "05-infomediarias.qmd": ("tema5_infomediarias", "Tema 5. Empresas infomediarias y oportunidades de negocio"),
+ "06-caso-practico.qmd": ("caso_practico_madrid", "Caso práctico: las bibliotecas públicas municipales de Madrid"),
 }
 blk = re.compile(r"^```\{webr\}\n(.*?)^```", re.S | re.M)
 head = re.compile(r"^(#{2,3}) (.+)$", re.M)
@@ -25,6 +26,13 @@ for qmd, (slug, titulo) in CAPS.items():
            ""]
     if "jsonlite" in txt:
         out += ["# Paquete necesario (solo la primera vez):", "# install.packages(\"jsonlite\")", ""]
+    if "datos/bibliotecas_madrid" in txt:
+        out += ["# Descarga de la copia del conjunto «Bibliotecas de Madrid» (Ayuntamiento de Madrid, CC BY 4.0)",
+                'dir.create("datos", showWarnings = FALSE)',
+                'f_madrid <- "datos/bibliotecas_madrid_2026-11-24.csv"',
+                'if (!file.exists(f_madrid)) {',
+                '  download.file("https://pablosancheznunez.com/reutilizacion-datos/datos/bibliotecas_madrid_2026-11-24.csv", f_madrid, mode = "wb")',
+                '}', ""]
     if "datos/prestamos" in txt:
         out += ["# Descarga del CSV de práctica a la carpeta datos/",
                 f'url_csv <- "{URL}"',

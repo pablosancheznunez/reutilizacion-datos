@@ -20,6 +20,7 @@ DOI de todas las versiones: 10.5281/zenodo.24500934 (siempre la última). DOI de
 ```bash
 python3 herramientas/extraer_r.py .   # scripts .R
 python3 herramientas/figuras.py .     # figuras
+python3 herramientas/moodle.py .      # banco de preguntas (Moodle XML)
 python3 herramientas/pdf.py           # PDF (Typst, incluido en Quarto)
 quarto render                         # sitio web en _book/
 ```
@@ -38,7 +39,11 @@ La versión en línea se publica copiando `_book/` a la carpeta `reutilizacion-d
 | `90-chuleta-r.qmd`, `91-guia-docente.qmd`, `92-glosario.qmd` | Apéndices: chuleta de R, guía docente y glosario por temas |
 | `plantillas/` | Scripts `.R` por capítulo, plantilla de informe `.qmd` y tema `.scss` descargables |
 | `_extensions/webex/` | Preguntas autoevaluables con el formato de webexercises |
+| `06-caso-practico.qmd` | Caso práctico con datos reales (Bibliotecas de Madrid, CC BY 4.0) |
 | `figuras/` | Figuras de cada tema (SVG) |
+| `moodle/` | Preguntas de autoevaluación en Moodle XML para Aula Global |
+| `herramientas/pruebas/` | Pruebas en navegador: ejercicios, autoevaluación y accesibilidad |
+| `.github/workflows/comprobar.yml` | Comprobación automática en cada cambio |
 | `pdf/` | Versión del libro en PDF |
 | `herramientas/` | Scripts para generar los `.R` de cada capítulo (`extraer_r.py`), las figuras (`figuras.py`) y el PDF (`pdf.py`) |
 | `_extensions/libro-pdf/` | Filtro que adapta el libro al PDF |

@@ -1,0 +1,69 @@
+# Genera el libro y comprueba que todo funciona en un navegador real:
+# ejercicios de webR, preguntas de autoevaluación y accesibilidad (WCAG 2.1 AA).
+name: Comprobar el libro
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  comprobar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: quarto-dev/quarto-actions/setup@v2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependencias
+        run: |
+          pip install playwright pyyaml matplotlib
+          python -m playwright install --with-deps chromium
+          npm install axe-core@4
+
+      - name: Regenerar scripts, figuras y banco de Moodle
+        run: |
+          python herramientas/extraer_r.py .
+          python herramientas/figuras.py .
+          python herramientas/moodle.py .
+          git diff --stat
+
+      - name: Renderizar el libro
+        run: quarto render
+
+      - name: Ejercicios de webR
+        run: |
+          python herramientas/pruebas/ejercicios.py . 60 \
+            00a-primeros-pasos.qmd 00-datos-abiertos.qmd 01-risp.qmd 02-proyectos.qmd \
+            03-calidad.qmd 04-interoperabilidad.qmd 05-infomediarias.qmd 06-caso-practico.qmd
+
+      - name: Preguntas de autoevaluación
+        run: |
+          python herramientas/pruebas/autoevaluacion.py _book \
+            00a-primeros-pasos.html 00-datos-abiertos.html 01-risp.html 02-proyectos.html \
+            03-calidad.html 04-interoperabilidad.html 05-infomediarias.html 06-caso-practico.html
+
+      - name: Accesibilidad (axe-core, WCAG 2.1 AA)
+        env:
+          AXE_JS: node_modules/axe-core/axe.min.js
+        run: |
+          python herramientas/pruebas/accesibilidad.py _book \
+            index.html 00a-primeros-pasos.html 00-datos-abiertos.html 01-risp.html 02-proyectos.html \
+            03-calidad.html 04-interoperabilidad.html 05-infomediarias.html 06-caso-practico.html \
+            90-chuleta-r.html 91-guia-docente.html 92-glosario.html
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: libro
+          path: _book
+          retention-days: 7

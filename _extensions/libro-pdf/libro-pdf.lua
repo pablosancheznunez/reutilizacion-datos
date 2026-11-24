@@ -9,7 +9,7 @@ local WEB = "https://pablosancheznunez.com/reutilizacion-datos/"
 local CAP = {
   ["index.qmd"] = "sec-presentacion", ["00a-primeros-pasos.qmd"] = "sec-primeros-pasos",
   ["00-datos-abiertos.qmd"] = "sec-tema0", ["01-risp.qmd"] = "sec-tema1", ["02-proyectos.qmd"] = "sec-tema2",
-  ["03-calidad.qmd"] = "sec-tema3", ["04-interoperabilidad.qmd"] = "sec-tema4", ["05-infomediarias.qmd"] = "sec-tema5",
+  ["03-calidad.qmd"] = "sec-tema3", ["04-interoperabilidad.qmd"] = "sec-tema4", ["05-infomediarias.qmd"] = "sec-tema5", ["06-caso-practico.qmd"] = "sec-caso",
   ["90-chuleta-r.qmd"] = "sec-chuleta", ["91-guia-docente.qmd"] = "sec-guia", ["92-glosario.qmd"] = "sec-glosario",
 }
 
@@ -25,6 +25,9 @@ local function callout(tipo, titulo, contenido)
 end
 
 function CodeBlock(el)
+  for _, c in ipairs(el.classes) do
+    if c == "ojs" or c == "{ojs}" then return {} end
+  end
   if not es_webr(el) then return nil end
   local opts, code = {}, {}
   for line in (el.text .. "\n"):gmatch("(.-)\n") do
@@ -32,6 +35,10 @@ function CodeBlock(el)
   end
   local o = table.concat(opts, " ")
   if o:match("setup:%s*true") or o:match("check:%s*true") then return {} end
+  if o:match("input:") then
+    return callout("note", "Gráfica interactiva", pandoc.Blocks({ pandoc.Para({ pandoc.Str("Esta gráfica es interactiva en la versión web: "),
+      pandoc.Link("pablosancheznunez.com/reutilizacion-datos", WEB) }) }))
+  end
   local texto = table.concat(code, "\n"):gsub("^%s*\n", ""):gsub("\n%s*$", "")
   local bloque = pandoc.CodeBlock(texto, pandoc.Attr("", { "r" }))
   if o:match("exercise:") then

@@ -7,6 +7,7 @@ project:
     - webr-repo
     - plantillas
     - pdf
+    - moodle
 
 book:
   title: "Reutilización de datos abiertos y documentos"
@@ -42,12 +43,16 @@ book:
         - 03-calidad.qmd
         - 04-interoperabilidad.qmd
         - 05-infomediarias.qmd
+        - 06-caso-practico.qmd
   appendices:
     - 90-chuleta-r.qmd
     - 91-guia-docente.qmd
     - 92-glosario.qmd
 
 lang: es
+
+crossref:
+  chapters: false
 
 filters:
   - webex
@@ -62,6 +67,7 @@ format:
     code-copy: true
     link-external-newwindow: true
     callout-appearance: simple
+    include-after-body: accesibilidad.html
 
 webr:
   engine-url: webr/

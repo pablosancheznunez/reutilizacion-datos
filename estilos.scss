@@ -8,3 +8,8 @@ $font-size-root: 17px;
 .lectura { border-left: 4px solid $primary; padding: .6rem 1rem; background: #f6f7fc; margin: 1rem 0; }
 .lectura p:last-child { margin-bottom: 0; }
 table { font-size: .92rem; }
+
+blockquote, .blockquote { color: #3f4a54; border-left-color: #000e78; }
+
+/* Contraste AA para pies de figura y textos atenuados */
+.figure-caption, figcaption, .quarto-figure figcaption, .text-muted, .figure .caption, table caption, caption { color: #4a5560 !important; }

@@ -32,6 +32,10 @@ El script reúne todo el código del capítulo para trabajar en RStudio o Positr
 Bizer, C.; Heath, T.; Berners-Lee, T. (2009). [Linked Data – The Story So Far](https://doi.org/10.4018/jswis.2009081901). *International Journal on Semantic Web and Information Systems*, 5(3), 1-22. Acceso por suscripción a través de la Biblioteca UC3M.
 :::
 
+### Lecturas complementarias {.unnumbered}
+
+- Hallo, M.; Luján-Mora, S.; Maté, A.; Trujillo, J. (2016). [Current state of Linked Data in digital libraries](https://doi.org/10.1177/0165551515594729). *Journal of Information Science*, 42(2), 117-127. Estado de los datos enlazados en bibliotecas digitales.
+
 ## 1. Estándares abiertos
 
 Un **estándar** (o norma) es una especificación acordada que permite que productos y sistemas distintos funcionen juntos. Es **abierto** cuando su especificación es pública y gratuita, se ha desarrollado en un proceso abierto a todas las partes interesadas y puede implementarse sin pagar derechos ni pedir permiso. No hay que confundirlo con el software libre: un estándar abierto puede implementarse en software privativo.
@@ -57,7 +61,7 @@ La **interoperabilidad** es la capacidad de los sistemas y las organizaciones de
 | **Semántico** | ¿Los datos significan lo mismo para todos? | Usar `schema:Library` y la misma definición de «préstamo» |
 | **Técnico** | ¿Los sistemas pueden intercambiar datos? | API, formatos, protocolos |
 
-El Reglamento (UE) 2024/903, conocido como **Ley sobre la Europa Interoperable**, convierte desde 2024 la interoperabilidad de los servicios públicos transfronterizos en una obligación con estructuras de gobernanza propias.
+El Reglamento (UE) 2024/903, de 13 de marzo de 2024, conocido como **Reglamento sobre la Europa Interoperable**, se aplica en su mayor parte desde el 12 de julio de 2024. Convierte la interoperabilidad de los servicios públicos transfronterizos en una obligación con estructuras de gobernanza propias.
 
 ## 3. Esquema Nacional de Interoperabilidad
 

@@ -59,9 +59,28 @@ Orden para publicar una edición nueva:
 ```bash
 python3 herramientas/extraer_r.py .   # scripts .R de cada capítulo
 python3 herramientas/figuras.py .     # figuras
+python3 herramientas/moodle.py .      # banco de preguntas para Aula Global
 python3 herramientas/pdf.py           # PDF
 quarto render                         # sitio web en _book/
 ```
+
+## Banco de preguntas para Aula Global
+
+Las preguntas de autoevaluación de cada capítulo (49 en total) se exportan a **Moodle XML** con `python3 herramientas/moodle.py .`, que deja en la carpeta `moodle/` un fichero por capítulo y otro con todo el banco. Cada pregunta conserva su explicación como retroalimentación general. Para usarlas como cuestionario calificado: *Banco de preguntas → Importar → Moodle XML*.
+
+- [Banco completo (Moodle XML)](moodle/autoevaluacion_todo.xml){download="autoevaluacion_todo.xml"}
+
+Tipos: verdadero/falso, opción múltiple con respuesta única y respuesta corta. Las respuestas cortas que aceptan variantes (con y sin tilde, en mayúsculas o minúsculas) las incluyen todas.
+
+## Caso práctico y datos reales
+
+El caso práctico usa una copia del conjunto «Bibliotecas de Madrid» del Ayuntamiento de Madrid (CC BY 4.0), descargada el 24 de noviembre de 2026 y sin modificar: `datos/bibliotecas_madrid_2026-11-24.csv`. El portal lo actualiza a diario; para actualizar el caso, descarga una copia nueva, cambia el nombre del fichero en el capítulo y en `herramientas/extraer_r.py`, y vuelve a ejecutar las pruebas: las comprobaciones de los ejercicios calculan la respuesta a partir del fichero.
+
+## Accesibilidad, analítica y comprobación automática
+
+- **Accesibilidad.** El libro se ha revisado con axe-core contra WCAG 2.1 AA sin incidencias. El fichero `accesibilidad.html` añade nombres accesibles a los editores de código y a los controles interactivos, y `estilos.scss` ajusta el contraste de pies de figura y citas.
+- **Analítica.** El libro carga `/consent.js` de la web: Google Analytics y Microsoft Clarity solo se activan si el visitante acepta las cookies, y la elección es la misma en toda la web. Fuera de pablosancheznunez.com el script no existe y no se carga nada.
+- **Comprobación automática.** El flujo `.github/workflows/comprobar.yml` genera el libro en cada cambio y ejecuta en un navegador real los ejercicios de webR, las preguntas de autoevaluación y la auditoría de accesibilidad (`herramientas/pruebas/`). Si algo falla, el cambio aparece con una cruz roja en GitHub.
 
 ## Publicar y actualizar el libro
 
