@@ -120,6 +120,10 @@ casos <- data.frame(
 casos[, c("caso", "usuario", "efecto")]
 ```
 
+![Los doce casos ilustrativos por tipo de usuario y efecto. En esta muestra inventada, el valor económico procede solo de empresas, y el buen gobierno, de periodistas, administraciones y ciudadanía.](figuras/tema2_casos_usuario_efecto.svg){#fig-casos fig-alt="Barras horizontales apiladas. Empresas: 3 casos de efecto económico. Administraciones: 1 social y 1 de buen gobierno. Ciudadanía: 1 social y 1 de buen gobierno. Investigadores: 2 sociales. Desarrolladores: 2 sociales. Periodistas: 1 de buen gobierno."}
+
+La figura se ha hecho con estos mismos datos; en el paso siguiente aprenderás a obtener los recuentos con R.
+
 ### Paso 2. Contar con `table()`
 
 `table()` cuenta cuántas veces aparece cada valor; `prop.table()` lo convierte en proporciones.

@@ -55,6 +55,8 @@ Ahmadi Zeleti et al. proponen el marco **6-V** para describir cómo un negocio c
 
 A partir de ellos agrupan los modelos de negocio en **patrones**, entre ellos *freemium* (servicio básico gratis y funciones avanzadas de pago), *premium* (todo de pago, con valor añadido alto), **ahorro de costes** (los datos abiertos reducen gastos propios), **beneficio indirecto** (los datos se usan para apoyar otro negocio o la reputación) y **«maquinilla y cuchillas»** (algo barato o gratuito que genera ventas recurrentes de otra cosa).
 
+![Punto de equilibrio del servicio *freemium* de la práctica, con costes fijos de 2.700 € al mes y un precio de 9 €. Subir la conversión del 4 % al 6 % reduce el número de usuarios gratuitos necesarios de 7.500 a 5.000.](figuras/tema5_punto_equilibrio.svg){#fig-equilibrio fig-alt="Dos rectas de ingresos crecientes según el número de usuarios gratuitos, una para conversión del 4 % y otra del 6 %, y una línea horizontal discontinua de costes fijos en 2.700 euros. La recta del 6 % la cruza en 5.000 usuarios y la del 4 % en 7.500."}
+
 ## 3. Servicios de valor añadido
 
 Los datos abiertos son materia prima: el valor está en lo que se hace con ellos. Los servicios de valor añadido más habituales son:

@@ -2,7 +2,7 @@
 engine: markdown
 ---
 
-# Presentación {.unnumbered}
+# Presentación {#sec-presentacion .unnumbered}
 
 Este libro acompaña a la asignatura **Reutilización de datos abiertos y documentos** (código 17300) del Máster Universitario en Bibliotecas, Archivos y Continuidad Digital *Online* de la Universidad Carlos III de Madrid: optativa de 3 ECTS, primer curso, segundo cuatrimestre.
 
@@ -23,6 +23,13 @@ Según la ficha de la asignatura, al terminar el curso deberías:
 - Ser capaz de plantear un proyecto de reutilización de información y documentos.
 - Aplicar normas y herramientas que favorecen la normalización y la interoperabilidad de datos y documentos.
 - Conocer los principios de los datos abiertos.
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Versión en PDF
+[Descargar el libro en PDF](pdf/reutilizacion-datos-abiertos.pdf){.btn .btn-primary download="reutilizacion-datos-abiertos.pdf"}
+
+Para leer o imprimir sin conexión. El código aparece sin ejecutar y las preguntas, sin corrección automática; las soluciones y explicaciones van en recuadros. También puedes descargarlo con el icono del PDF de la barra lateral.
+:::
 
 ## Mapa del libro
 

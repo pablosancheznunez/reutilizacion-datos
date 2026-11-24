@@ -49,6 +49,20 @@ Texto que se despliega con el botón.
 
 El asterisco marca la opción correcta. Los huecos no pueden ir dentro de código en línea: escribe el código antes y después, por ejemplo `` `sum(x` {{</* fitb ">" */>}} `2)` ``.
 
+## Figuras y versión en PDF
+
+- **Figuras** (carpeta `figuras/`): una o dos por tema, en SVG, generadas con `python3 herramientas/figuras.py .` (necesita Python con matplotlib). Usan una paleta categórica validada para el daltonismo y llevan texto alternativo en el capítulo. Si cambias el CSV de práctica, vuelve a generarlas.
+- **PDF** (`pdf/reutilizacion-datos-abiertos.pdf`): se genera con `python3 herramientas/pdf.py`, que une los capítulos y los compila con Typst, incluido en Quarto, sin LaTeX. El filtro `_extensions/libro-pdf/` adapta el contenido al papel: muestra el código sin ejecutar, convierte pistas y soluciones en recuadros, presenta las preguntas sin corrección automática y transforma los enlaces entre capítulos en enlaces internos. Genera el PDF antes de `quarto render`, para que se copie al sitio.
+
+Orden para publicar una edición nueva:
+
+```bash
+python3 herramientas/extraer_r.py .   # scripts .R de cada capítulo
+python3 herramientas/figuras.py .     # figuras
+python3 herramientas/pdf.py           # PDF
+quarto render                         # sitio web en _book/
+```
+
 ## Publicar y actualizar el libro
 
 El libro es un proyecto de [Quarto](https://quarto.org) con la extensión [quarto-live](https://r-wasm.github.io/quarto-live/), que ya va incluida en la carpeta `_extensions/`. Los capítulos usan `engine: markdown`, así que para renderizar no hace falta R instalado: el código se ejecuta en el navegador del estudiante.

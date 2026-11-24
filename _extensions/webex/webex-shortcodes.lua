@@ -37,13 +37,14 @@ local function options(args)
   return opts
 end
 
+local function es_html() return quarto.doc.is_format("html") end
+
 local function raw(html)
-  if quarto.doc.is_format("html") then
-    deps()
-    return pandoc.RawInline("html", html)
-  end
-  return pandoc.Str("")
+  deps()
+  return pandoc.RawInline("html", html)
 end
+
+local function texto(t) return pandoc.Inlines({ pandoc.Space(), pandoc.Emph(pandoc.Str(t)) }) end
 
 local function select_html(opts)
   local o = { "<select class='webex-select'><option value='blank'></option>" }
@@ -55,14 +56,28 @@ local function select_html(opts)
 end
 
 local function torf(args)
+  if not es_html() then return texto("[ V / F ]") end
   local ans = str(args[1] or ""):lower()
   local v = (ans == "true" or ans == "verdadero" or ans == "v")
   return raw(select_html({ { text = "VERDADERO", correct = v }, { text = "FALSO", correct = not v } }))
 end
 
-local function mcq(args) return raw(select_html(options(args))) end
+local function mcq(args)
+  local opts = options(args)
+  if not es_html() then
+    local t = {}
+    for _, op in ipairs(opts) do table.insert(t, op.text) end
+    return texto("[ " .. table.concat(t, " / ") .. " ]")
+  end
+  return raw(select_html(opts))
+end
 
 local function longmcq(args)
+  if not es_html() then
+    local t = {}
+    for k, op in ipairs(options(args)) do table.insert(t, "(" .. string.char(96 + k) .. ") " .. op.text) end
+    return texto(table.concat(t, "   "))
+  end
   counter = counter + 1
   local qname = "radio_libro_" .. counter
   local o = { "<div class='webex-radiogroup' id='" .. qname .. "'>" }
@@ -75,6 +90,7 @@ local function longmcq(args)
 end
 
 local function fitb(args, kwargs)
+  if not es_html() then return pandoc.Inlines({ pandoc.Space(), pandoc.Str("______________") }) end
   local answers, width = {}, 0
   for _, a in ipairs(args) do
     local t = str(a)

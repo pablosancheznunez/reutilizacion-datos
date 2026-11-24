@@ -386,6 +386,8 @@ ex:act6          schema:about               "Taller de datos abiertos"
 grafo
 ```
 
+![El grafo de la práctica: las actividades apuntan a la biblioteca donde se celebran (`schema:location`) y las bibliotecas, al municipio de Wikidata donde están (`schema:containedInPlace`). Seguir las flechas es lo que hace una consulta SPARQL.](figuras/tema4_grafo.svg){#fig-grafo fig-alt="Diagrama en tres columnas. Actividades a la derecha: club de lectura, taller de datos abiertos, cuentacuentos y alfabetización digital. Bibliotecas en el centro: centro, sur, norte y parque. Municipios a la izquierda: Getafe, Leganés y Alcorcón. Flechas de cada actividad a su biblioteca y de cada biblioteca a su municipio."}
+
 Una consulta SPARQL busca tripletas que encajen con un **patrón**. Por ejemplo, «¿qué bibliotecas están en Getafe?»:
 
 ```sparql

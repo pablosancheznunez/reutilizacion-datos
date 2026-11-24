@@ -98,6 +98,8 @@ Vetrò et al. proponen medir la calidad de cada conjunto de datos, no solo la de
 
 En el laboratorio calcularás dos métricas de completitud y corregirás problemas de conformidad y exactitud en el CSV de práctica.
 
+![Completitud por columna del CSV de práctica: las columnas descriptivas están completas, pero faltan datos en préstamos y, sobre todo, en usuarios activos.](figuras/tema3_completitud.svg){#fig-completitud fig-alt="Barras horizontales del porcentaje de celdas completas por columna, eje de 0 a 100. id, biblioteca, municipio y fecha: 100 %. prestamos: 97,4 %. usuarios_activos: 84,2 %."}
+
 ## 5. Publicación de conjuntos de datos
 
 Las [Buenas prácticas para datos en la Web](https://www.w3.org/TR/dwbp/) del W3C y la experiencia de los portales permiten resumir la publicación en una secuencia:
@@ -493,6 +495,12 @@ por_muni[order(por_muni$ratio, decreasing = TRUE), ]
 ::: {.callout-note}
 ¿Por qué se usan solo las filas con ambos valores? Si sumaras todos los préstamos pero solo los usuarios conocidos, la ratio de los municipios con más ausentes saldría inflada. Es un ejemplo de cómo la completitud afecta a los indicadores que se derivan de los datos.
 :::
+
+### Resultado de la limpieza
+
+Con los datos ya depurados se puede, por fin, comparar municipios. Los huecos de las líneas son los meses en que el dato era ausente o negativo: la limpieza no los inventa, los deja a la vista.
+
+![Préstamos mensuales por municipio tras la limpieza, enero a junio de 2025 (datos sintéticos). Getafe suma dos bibliotecas; el resto, una.](figuras/tema3_prestamos_municipio.svg){#fig-prestamos fig-alt="Gráfico de líneas de enero a junio. Getafe se mantiene entre unos 4.800 y 5.300 préstamos. Fuenlabrada ronda los 1.700-2.100; Leganés, Móstoles y Alcorcón entre unos 1.000 y 1.750. Leganés y Alcorcón no tienen dato en febrero."}
 
 ### Paso 7. Publicar el resultado con metadatos (apartados 3 y 5)
 

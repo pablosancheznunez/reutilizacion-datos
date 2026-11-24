@@ -6,6 +6,7 @@ project:
     - webr
     - webr-repo
     - plantillas
+    - pdf
 
 book:
   title: "Reutilización de datos abiertos y documentos"
@@ -22,6 +23,11 @@ book:
   doi: 10.5281/zenodo.24500934
   search: true
   page-navigation: true
+  sidebar:
+    tools:
+      - icon: file-earmark-pdf
+        href: pdf/reutilizacion-datos-abiertos.pdf
+        text: "Descargar el libro en PDF"
   page-footer:
     left: "© 2026 [Pablo Sánchez-Núñez](https://pablosancheznunez.com) · [ORCID 0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Texto bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es)"
     right: "Universidad Carlos III de Madrid · Hecho con [Quarto](https://quarto.org) y [webR](https://docs.r-wasm.org/webr/latest/)"

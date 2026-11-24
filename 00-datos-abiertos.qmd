@@ -94,6 +94,8 @@ Berners-Lee propuso en 2010 una escala acumulativa para valorar cómo se publica
 | ★★★★ | URI para identificar las cosas | RDF con URI para cada biblioteca |
 | ★★★★★ | Enlazados con otros datos | RDF enlazado a Wikidata o a datos.bne.es |
 
+![El modelo de cinco estrellas es acumulativo: cada nivel exige los anteriores. El CSV de práctica se queda en tres estrellas; para subir a cuatro habría que identificar cada biblioteca con una URI.](figuras/tema0_cinco_estrellas.svg){#fig-cinco-estrellas fig-alt="Escalera de cinco barras de altura creciente, de azul claro a azul oscuro. Una estrella: en la web con licencia abierta, ejemplo PDF de la memoria. Dos: datos estructurados, Excel. Tres: formato no propietario, CSV, señalado como el CSV de práctica. Cuatro: URI para identificar, RDF con URI. Cinco: enlazados con otros datos, RDF más Wikidata."}
+
 ## 6. Principios FAIR
 
 FAIR no es sinónimo de abierto: describe datos **localizables** (*Findable*), **accesibles** (*Accessible*), **interoperables** (*Interoperable*) y **reutilizables** (*Reusable*), aunque el acceso esté restringido. Los cuatro principios se desarrollan en 15 subprincipios (F1-F4, A1-A2, I1-I3, R1), recogidos por [GO FAIR](https://www.go-fair.org/fair-principles/). Uno de ellos (A2) pide que los metadatos sigan accesibles aunque los datos ya no lo estén. Nacieron en el ámbito de la investigación, pero hoy se aplican a cualquier dato.
