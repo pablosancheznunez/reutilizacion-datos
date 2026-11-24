@@ -467,6 +467,36 @@ if (identical(.result, FALSE) && grepl("CC BY-NC 4.0", .user_code, fixed = TRUE)
 }
 ```
 
+## Reto evaluable {#reto-t5}
+
+::: {.callout-important appearance="simple" icon="false"}
+## Reto del Tema 5 · Propuesta de un servicio infomediario
+Diseña un servicio de valor añadido para bibliotecas, archivos o su público que combine **al menos dos fuentes de datos abiertos con licencias distintas**:
+
+1. Describe el servicio, sus usuarios y el valor que añade frente a consultar directamente las fuentes.
+2. Identifica las licencias y calcula con `obligaciones()` qué exige y qué permite el servicio resultante.
+3. Elige un modelo de negocio y calcula con `punto_equilibrio()` los usuarios necesarios en tres escenarios (pesimista, base y optimista). Justifica los supuestos.
+4. Analiza los riesgos: dependencia del publicador, actualización de los datos, calidad y cambios de licencia.
+
+**Entrega:** un informe hecho con la [plantilla de informe](plantillas/informe_practica.qmd), renderizado a HTML o PDF, con el código visible y el conjunto de datos citado. Se evalúa con la rúbrica que incluye la plantilla. Este reto **no tiene solución en el libro**: cada estudiante trabaja con datos distintos y la corrección la hace el profesorado.
+:::
+
+Espacio de trabajo (no se corrige automáticamente):
+
+```{webr}
+source("datos/datareuseR.R")
+fuentes <- c("CC BY 4.0", "ODbL 1.0")   # las licencias de tus fuentes
+obligaciones(fuentes)
+escenarios <- data.frame(
+  escenario  = c("pesimista", "base", "optimista"),
+  conversion = c(0.02, 0.04, 0.06),
+  precio     = c(9, 9, 12),
+  costes_mes = c(3000, 2700, 2700)
+)
+escenarios$usuarios_necesarios <- with(escenarios, punto_equilibrio(costes_mes, conversion, precio))
+escenarios
+```
+
 ## Autoevaluación
 
 Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
@@ -493,6 +523,10 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 :::
 
 ## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `punto_equilibrio()` y `obligaciones()`.
+:::
 
 En grupo, idead un servicio que combine al menos dos conjuntos de datos abiertos. Describidlo con los seis componentes del marco 6-V, calculad su punto de equilibrio con la función `ingresos_mensuales()` y comprobad las obligaciones de licencia con `obligaciones()`. Presentadlo en 5 minutos.
 

@@ -20,6 +20,12 @@
         el.setAttribute('aria-label', lab.textContent.trim() + (el.type === 'number' ? ' (valor)' : ''));
       }
     });
+    // menú de descarga de la barra lateral (solo icono)
+    raiz.querySelectorAll('.quarto-navigation-tool.dropdown-toggle').forEach(function (a) {
+      if (a.getAttribute('aria-label')) return;
+      a.setAttribute('aria-label', 'Descargar el libro en PDF o EPUB');
+      a.setAttribute('title', 'Descargar el libro en PDF o EPUB');
+    });
     raiz.querySelectorAll('.quarto-title-author-orcid').forEach(function (a) {
       a.setAttribute('aria-label', 'Perfil ORCID de Pablo Sánchez-Núñez');
       var img = a.querySelector('img');

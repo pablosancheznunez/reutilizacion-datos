@@ -643,6 +643,35 @@ if (setequal(.result, c("Club de lectura", "Cuentacuentos"))) {
 }
 ```
 
+## Reto evaluable {#reto-t4}
+
+::: {.callout-important appearance="simple" icon="false"}
+## Reto del Tema 4 · Publicar como datos enlazados
+Parte del conjunto que depuraste en el reto del Tema 3 (o de otro conjunto abierto que describa entidades: bibliotecas, archivos, museos, centros culturales…):
+
+1. Convierte **al menos diez registros** a JSON-LD con el tipo de schema.org más adecuado y justifica la elección de cada propiedad.
+2. Enlaza al menos una propiedad con un identificador externo (por ejemplo, el municipio con su URI de Wikidata).
+3. Comprueba el resultado en el [validador de schema.org](https://validator.schema.org/) y corrige los avisos.
+4. Describe el conjunto con DCAT-AP: título, descripción, publicador, licencia, cobertura temporal y una distribución con su formato del vocabulario de tipos de fichero de la UE.
+5. Explica qué gana un reutilizador con esta versión frente al CSV original.
+
+**Entrega:** un informe hecho con la [plantilla de informe](plantillas/informe_practica.qmd), renderizado a HTML o PDF, con el código visible y el conjunto de datos citado. Se evalúa con la rúbrica que incluye la plantilla. Este reto **no tiene solución en el libro**: cada estudiante trabaja con datos distintos y la corrección la hace el profesorado.
+:::
+
+Espacio de trabajo (no se corrige automáticamente):
+
+```{webr}
+a_jsonld <- function(fila) {
+  list("@context" = "https://schema.org/",
+       "@type" = "Library",                 # cámbialo según tus datos
+       "name" = fila$nombre,
+       "address" = list("@type" = "PostalAddress", "addressLocality" = fila$municipio),
+       "containedInPlace" = list("@id" = "https://www.wikidata.org/entity/Q8802"))  # Q8802 = Getafe
+}
+ejemplo <- data.frame(nombre = "Biblioteca Municipal Centro", municipio = "Getafe")
+cat(jsonlite::toJSON(a_jsonld(ejemplo[1, ]), auto_unbox = TRUE, pretty = TRUE))
+```
+
 ## Autoevaluación
 
 Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
@@ -671,6 +700,10 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 :::
 
 ## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `normalizar_formato()` y `tabla_datosgob()`.
+:::
 
 - Copia en el [JSON-LD Playground](https://json-ld.org/playground/) el JSON-LD de todas las bibliotecas (`lapply(split(bibliotecas, seq_len(nrow(bibliotecas))), a_jsonld)`) y comprueba que es válido.
 - En el [Wikidata Query Service](https://query.wikidata.org) lanza una consulta real de bibliotecas de una provincia. Los resultados cambian cada día porque Wikidata se edita continuamente: por eso los ejercicios de este capítulo usan un grafo fijo.

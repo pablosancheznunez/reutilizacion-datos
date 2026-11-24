@@ -445,6 +445,39 @@ if (identical(r, esp)) {
 }
 ```
 
+## Reto evaluable {#reto-t0}
+
+::: {.callout-important appearance="simple" icon="false"}
+## Reto del Tema 0 · Auditoría de apertura
+Elige en [datos.gob.es](https://datos.gob.es/es/catalogo) **tres conjuntos de datos de tres publicadores distintos**: uno en formato propietario (XLS o PDF), uno en CSV y uno que ofrezca RDF, una API o un SPARQL. Para cada uno:
+
+1. Identifica la licencia y explica qué permite y qué exige.
+2. Calcula sus estrellas con la función `estrellas()` y justifica cada criterio.
+3. Propón un cambio concreto y viable que le haría subir una estrella.
+4. Cierra con un párrafo comparando los tres: ¿qué publicador facilita más la reutilización y por qué?
+
+**Entrega:** un informe hecho con la [plantilla de informe](plantillas/informe_practica.qmd), renderizado a HTML o PDF, con el código visible y el conjunto de datos citado. Se evalúa con la rúbrica que incluye la plantilla. Este reto **no tiene solución en el libro**: cada estudiante trabaja con datos distintos y la corrección la hace el profesorado.
+:::
+
+Espacio de trabajo (no se corrige automáticamente):
+
+```{webr}
+source("datos/datareuseR.R")
+auditoria <- data.frame(
+  conjunto         = c("", "", ""),
+  url              = c("", "", ""),
+  licencia_abierta = c(NA, NA, NA),
+  estructurado     = c(NA, NA, NA),
+  no_propietario   = c(NA, NA, NA),
+  usa_uri          = c(NA, NA, NA),
+  enlazado         = c(NA, NA, NA)
+)
+# Cuando completes la tabla con TRUE y FALSE, quita los # de las líneas siguientes:
+# auditoria$estrellas <- mapply(estrellas, auditoria$licencia_abierta, auditoria$estructurado,
+#                               auditoria$no_propietario, auditoria$usa_uri, auditoria$enlazado)
+# auditoria[, c("conjunto", "estrellas")]
+```
+
 ## Autoevaluación
 
 Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
@@ -471,6 +504,10 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 :::
 
 ## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `leer_csv_abierto()` y `estrellas()`.
+:::
 
 Repite la auditoría con un conjunto de datos de bibliotecas de [datos.gob.es](https://datos.gob.es) o de un portal autonómico: anota su licencia y su formato, y aplica `estrellas()`.
 

@@ -12,7 +12,7 @@ engine: markdown
 
 ::: {.callout-note appearance="simple" icon="false"}
 ## Glosario del tema
-[Portal de datos](92-glosario.qmd#gl-portal) · [Federación](92-glosario.qmd#gl-federacion) · [Open Data Maturity](92-glosario.qmd#gl-odm) · [Caso de uso](92-glosario.qmd#gl-caso-uso) · [B2G](92-glosario.qmd#gl-b2g) · [Altruismo de datos](92-glosario.qmd#gl-altruismo) · [Ciencia abierta](92-glosario.qmd#gl-ciencia-abierta) · [Repositorio](92-glosario.qmd#gl-repositorio) · [Data paper](92-glosario.qmd#gl-data-paper)
+[Portal de datos](92-glosario.qmd#gl-portal) · [Federación](92-glosario.qmd#gl-federacion) · [Open Data Maturity](92-glosario.qmd#gl-odm) · [Caso de uso](92-glosario.qmd#gl-caso-uso) · [B2G](92-glosario.qmd#gl-b2g) · [Altruismo de datos](92-glosario.qmd#gl-altruismo) · [Ciencia abierta](92-glosario.qmd#gl-ciencia-abierta) · [Repositorio](92-glosario.qmd#gl-repositorio) · [Data paper](92-glosario.qmd#gl-data-paper) · [API](92-glosario.qmd#gl-api) · [Tipo MIME](92-glosario.qmd#gl-mime)
 :::
 
 ::: {.callout-tip appearance="simple" icon="false"}
@@ -337,6 +337,153 @@ if (isTRUE(all.equal(as.numeric(.result), 2))) {
 }
 ```
 
+### Ejercicio 2.5 {.unnumbered}
+
+¿Qué **ámbito territorial** es el más frecuente entre los doce casos? `which.max()` devuelve la posición del valor más alto de una tabla y `names()`, su etiqueta.
+
+```{webr}
+#| exercise: t2_ambito
+#| setup: true
+casos <- data.frame(
+  usuario = c("Desarrolladores", "Empresas", "Ciudadanía", "Empresas", "Investigadores", "Desarrolladores",
+              "Empresas", "Periodistas", "Administraciones", "Ciudadanía", "Investigadores", "Administraciones"),
+  ambito = c("Local", "Local", "Local", "Nacional", "Nacional", "Local",
+             "Nacional", "Nacional", "Autonómico", "Local", "Europeo", "Autonómico")
+)
+```
+
+```{webr}
+#| exercise: t2_ambito
+names(which.max(table(casos$______)))
+```
+
+::: {.hint exercise="t2_ambito"}
+La columna del ámbito territorial se llama `ambito`, sin tilde.
+:::
+
+::: {.solution exercise="t2_ambito"}
+```r
+names(which.max(table(casos$ambito)))
+```
+El ámbito local: cinco de los doce casos. Los servicios más cercanos a la ciudadanía (horarios, wifi, rutas) se apoyan sobre todo en datos municipales.
+:::
+
+```{webr}
+#| exercise: t2_ambito
+#| check: true
+if (identical(trimws(as.character(.result)), "Local")) {
+  list(correct = TRUE, message = "Correcto: el ámbito local (5 de 12 casos).")
+} else {
+  list(correct = FALSE, message = "Aplica table() a la columna ambito y quédate con el nombre del máximo.")
+}
+```
+
+### Paso 4. Consultar el catálogo nacional en directo (apartado 1)
+
+datos.gob.es tiene una **API**: una dirección web que, en lugar de una página para personas, devuelve datos para programas. Esta consulta pide los 50 primeros conjuntos de datos con «bibliotecas» en el título:
+
+`https://datos.gob.es/apidata/catalog/dataset/title/bibliotecas.json?_pageSize=50`
+
+La respuesta llega en JSON. R la lee con `url()` y `readLines()`, y `jsonlite::fromJSON()` la convierte en listas. La consulta es **en directo**: el resultado puede cambiar de un día a otro. Si el portal no responde, el código usa una copia guardada el 24 de noviembre de 2026.
+
+```{webr}
+#| autorun: true
+url_api <- "https://datos.gob.es/apidata/catalog/dataset/title/bibliotecas.json?_pageSize=50"
+respuesta <- tryCatch({
+  con <- url(url_api, encoding = "UTF-8")
+  texto <- paste(readLines(con, warn = FALSE), collapse = "\n")
+  close(con)
+  jsonlite::fromJSON(texto, simplifyVector = FALSE)
+}, error = function(e) NULL)
+if (is.null(respuesta)) {
+  message("Sin conexión con datos.gob.es: uso la copia del 24/11/2026.")
+  respuesta <- jsonlite::fromJSON("datos/datosgob_bibliotecas.json", simplifyVector = FALSE)
+}
+items <- respuesta$result$items
+length(items)
+str(items[[1]][c("title", "publisher")], max.level = 2)
+```
+
+Cada elemento describe un conjunto con el vocabulario **DCAT** que verás en el Tema 4: título (en varios idiomas), publicador y distribuciones, cada una con su formato. Para no repetir este trabajo en cada consulta, el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser) reúne unas funciones auxiliares. Aquí las cargamos con `source()`:
+
+```{webr}
+#| autorun: true
+source("datos/datareuseR.R")
+tabla <- tabla_datosgob(items)
+head(tabla[, c("titulo", "formatos")], 8)
+sort(table(unlist(lapply(items, formatos_de))), decreasing = TRUE)
+```
+
+Los formatos no vienen escritos igual: unos publicadores usan el vocabulario de tipos de fichero de la UE (`.../file-type/CSV`) y otros, tipos MIME (`text/csv`). `formatos_de()` los unifica con `normalizar_formato()`. Es un problema de **interoperabilidad semántica** que retomarás en el Tema 4.
+
+### Ejercicio 2.6 {.unnumbered}
+
+¿Cuántos de los conjuntos devueltos ofrecen **al menos una distribución en CSV**? Completa la etiqueta de formato.
+
+```{webr}
+#| exercise: t2_api
+#| setup: true
+source("datos/datareuseR.R")
+items <- consultar_datosgob("bibliotecas", n = 50)
+```
+
+```{webr}
+#| exercise: t2_api
+tiene_csv <- sapply(items, function(it) "______" %in% formatos_de(it))
+sum(tiene_csv)
+```
+
+::: {.hint exercise="t2_api"}
+`formatos_de()` devuelve etiquetas en mayúsculas, como `"JSON"` o `"XLS"`.
+:::
+
+::: {.solution exercise="t2_api"}
+```r
+tiene_csv <- sapply(items, function(it) "CSV" %in% formatos_de(it))
+sum(tiene_csv)
+```
+Con la copia del 24 de noviembre de 2026, 46 de 50. La cifra puede variar si la consulta es en directo. Que casi todos ofrezcan CSV no quiere decir que todos tengan la misma calidad: muchos son estadísticas en formato PC-Axis convertidas.
+:::
+
+```{webr}
+#| exercise: t2_api
+#| check: true
+esperado <- with(.envir_result, sum(sapply(items, function(it) "CSV" %in% formatos_de(it))))
+origen <- if (identical(attr(get("items", envir = .envir_result), "origen"), "api")) "consulta en directo" else "copia guardada"
+if (isTRUE(all.equal(as.numeric(.result), esperado))) {
+  list(correct = TRUE, message = paste0("Correcto: ", esperado, " de ", length(get("items", envir = .envir_result)), " conjuntos (", origen, ")."))
+} else {
+  list(correct = FALSE, message = "Escribe la etiqueta \"CSV\", en mayúsculas.")
+}
+```
+
+## Reto evaluable {#reto-t2}
+
+::: {.callout-important appearance="simple" icon="false"}
+## Reto del Tema 2 · Radiografía de un tema en el catálogo nacional
+Elige una palabra relacionada con tu interés profesional que **no sea «bibliotecas»** (por ejemplo, *archivos*, *museos*, *patrimonio* o *lectura*) y consulta en directo la API de datos.gob.es:
+
+1. ¿Cuántos conjuntos devuelve y qué publicadores concentran la oferta? Resúmelo en una tabla.
+2. ¿Qué formatos predominan? Haz un gráfico y comenta qué dice del nivel de apertura (Tema 0).
+3. Localiza en la sección de [aplicaciones y empresas de datos.gob.es](https://datos.gob.es/es/aplicaciones) tres reutilizaciones reales relacionadas con tu tema y clasifícalas con las dimensiones de Safarov et al. (usuario, utilización, efecto).
+4. Concluye: ¿qué conjunto de datos falta para que surja una reutilización de valor en tu tema?
+
+**Entrega:** un informe hecho con la [plantilla de informe](plantillas/informe_practica.qmd), renderizado a HTML o PDF, con el código visible y el conjunto de datos citado. Se evalúa con la rúbrica que incluye la plantilla. Este reto **no tiene solución en el libro**: cada estudiante trabaja con datos distintos y la corrección la hace el profesorado.
+:::
+
+Espacio de trabajo (no se corrige automáticamente; necesita conexión):
+
+```{webr}
+source("datos/datareuseR.R")
+palabra <- "archivos"   # cámbiala por tu tema
+items <- consultar_datosgob(palabra, n = 50, copia = FALSE)
+tabla <- tabla_datosgob(items)
+length(items)
+head(sort(table(tabla$publicador), decreasing = TRUE))
+formatos <- sort(table(unlist(lapply(items, formatos_de))), decreasing = TRUE)
+barplot(formatos, las = 2, col = "#2a78d6", border = NA, ylab = "Conjuntos")
+```
+
 ## Autoevaluación
 
 Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
@@ -363,6 +510,10 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 :::
 
 ## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `consultar_datosgob()`, `tabla_datosgob()` y `evaluar_fair()`.
+:::
 
 Elige un caso español y uno internacional de las fuentes anteriores y descríbelos con las cuatro dimensiones. Añádelos como filas nuevas a `casos` con `rbind()` y repite las tablas.
 

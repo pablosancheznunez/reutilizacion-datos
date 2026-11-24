@@ -99,6 +99,9 @@ Servicio que deposita, describe, preserva y da acceso a conjuntos de datos con u
 ### Data paper {#gl-data-paper}
 Artículo científico que describe un conjunto de datos —origen, método y estructura— para facilitar su reutilización. → [Tema 2](02-proyectos.qmd)
 
+### API {#gl-api}
+Interfaz de programación de aplicaciones: una dirección web que devuelve datos estructurados (normalmente JSON o XML) para que los use un programa, no una persona. datos.gob.es ofrece una para consultar su catálogo. → [Tema 2](02-proyectos.qmd)
+
 ## Tema 3. Gestión documental y *open data* {#gl-tema3}
 
 ### Gestión documental {#gl-gestion-documental}
@@ -178,6 +181,9 @@ Vocabulario con una semántica formal más rica (jerarquías, restricciones, reg
 ### SKOS {#gl-skos}
 Vocabulario del W3C para publicar tesauros y clasificaciones en la Web, con relaciones como `skos:broader` y `skos:narrower`. → [Tema 4](04-interoperabilidad.qmd)
 
+### Tipo MIME {#gl-mime}
+Etiqueta normalizada que indica el formato de un fichero en internet, como `text/csv` o `application/json`. Convive en los catálogos con el vocabulario de tipos de fichero de la UE, lo que obliga a normalizar. → [Tema 2](02-proyectos.qmd), [Tema 4](04-interoperabilidad.qmd)
+
 ## Tema 5. Infomediarios y negocio {#gl-tema5}
 
 ### Sector infomediario {#gl-sector-infomediario}
@@ -223,3 +229,10 @@ Tabla de datos en R: cada columna es un vector del mismo tamaño. → [Primeros 
 
 ### OpenRefine {#gl-openrefine}
 Herramienta libre para limpiar y transformar datos, con agrupación (*clustering*) de valores similares. → [Tema 3](03-calidad.qmd)
+
+### Paquete de R {#gl-paquete}
+Conjunto de funciones, datos y documentación de R que se instala y se carga con `library()`. El paquete `datareuseR` reúne las funciones y los datos de este libro. → [Apéndice A](90-chuleta-r.qmd#sec-datareuser)
+
+### Service worker {#gl-service-worker}
+Programa que el navegador ejecuta en segundo plano para una web. En este libro guarda las páginas y el motor de R para que funcionen sin conexión después de la primera visita. → [Presentación](index.qmd)
+

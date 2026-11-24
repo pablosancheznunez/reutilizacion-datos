@@ -91,6 +91,44 @@ if (identical(as.integer(.result), as.integer(esp))) {
 }
 ```
 
+### Ejercicio C.4 {.unnumbered}
+
+El paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser) incluye `leer_csv_abierto()`, que detecta la codificación y el separador antes de leer y guarda lo que ha detectado en el atributo `"lectura"`. ¿Qué **codificación** detecta en el fichero de Madrid?
+
+```{webr}
+#| exercise: caso_lectura
+#| setup: true
+source("datos/datareuseR.R")
+```
+
+```{webr}
+#| exercise: caso_lectura
+bib2 <- leer_csv_abierto("datos/bibliotecas_madrid_2026-11-24.csv")
+attr(bib2, "______")$encoding
+```
+
+::: {.hint exercise="caso_lectura"}
+El atributo se llama como el verbo del que viene: *leer*.
+:::
+
+::: {.solution exercise="caso_lectura"}
+```r
+bib2 <- leer_csv_abierto("datos/bibliotecas_madrid_2026-11-24.csv")
+attr(bib2, "lectura")$encoding
+```
+`"latin1"`: la función ha comprobado que el texto no es UTF-8 válido. Detectar lo que antes resolviste a mano es útil, pero conviene documentarlo, como hace el atributo.
+:::
+
+```{webr}
+#| exercise: caso_lectura
+#| check: true
+if (identical(as.character(.result), "latin1")) {
+  list(correct = TRUE, message = "Correcto: Latin-1, con punto y coma como separador.")
+} else {
+  list(correct = FALSE, message = "Consulta el atributo \"lectura\" con attr().")
+}
+```
+
 ### Valoración
 
 | Criterio | Valoración |
@@ -193,6 +231,42 @@ op <- par(mar = c(4, 11, 1, 1))
 barplot(rev(por_distrito), horiz = TRUE, las = 1, col = "#2a78d6", border = NA,
         cex.names = 0.7, xlab = "Bibliotecas públicas municipales")
 par(op)
+```
+
+### Ejercicio C.5 {.unnumbered}
+
+¿Qué **distrito** tiene más bibliotecas públicas municipales?
+
+```{webr}
+#| exercise: caso_distrito
+#| setup: true
+bib <- read.csv("datos/bibliotecas_madrid_2026-11-24.csv", sep = ";", fileEncoding = "latin1")
+```
+
+```{webr}
+#| exercise: caso_distrito
+names(which.max(table(bib$______)))
+```
+
+::: {.hint exercise="caso_distrito"}
+La columna se llama igual que la variable: `DISTRITO`, en mayúsculas.
+:::
+
+::: {.solution exercise="caso_distrito"}
+```r
+names(which.max(table(bib$DISTRITO)))
+```
+Puente de Vallecas, con cinco. Para valorar la cobertura habría que relacionarlo con la población de cada distrito, que está en otro conjunto del mismo portal.
+:::
+
+```{webr}
+#| exercise: caso_distrito
+#| check: true
+if (identical(toupper(trimws(as.character(.result))), "PUENTE DE VALLECAS")) {
+  list(correct = TRUE, message = "Correcto: Puente de Vallecas, con 5 bibliotecas.")
+} else {
+  list(correct = FALSE, message = "Aplica table() a la columna DISTRITO.")
+}
 ```
 
 ### Metadatos del conjunto derivado
@@ -312,5 +386,9 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 :::
 
 ## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `leer_csv_abierto()`, `informe_calidad()` y el conjunto `bibliotecas_madrid`.
+:::
 
 Repite el caso con el conjunto de bibliotecas de otro portal (tu comunidad autónoma o tu ayuntamiento) y redacta el resultado con la plantilla de informe. Compara: ¿qué portal publica mejor sus datos, y por qué?

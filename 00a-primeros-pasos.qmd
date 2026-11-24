@@ -169,6 +169,47 @@ Para quedarse con algunas filas se usa `subset()`:
 subset(bibliotecas, municipio == "Getafe")
 ```
 
+### Ejercicio 4 {.unnumbered}
+
+¿Cuántos préstamos suman las dos bibliotecas de **Getafe**? Combina `subset()`, `$` y `sum()`.
+
+```{webr}
+#| exercise: pp_getafe
+#| setup: true
+bibliotecas <- data.frame(
+  nombre = c("Centro", "Sur", "Norte"),
+  municipio = c("Getafe", "Getafe", "Leganés"),
+  prestamos = c(14839, 15319, 7547)
+)
+```
+
+```{webr}
+#| exercise: pp_getafe
+sum(subset(bibliotecas, municipio == ______)$prestamos)
+```
+
+::: {.hint exercise="pp_getafe"}
+El nombre del municipio es un texto: va entre comillas.
+:::
+
+::: {.solution exercise="pp_getafe"}
+```r
+sum(subset(bibliotecas, municipio == "Getafe")$prestamos)
+```
+:::
+
+```{webr}
+#| exercise: pp_getafe
+#| check: true
+if (isTRUE(all.equal(as.numeric(.result), 30158))) {
+  list(correct = TRUE, message = "Correcto: 14 839 + 15 319 = 30 158 préstamos.")
+} else if (isTRUE(all.equal(as.numeric(.result), 37705))) {
+  list(correct = FALSE, message = "Has sumado las tres bibliotecas: filtra antes por municipio.")
+} else {
+  list(correct = FALSE, message = "Escribe \"Getafe\" entre comillas.")
+}
+```
+
 ## Leer un fichero CSV
 
 El CSV de práctica está disponible en la carpeta `datos`. `read.csv()` lo convierte en un *data frame*; `head()` muestra las primeras filas y `str()` describe las columnas.
@@ -215,6 +256,45 @@ if (identical(as.integer(.result), as.integer(esperado))) {
   list(correct = TRUE, message = paste0("Correcto: ", esperado, " filas (sin contar la cabecera)."))
 } else {
   list(correct = FALSE, message = "Necesitas una función que cuente filas, no columnas.")
+}
+```
+
+### Ejercicio 5 {.unnumbered}
+
+¿Cuántas **bibliotecas distintas** aparecen en el CSV de práctica? `unique()` elimina los valores repetidos de un vector; después, cuenta sus elementos.
+
+```{webr}
+#| exercise: pp_unicas
+#| setup: true
+prestamos_df <- read.csv("datos/prestamos_bibliotecas_practica.csv")
+```
+
+```{webr}
+#| exercise: pp_unicas
+______(unique(prestamos_df$biblioteca))
+```
+
+::: {.hint exercise="pp_unicas"}
+Para contar los elementos de un vector usaste `length()`.
+:::
+
+::: {.solution exercise="pp_unicas"}
+```r
+length(unique(prestamos_df$biblioteca))
+```
+Seis bibliotecas, cada una con varios meses de datos.
+:::
+
+```{webr}
+#| exercise: pp_unicas
+#| check: true
+esperado <- length(unique(read.csv("datos/prestamos_bibliotecas_practica.csv")$biblioteca))
+if (identical(as.integer(.result), as.integer(esperado))) {
+  list(correct = TRUE, message = paste0("Correcto: ", esperado, " bibliotecas distintas."))
+} else if (identical(as.integer(.result), nrow(read.csv("datos/prestamos_bibliotecas_practica.csv")))) {
+  list(correct = FALSE, message = "Eso es el número de filas: aplica unique() a la columna biblioteca.")
+} else {
+  list(correct = FALSE, message = "Cuenta los elementos con length().")
 }
 ```
 

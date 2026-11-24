@@ -1,0 +1,63 @@
+# Cada lunes comprueba los enlaces del libro, el CSV de bibliotecas de Madrid
+# y la API de datos.gob.es. Si algo falla, abre (o actualiza) una incidencia.
+name: Comprobación semanal de fuentes
+
+on:
+  schedule:
+    - cron: "17 5 * * 1"   # lunes, 06:17 en Madrid (hora de invierno)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  fuentes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Comprobar enlaces y datos
+        id: comprobar
+        continue-on-error: true
+        run: python herramientas/comprobar_fuentes.py informe_fuentes.md
+
+      - name: Resumen
+        if: always()
+        run: cat informe_fuentes.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Abrir o actualizar la incidencia
+        if: steps.comprobar.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create comprobacion-semanal --color d93f0b --description "Problemas en fuentes externas" 2>/dev/null || true
+          numero=$(gh issue list --label comprobacion-semanal --state open --json number --jq '.[0].number')
+          if [ -n "$numero" ]; then
+            gh issue comment "$numero" --body-file informe_fuentes.md
+          else
+            gh issue create --title "Comprobación semanal: revisar fuentes del libro" \
+              --label comprobacion-semanal --body-file informe_fuentes.md
+          fi
+
+  paquete:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - uses: r-lib/actions/setup-pandoc@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          working-directory: datareuseR
+          extra-packages: any::rcmdcheck
+      - name: Comprobar datareuseR con la consulta en directo
+        uses: r-lib/actions/check-r-package@v2
+        with:
+          working-directory: datareuseR
+          args: 'c("--no-manual", "--as-cran")'

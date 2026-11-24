@@ -8,6 +8,7 @@ project:
     - plantillas
     - pdf
     - moodle
+    - sw.js
 
 book:
   title: "Reutilización de datos abiertos y documentos"
@@ -16,7 +17,7 @@ book:
     - name: "Pablo Sánchez-Núñez"
       orcid: 0000-0001-7845-9506
       url: https://pablosancheznunez.com
-      affiliation: "Universidad Carlos III de Madrid · Departamento de Biblioteconomía y Documentación · OpenScienceLab"
+      affiliation: "Universidad Carlos III de Madrid"
   date: last-modified
   date-format: "D [de] MMMM [de] YYYY"
   language: es
@@ -26,9 +27,12 @@ book:
   page-navigation: true
   sidebar:
     tools:
-      - icon: file-earmark-pdf
-        href: pdf/reutilizacion-datos-abiertos.pdf
-        text: "Descargar el libro en PDF"
+      - icon: download
+        menu:
+          - text: "Libro en PDF"
+            href: pdf/reutilizacion-datos-abiertos.pdf
+          - text: "Libro en EPUB (lectores de libros electrónicos)"
+            href: pdf/reutilizacion-datos-abiertos.epub
   page-footer:
     left: "© 2026 [Pablo Sánchez-Núñez](https://pablosancheznunez.com) · [ORCID 0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Texto bajo licencia [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es)"
     right: "Universidad Carlos III de Madrid · Hecho con [Quarto](https://quarto.org) y [webR](https://docs.r-wasm.org/webr/latest/)"
@@ -61,13 +65,17 @@ format:
   live-html:
     theme:
       light: [cosmo, estilos.scss]
+      dark: [darkly, estilos-oscuro.scss]
+    respect-user-color-scheme: true
     toc: true
     toc-depth: 3
     number-sections: false
     code-copy: true
     link-external-newwindow: true
     callout-appearance: simple
-    include-after-body: accesibilidad.html
+    include-after-body:
+      - accesibilidad.html
+      - progreso.html
 
 webr:
   engine-url: webr/

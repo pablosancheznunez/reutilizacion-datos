@@ -8,3 +8,7 @@
 /_pdf/
 node_modules/
 package*.json
+
+/datareuseR.Rcheck/
+/datareuseR_*.tar.gz
+/informe_fuentes.md

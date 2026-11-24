@@ -25,11 +25,24 @@ Según la ficha de la asignatura, al terminar el curso deberías:
 - Conocer los principios de los datos abiertos.
 
 ::: {.callout-tip appearance="simple" icon="false"}
-## Versión en PDF
-[Descargar el libro en PDF](pdf/reutilizacion-datos-abiertos.pdf){.btn .btn-primary download="reutilizacion-datos-abiertos.pdf"}
+## Descargar el libro
+[Libro en PDF](pdf/reutilizacion-datos-abiertos.pdf){.btn .btn-primary download="reutilizacion-datos-abiertos.pdf"}
+[Libro en EPUB](pdf/reutilizacion-datos-abiertos.epub){.btn .btn-outline-primary download="reutilizacion-datos-abiertos.epub"}
 
-Para leer o imprimir sin conexión. El código aparece sin ejecutar y las preguntas, sin corrección automática; las soluciones y explicaciones van en recuadros. También puedes descargarlo con el icono del PDF de la barra lateral.
+El PDF sirve para leer o imprimir; el EPUB, para lectores de libros electrónicos y móviles, porque el texto se adapta a la pantalla. En los dos el código aparece sin ejecutar y las preguntas, sin corrección automática; las soluciones y explicaciones van en recuadros. También puedes descargarlos desde el icono de descarga de la barra lateral.
 :::
+
+## Tu progreso y uso sin conexión
+
+El libro anota los ejercicios de código que resuelves y las preguntas que aciertas. El progreso se guarda **solo en este navegador**: no se envía a ningún servidor ni lo ve el profesorado, y se pierde si borras los datos del navegador o cambias de dispositivo.
+
+::: {#progreso-resumen}
+Activa JavaScript para ver tu progreso.
+:::
+
+Después de la primera visita, el navegador guarda el libro y el motor de R. Podrás leer los capítulos que ya hayas abierto y ejecutar el código **sin conexión**; solo la consulta en directo a datos.gob.es del Tema 2 necesita red (sin ella, usa una copia guardada). [Si tu navegador lo permite, se activa al cargar la página.]{#sin-conexion-estado .sin-conexion-estado}
+
+Usa el interruptor que hay junto al título del libro, en la barra lateral, para cambiar entre el modo claro y el oscuro. Al principio se respeta la preferencia de tu sistema.
 
 ## Mapa del libro
 
@@ -84,7 +97,7 @@ Los ejercicios del libro **no cuentan para la nota**: son práctica. La evaluaci
 
 ## Autoría y cómo citar
 
-**Autor:** Pablo Sánchez-Núñez, profesor de Biblioteconomía y Documentación en la Universidad Carlos III de Madrid (grupo OpenScienceLab).
+**Autor:** Pablo Sánchez-Núñez ([ORCID 0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506)), Universidad Carlos III de Madrid. **DOI:** [10.5281/zenodo.24500934](https://doi.org/10.5281/zenodo.24500934).
 ORCID: [0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Web: [pablosancheznunez.com](https://pablosancheznunez.com)
 
 > Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Zenodo. <https://doi.org/10.5281/zenodo.24500934>

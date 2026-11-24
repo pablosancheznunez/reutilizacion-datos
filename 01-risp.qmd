@@ -465,6 +465,31 @@ if (identical(tipo, "leve") && isTRUE(multa == 10000)) {
 }
 ```
 
+## Reto evaluable {#reto-t1}
+
+::: {.callout-important appearance="simple" icon="false"}
+## Reto del Tema 1 · Una solicitud de reutilización
+Busca una información del sector público que te interese profesionalmente y que **no esté publicada** como datos abiertos (por ejemplo, las estadísticas de préstamo por sucursal de la red de bibliotecas de tu municipio). Prepara, sin enviarla, la solicitud de reutilización:
+
+1. Redacta la solicitud con los elementos que exige el art. 10 de la Ley 37/2007: identificación, información pedida, finalidad y formato preferido.
+2. Identifica el órgano competente y justifica que la información es reutilizable (y no está excluida por el art. 3).
+3. Calcula con `sumar_habiles()` la fecha límite de resolución, **descontando los festivos nacionales, autonómicos y locales reales** de tu municipio, y la fecha si el plazo se ampliara.
+4. Indica qué condiciones de reutilización esperarías (licencia, tarifas) y por qué.
+
+**Entrega:** un informe hecho con la [plantilla de informe](plantillas/informe_practica.qmd), renderizado a HTML o PDF, con el código visible y el conjunto de datos citado. Se evalúa con la rúbrica que incluye la plantilla. Este reto **no tiene solución en el libro**: cada estudiante trabaja con datos distintos y la corrección la hace el profesorado.
+:::
+
+Espacio de trabajo (no se corrige automáticamente):
+
+```{webr}
+source("datos/datareuseR.R")
+presentacion <- as.Date("2026-02-02")   # cámbiala por la fecha en que presentarías la solicitud
+festivos <- as.Date(c())                # añade los festivos del periodo, p. ej. "2026-04-02"
+ordinario <- sumar_habiles(presentacion, 20, festivos)
+ampliado  <- sumar_habiles(ordinario, 20, festivos)
+c(ordinario = ordinario, ampliado = ampliado)
+```
+
 ## Autoevaluación
 
 Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
@@ -493,6 +518,10 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 :::
 
 ## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `sumar_habiles()`, que además descuenta festivos.
+:::
 
 Redacta una solicitud de acceso a un dato bibliotecario que no esté publicado y busca en el [Consejo de Transparencia y Buen Gobierno](https://www.consejodetransparencia.es) una resolución sobre un caso parecido. Calcula con el código de este capítulo hasta cuándo tendrías para reclamar si la solicitud se desestima por silencio.
 

@@ -1,0 +1,77 @@
+---
+title: "Guía rápida de datareuseR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Guía rápida de datareuseR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+`datareuseR` reúne los datos y las funciones del libro abierto
+[*Reutilización de datos abiertos y documentos*](https://pablosancheznunez.com/reutilizacion-datos/)
+para que puedas repetir las prácticas en tu ordenador, con RStudio o Positron,
+y aplicarlas a tus propios datos.
+
+```{r}
+library(datareuseR)
+```
+
+## Leer un fichero de un portal
+
+El directorio de bibliotecas del Ayuntamiento de Madrid está en Latin-1 y
+separado por punto y coma. `leer_csv_abierto()` lo detecta y lo deja anotado.
+
+```{r}
+f <- system.file("extdata", "bibliotecas_madrid_2026-11-24.csv", package = "datareuseR")
+bib <- leer_csv_abierto(f)
+attr(bib, "lectura")
+dim(bib)
+```
+
+## Medir la calidad
+
+```{r}
+informe_calidad(prestamos_practica)
+round(completitud(bibliotecas_madrid), 2)
+```
+
+Para unificar variantes de un mismo valor, como hace OpenRefine:
+
+```{r}
+table(clave_agrupacion(prestamos_practica$municipio))
+```
+
+## Apertura, FAIR y licencias
+
+```{r}
+estrellas(licencia_abierta = TRUE, estructurado = TRUE, no_propietario = TRUE,
+          usa_uri = FALSE, enlazado = FALSE)
+obligaciones(c("CC BY 4.0", "ODbL 1.0"))
+```
+
+## Plazos y modelos de negocio
+
+```{r}
+sumar_habiles("2026-03-02", 20)
+punto_equilibrio(costes_mes = 2700, conversion = 0.04, precio = 9)
+```
+
+## Consultar datos.gob.es
+
+`consultar_datosgob()` busca conjuntos de datos por palabra del título. Si no
+hay conexión, para la búsqueda `"bibliotecas"` devuelve una copia guardada.
+
+```{r}
+items <- consultar_datosgob("bibliotecas")
+attr(items, "origen")
+tabla <- tabla_datosgob(items)
+head(tabla[, c("titulo", "formatos")])
+sort(table(unlist(lapply(items, formatos_de))), decreasing = TRUE)
+```
+
+Los formatos llegan con dos vocabularios distintos (URI de la UE y tipos MIME);
+`normalizar_formato()` los reúne en una sola etiqueta.

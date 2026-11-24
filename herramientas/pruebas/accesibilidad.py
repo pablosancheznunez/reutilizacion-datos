@@ -8,7 +8,7 @@ tot=collections.Counter(); ejemplos={}
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path=os.environ.get("CHROME") or None,args=["--no-sandbox"])
     for pgname in pages:
-        pg=b.new_page(); pg.goto(f"http://localhost:8769/{pgname}"); pg.wait_for_timeout(12000)
+        pg=b.new_page(color_scheme=("dark" if os.environ.get("MODO")=="oscuro" else "light")); pg.goto(f"http://localhost:8769/{pgname}"); pg.wait_for_timeout(12000)
         pg.add_script_tag(content=axe)
         r=pg.evaluate("async()=>{const r=await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa']}});return r.violations.map(v=>({id:v.id,impact:v.impact,n:v.nodes.length,help:v.help,ej:v.nodes.slice(0,2).map(n=>n.target.join(' ')+' :: '+(n.failureSummary||'').slice(0,160))}))}")
         for v in r:

@@ -690,6 +690,34 @@ if (isTRUE(.result) && grepl("prestamos_bibliotecas_practica.csv", .user_code, f
 }
 ```
 
+## Reto evaluable {#reto-t3}
+
+::: {.callout-important appearance="simple" icon="false"}
+## Reto del Tema 3 · Limpieza documentada de un conjunto real
+Elige en un portal de datos abiertos un CSV **de al menos 100 filas y 6 columnas** que no se use en este libro. Trabaja en tu ordenador con el [paquete `datareuseR`](90-chuleta-r.qmd#sec-datareuser):
+
+1. Léelo con `leer_csv_abierto()` y documenta la codificación y el separador detectados.
+2. Mide su calidad con `informe_calidad()` antes de tocarlo.
+3. Aplica al menos **tres tipos de corrección** distintos (duplicados, variantes de texto con `clave_agrupacion()`, fechas, números, valores imposibles…) y justifica cada decisión en una tabla: problema, dimensión de calidad, corrección y número de filas afectadas.
+4. Vuelve a medir la calidad y compara el antes y el después.
+5. Describe el conjunto depurado con metadatos DCAT, incluida su procedencia (`dct:source`).
+
+**Entrega:** un informe hecho con la [plantilla de informe](plantillas/informe_practica.qmd), renderizado a HTML o PDF, con el código visible y el conjunto de datos citado. Se evalúa con la rúbrica que incluye la plantilla. Este reto **no tiene solución en el libro**: cada estudiante trabaja con datos distintos y la corrección la hace el profesorado.
+:::
+
+Espacio de trabajo, con el CSV de práctica para probar el código antes de usarlo con tus datos (no se corrige automáticamente):
+
+```{webr}
+source("datos/datareuseR.R")
+datos <- leer_csv_abierto("datos/prestamos_bibliotecas_practica.csv", colClasses = "character")
+attr(datos, "lectura")
+informe_calidad(datos)
+# 1. Duplicados:        datos <- datos[!duplicated(datos), ]
+# 2. Variantes de texto: table(clave_agrupacion(datos$municipio))
+# 3. Fechas y números:  ...
+# informe_calidad(datos)
+```
+
 ## Autoevaluación
 
 Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
@@ -726,6 +754,12 @@ Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde l
 | Fechas en dos formatos | Conformidad | Convertir a ISO 8601 (`AAAA-MM-DD`) |
 | Préstamos negativos | Exactitud | Marcar como ausente y documentarlo |
 | Filas duplicadas | Exactitud | Eliminar duplicados |
+
+## Para practicar fuera del libro
+
+::: {.callout-tip appearance="simple"}
+En tu ordenador tienes las funciones de este tema en el paquete [`datareuseR`](90-chuleta-r.qmd#sec-datareuser): `informe_calidad()`, `completitud()` y `clave_agrupacion()`.
+:::
 
 ## Recursos complementarios
 

@@ -1,0 +1,32 @@
+Package: datareuseR
+Type: Package
+Title: Teaching Open Data Reuse with Library Data
+Version: 0.1.0
+Authors@R:
+    person("Pablo", "Sánchez-Núñez", email = "psancheznunez@outlook.com",
+           role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-7845-9506"))
+Description: Data sets and helper functions for learning to reuse open
+    public-sector data in library and information science courses. It
+    includes a practice file of library loans with typical quality problems,
+    a dated copy of the Madrid municipal libraries directory, and functions
+    to read open data files with unknown encoding and separator, measure
+    completeness, check the five-star open data scheme and FAIR criteria,
+    combine licence obligations, estimate the break-even point of a
+    freemium data service, and query the Spanish national open data
+    catalogue (datos.gob.es) with an offline fallback. It accompanies the
+    open textbook "Reutilización de datos abiertos y documentos"
+    <doi:10.5281/zenodo.24500934>. Messages and documentation are in Spanish.
+License: MIT + file LICENSE
+URL: https://pablosancheznunez.com/reutilizacion-datos/,
+    https://github.com/pablosancheznunez/reutilizacion-datos
+BugReports: https://github.com/pablosancheznunez/reutilizacion-datos/issues
+Depends: R (>= 4.1.0)
+Imports: jsonlite, utils
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
+Encoding: UTF-8
+Language: es
+LazyData: true
+RoxygenNote: 7.3.1

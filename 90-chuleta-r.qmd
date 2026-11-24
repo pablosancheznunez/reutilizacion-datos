@@ -40,6 +40,10 @@ Todas las funciones que usa el libro, en una página.
 | Rellenar plantilla | `sprintf()` | `sprintf("Hola, %s", "Getafe")` |
 | Lista a JSON | `jsonlite::toJSON()` | `jsonlite::toJSON(lista, auto_unbox = TRUE, pretty = TRUE)` |
 | Gráfico de barras | `barplot()` | `barplot(table(df$usuario))` |
+| Valores sin repetir | `unique()` | `unique(df$biblioteca)` |
+| Posición del máximo | `which.max()` | `names(which.max(table(df$municipio)))` |
+| Leer de una URL | `url()` + `readLines()` | `readLines(url("https://…"), warn = FALSE)` |
+| JSON a listas | `jsonlite::fromJSON()` | `jsonlite::fromJSON(texto, simplifyVector = FALSE)` |
 
 Prueba cualquiera de ellas aquí:
 
@@ -47,3 +51,40 @@ Prueba cualquiera de ellas aquí:
 df <- read.csv("datos/prestamos_bibliotecas_practica.csv")
 head(df)
 ```
+
+## El paquete datareuseR {#sec-datareuser}
+
+`datareuseR` reúne los datos y las funciones auxiliares del libro para que repitas las prácticas en tu ordenador, con RStudio o Positron, y las apliques a tus propios datos. Dentro del libro se carga con `source("datos/datareuseR.R")`; en tu ordenador, instálalo una vez y cárgalo con `library()`:
+
+```r
+install.packages("remotes")
+remotes::install_github("pablosancheznunez/reutilizacion-datos", subdir = "datareuseR")
+library(datareuseR)
+vignette("datareuseR")   # guía rápida
+```
+
+| Para… | Función | Tema |
+|---|---|---|
+| Leer un CSV con codificación y separador desconocidos | `leer_csv_abierto()` | 0, 3 |
+| Estrellas del esquema de cinco estrellas | `estrellas()` | 0 |
+| Plazos en días hábiles, con festivos | `sumar_habiles()` | 1 |
+| Evaluación FAIR simplificada | `evaluar_fair()` | 2 |
+| Consultar la API de datos.gob.es (con copia sin conexión) | `consultar_datosgob()` | 2 |
+| Título, formatos y tabla de los resultados | `titulo_es()`, `formatos_de()`, `tabla_datosgob()` | 2, 4 |
+| Unificar etiquetas de formato (URI de la UE y tipos MIME) | `normalizar_formato()` | 4 |
+| Celdas vacías y completitud (Vetrò et al.) | `celda_vacia()`, `completitud()` | 3 |
+| Informe rápido de calidad | `informe_calidad()` | 3 |
+| Clave de agrupación al estilo de OpenRefine | `clave_agrupacion()` | 3 |
+| Ingresos y punto de equilibrio *freemium* | `ingresos_mensuales()`, `punto_equilibrio()` | 5 |
+| Obligaciones al combinar licencias | `obligaciones()` | 5 |
+
+Datos incluidos: `prestamos_practica` (el CSV de práctica, sin limpiar), `bibliotecas_madrid` (copia del 24 de noviembre de 2026, CC BY 4.0, Ayuntamiento de Madrid), `casos_reutilizacion` (los doce casos del Tema 2) y `licencias` (la tabla del Tema 5).
+
+Prueba el paquete aquí:
+
+```{webr}
+source("datos/datareuseR.R")
+datos <- leer_csv_abierto("datos/prestamos_bibliotecas_practica.csv", colClasses = "character")
+informe_calidad(datos)
+```
+

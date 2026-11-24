@@ -82,6 +82,32 @@ El caso práctico usa una copia del conjunto «Bibliotecas de Madrid» del Ayunt
 - **Analítica.** El libro carga `/consent.js` de la web: Google Analytics y Microsoft Clarity solo se activan si el visitante acepta las cookies, y la elección es la misma en toda la web. Fuera de pablosancheznunez.com el script no existe y no se carga nada.
 - **Comprobación automática.** El flujo `.github/workflows/comprobar.yml` genera el libro en cada cambio y ejecuta en un navegador real los ejercicios de webR, las preguntas de autoevaluación y la auditoría de accesibilidad (`herramientas/pruebas/`). Si algo falla, el cambio aparece con una cruz roja en GitHub.
 
+## Retos evaluables
+
+Cada tema termina con un **reto evaluable** pensado para la evaluación continua en Aula Global. A diferencia de los ejercicios, no tiene pista, solución ni corrección automática, y cada estudiante trabaja con datos distintos (un portal, una palabra de búsqueda o un conjunto elegido por él), lo que dificulta copiar. La entrega es un informe hecho con la plantilla `informe_practica.qmd` y se corrige con su rúbrica (pesos 15/25/20/20/10/10).
+
+| Tema | Reto | Funciones de `datareuseR` |
+|---|---|---|
+| 0 | Auditoría de apertura de tres conjuntos de publicadores distintos | `estrellas()` |
+| 1 | Solicitud de reutilización con cálculo de plazos y festivos reales | `sumar_habiles()` |
+| 2 | Radiografía de un tema en datos.gob.es con la API en directo | `consultar_datosgob()`, `tabla_datosgob()` |
+| 3 | Limpieza documentada de un CSV real (≥100 filas) | `leer_csv_abierto()`, `informe_calidad()`, `clave_agrupacion()` |
+| 4 | Publicación de diez registros como JSON-LD y del conjunto con DCAT-AP | — |
+| 5 | Propuesta de servicio infomediario con tres escenarios | `obligaciones()`, `punto_equilibrio()` |
+
+Las soluciones de referencia y los criterios de corrección de cada reto **no están en el repositorio público**: se entregan aparte al profesorado. Si las guardas en el repositorio, hazlo en una rama o un repositorio privado.
+
+## Progreso, uso sin conexión y modo oscuro
+
+- **Progreso del estudiante** (`progreso.html`): cada capítulo muestra cuántos ejercicios ha resuelto y cuántas preguntas ha acertado el estudiante, y la presentación resume todos los capítulos. Se guarda en el almacenamiento local del navegador (`localStorage`), sin cookies ni envío a ningún servidor: el profesorado no lo ve. Sirve de autorregulación, no de evaluación.
+- **Uso sin conexión** (`sw.js`): un *service worker* guarda las páginas, webR y sus paquetes la primera vez que se visitan. Las páginas se piden primero a la red y, si no hay conexión, se sirven desde la copia; el resto, al revés. Al publicar una versión nueva, cambia `VERSION` en `sw.js`.
+- **Modo claro y oscuro**: el interruptor junto al título, en la barra lateral, cambia entre los dos; por defecto se respeta la preferencia del sistema. El tema oscuro está en `estilos-oscuro.scss` y también se audita con axe-core.
+- **PDF y EPUB**: `python3 herramientas/pdf.py` genera los dos formatos; el EPUB lleva portada, metadatos (DOI, licencia) y la misma ficha del libro que el PDF.
+
+## El paquete datareuseR
+
+La carpeta `datareuseR/` contiene un paquete de R con los datos y las funciones auxiliares del libro, documentado y con pruebas (`R CMD check --as-cran` sin errores ni avisos). El libro no puede instalarlo dentro de webR, así que `python3 herramientas/datareuser_webr.py` genera `datos/datareuseR.R` con sus funciones, y los capítulos lo cargan con `source()`. Si cambias el paquete, vuelve a ejecutar ese script. Los estudiantes pueden instalarlo con `remotes::install_github("pablosancheznunez/reutilizacion-datos", subdir = "datareuseR")`; para publicarlo en CRAN basta con enviar la carpeta del paquete.
+
 ## Publicar y actualizar el libro
 
 El libro es un proyecto de [Quarto](https://quarto.org) con la extensión [quarto-live](https://r-wasm.github.io/quarto-live/), que ya va incluida en la carpeta `_extensions/`. Los capítulos usan `engine: markdown`, así que para renderizar no hace falta R instalado: el código se ejecuta en el navegador del estudiante.
@@ -100,7 +126,8 @@ Opciones de publicación:
 
 - **Datos que cambian cada año**: el Tema 2 remite a la ficha del Open Data Maturity 2025 y el Tema 5 al informe de ASEDIE. El libro no incluye esas cifras, solo los enlaces; basta con actualizar los enlaces cuando salga una nueva edición.
 - **DCAT-AP-ES y NTI-RISP**: antes de cada curso, comprueba si la NTI modificada se ha publicado en el BOE y ajusta el párrafo del Tema 3.
-- **Versión de webR**: quarto-live carga webR desde su CDN. Para actualizarlo, ejecuta `quarto update r-wasm/quarto-live` en la carpeta del proyecto.
+- **Versión de webR**: el libro sirve webR 0.6.0 desde su propia carpeta `webr/` y los paquetes desde `webr-repo/`, sin depender de servidores externos. Para actualizarlo, sustituye esas carpetas por la nueva distribución de webR y los binarios correspondientes, y cambia `VERSION` en `sw.js` para que los navegadores renueven su copia.
+- **Fuentes externas**: el flujo `.github/workflows/semanal.yml` comprueba cada lunes los enlaces del libro, el CSV de bibliotecas de Madrid y la API de datos.gob.es, y comprueba el paquete `datareuseR` con la consulta en directo. Si algo falla, abre una incidencia en GitHub con el informe; también puedes ejecutarlo a mano con `python3 herramientas/comprobar_fuentes.py`.
 
 ## Añadir un ejercicio
 
