@@ -10,6 +10,22 @@ engine: markdown
 - Aplicar criterios de calidad y documentación de conjuntos de datos.
 :::
 
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del tema
+[Gestión documental](92-glosario.qmd#gl-gestion-documental) · [Ciclo de vida](92-glosario.qmd#gl-ciclo-vida) · [Metadatos](92-glosario.qmd#gl-metadatos) · [DCAT](92-glosario.qmd#gl-dcat) · [Distribución](92-glosario.qmd#gl-distribucion) · [Completitud](92-glosario.qmd#gl-completitud) · [Conformidad](92-glosario.qmd#gl-conformidad) · [Exactitud](92-glosario.qmd#gl-exactitud) · [Valor ausente](92-glosario.qmd#gl-ausente) · [Checksum](92-glosario.qmd#gl-checksum) · [OAIS](92-glosario.qmd#gl-oais) · [Identificador persistente](92-glosario.qmd#gl-pid)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del capítulo](plantillas/tema3_calidad.R){.btn .btn-outline-primary .btn-sm download="tema3_calidad.R"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+[CSV de práctica](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary .btn-sm download="prestamos_bibliotecas_practica.csv"}
+
+El script reúne todo el código del capítulo para trabajar en RStudio o Positron. La plantilla `.qmd` y su tema `.scss` sirven para redactar las prácticas opcionales: guárdalos en la misma carpeta.
+:::
+
+
 ## Lectura obligatoria
 
 ::: {.lectura}
@@ -609,6 +625,33 @@ if (isTRUE(.result) && grepl("prestamos_bibliotecas_practica.csv", .user_code, f
   list(correct = FALSE, message = "Compara las dos sumas con ==.")
 }
 ```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. Un número de préstamos negativo es un problema de {{< mcq "completitud" "*exactitud" "trazabilidad" "comprensibilidad" >}}
+2. Que las fechas aparezcan en dos formatos distintos afecta a la {{< mcq "*conformidad" "actualidad" "expiración" >}}
+3. En DCAT, cada fichero descargable de un conjunto de datos es una {{< fitb "distribución" "distribucion" "dcat:Distribution" ignorecase=true >}}
+4. El tipo MIME de un fichero CSV es {{< fitb "text/csv" >}}
+5. Si la suma de control MD5 de un fichero descargado coincide con la publicada, el fichero no ha cambiado. {{< torf true >}}
+6. ¿Qué norma ISO describe el modelo de referencia OAIS para archivos digitales?
+
+{{< longmcq "ISO 15489" "ISO/IEC 25012" "*ISO 14721" "ISO 30301" >}}
+
+7. Completa el código para quedarte solo con las filas no duplicadas: `bruto[` {{< fitb "!duplicated(bruto)" width=18 >}} `, ]`
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- Un valor imposible es un error de exactitud.
+- La conformidad mide si los valores siguen el formato esperado.
+- `dcat:Distribution` describe cada forma de obtener el conjunto: un CSV, un JSON, una API.
+- `text/csv` es el tipo MIME registrado para CSV.
+- La suma cambia si cambia un solo carácter del fichero.
+- ISO 14721 es OAIS; ISO 15489 es gestión de documentos; ISO/IEC 25012 es calidad de datos; ISO 30301 es sistemas de gestión para los documentos.
+- `duplicated()` marca las repeticiones y `!` las excluye.
+:::
 
 ## Resumen de problemas encontrados
 

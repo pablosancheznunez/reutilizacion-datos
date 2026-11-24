@@ -10,6 +10,22 @@ engine: markdown
 - Identificar oportunidades de innovación y emprendimiento basadas en datos abiertos.
 :::
 
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del tema
+[Sector infomediario](92-glosario.qmd#gl-sector-infomediario) · [Marco 6-V](92-glosario.qmd#gl-6v) · [Freemium](92-glosario.qmd#gl-freemium) · [Punto de equilibrio](92-glosario.qmd#gl-equilibrio) · [Valor añadido](92-glosario.qmd#gl-valor-anadido) · [Compartir igual](92-glosario.qmd#gl-compartir-igual) · [Minería de textos y datos](92-glosario.qmd#gl-tdm) · [Espacio de datos](92-glosario.qmd#gl-espacio-datos) · [Datos sintéticos](92-glosario.qmd#gl-datos-sinteticos)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del capítulo](plantillas/tema5_infomediarias.R){.btn .btn-outline-primary .btn-sm download="tema5_infomediarias.R"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+[CSV de práctica](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary .btn-sm download="prestamos_bibliotecas_practica.csv"}
+
+El script reúne todo el código del capítulo para trabajar en RStudio o Positron. La plantilla `.qmd` y su tema `.scss` sirven para redactar las prácticas opcionales: guárdalos en la misma carpeta.
+:::
+
+
 ## Lectura obligatoria
 
 ::: {.lectura}
@@ -409,6 +425,31 @@ if (identical(.result, FALSE) && grepl("CC BY-NC 4.0", .user_code, fixed = TRUE)
   list(correct = FALSE, message = "Añade \"CC BY-NC 4.0\" a las fuentes y selecciona el elemento \"uso_comercial\".")
 }
 ```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. Combinar una fuente CC BY 4.0 con otra CC BY-NC 4.0 permite vender el servicio resultante. {{< torf false >}}
+2. Un servicio con un nivel gratuito y funciones avanzadas de pago sigue el patrón {{< mcq "premium" "*freemium" "ahorro de costes" "maquinilla y cuchillas" >}}
+3. Con costes fijos de 3.000 € al mes, una conversión del 5 % y un precio de 10 €, el punto de equilibrio es de {{< fitb "6000" "6.000" >}} usuarios gratuitos.
+4. ¿Qué componente del marco 6-V responde a «¿con qué socios, proveedores y clientes se crea el valor?»?
+
+{{< longmcq "Propuesta de valor" "Captura de valor" "*Red de valor" "Gestión del valor" >}}
+
+5. Cruzar los préstamos con la población para obtener préstamos por cada 1.000 habitantes es un servicio de {{< mcq "agregación" "*enriquecimiento" "alertas" >}}
+6. Completa el código: los préstamos por cada 1.000 habitantes se calculan como `prestamos / habitantes *` {{< fitb "1000" width=5 >}}
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- Una sola fuente no comercial impide el uso comercial del conjunto.
+- *Freemium* combina un nivel gratuito y otro de pago.
+- 3000 / (0,05 × 10) = 6.000 usuarios.
+- La red de valor reúne a los socios, proveedores y clientes.
+- Enriquecer es cruzar con otras fuentes para obtener información nueva.
+- Se multiplica el cociente por 1000.
+:::
 
 ## Para practicar fuera del libro
 

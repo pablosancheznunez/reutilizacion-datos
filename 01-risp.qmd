@@ -10,6 +10,22 @@ engine: markdown
 - Identificar los derechos y obligaciones asociados a la reutilización.
 :::
 
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del tema
+[Reutilización](92-glosario.qmd#gl-reutilizacion) · [RISP](92-glosario.qmd#gl-risp) · [Derecho de acceso](92-glosario.qmd#gl-derecho-acceso) · [Publicidad activa](92-glosario.qmd#gl-publicidad-activa) · [Silencio negativo](92-glosario.qmd#gl-silencio) · [Licencia tipo](92-glosario.qmd#gl-licencia-tipo) · [Alto valor](92-glosario.qmd#gl-alto-valor) · [Datos dinámicos](92-glosario.qmd#gl-datos-dinamicos) · [Transposición](92-glosario.qmd#gl-transposicion) · [Infomediario](92-glosario.qmd#gl-infomediario)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del capítulo](plantillas/tema1_risp.R){.btn .btn-outline-primary .btn-sm download="tema1_risp.R"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+[CSV de práctica](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary .btn-sm download="prestamos_bibliotecas_practica.csv"}
+
+El script reúne todo el código del capítulo para trabajar en RStudio o Positron. La plantilla `.qmd` y su tema `.scss` sirven para redactar las prácticas opcionales: guárdalos en la misma carpeta.
+:::
+
+
 ## Lectura obligatoria
 
 ::: {.lectura}
@@ -442,6 +458,33 @@ if (identical(tipo, "leve") && isTRUE(multa == 10000)) {
   list(correct = FALSE, message = "Revisa la multa máxima de las infracciones leves.")
 }
 ```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. Tener derecho de acceso a un documento garantiza poder reutilizarlo. {{< torf false >}}
+2. Plazo ordinario para resolver una solicitud de reutilización según la Ley 37/2007 (en días): {{< fitb "20" "veinte" ignorecase=true >}}
+3. Si la administración no resuelve en plazo una solicitud de acceso (Ley 19/2013), la solicitud se entiende {{< mcq "estimada" "*desestimada" "archivada" >}}
+4. La Directiva (UE) 2019/1024 se transpuso en España mediante el {{< mcq "Real Decreto 1495/2011" "*Real Decreto-ley 24/2021" "Ley 18/2015" >}}
+5. ¿Cuál de estas **no** es una categoría de datos de alto valor del Reglamento de Ejecución (UE) 2023/138?
+
+{{< longmcq "Meteorológicos" "Movilidad" "*Préstamos bibliotecarios" "Sociedades y propiedad de sociedades" >}}
+
+6. No citar la fuente al reutilizar con licencia tipo es una infracción {{< mcq "*leve" "grave" "muy grave" >}}
+7. Completa el código para sumar un mes a una fecha: `seq(recepcion, by = "1` {{< fitb "month" width=5 >}} `", length.out = 2)[2]`
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- El acceso permite conocer el documento; la reutilización puede estar limitada, por ejemplo, por derechos de terceros.
+- Art. 10 de la Ley 37/2007: veinte días, ampliables otros veinte.
+- Art. 20.4 de la Ley 19/2013: silencio negativo.
+- El RDL 24/2021 modificó la Ley 37/2007; la Ley 18/2015 transpuso la Directiva 2013/37/UE.
+- Las seis categorías son geoespaciales, observación de la Tierra y medio ambiente, meteorológicos, estadísticos, sociedades y movilidad.
+- Art. 11.3 de la Ley 37/2007: multa de 1.000 a 10.000 €.
+- `by = "1 month"` avanza un mes natural.
+:::
 
 ## Para practicar fuera del libro
 

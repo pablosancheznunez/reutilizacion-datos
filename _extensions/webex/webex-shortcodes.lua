@@ -1,0 +1,99 @@
+-- Preguntas autoevaluables con el marcado de webexercises (PsyTeachR),
+-- generadas sin R para usarlas con engine: markdown.
+--   {{< torf true >}}                         verdadero/falso
+--   {{< mcq "*correcta" "otra" "otra" >}}      desplegable (el * marca la correcta)
+--   {{< longmcq "*correcta" "otra" >}}         opciones en lista (botones de radio)
+--   {{< fitb "respuesta" "alternativa" >}}     hueco (ignorecase=true, width=, tol=)
+-- Bloques:
+--   ::: {.webex-check .webex-box} ... :::      grupo con botón «Mostrar respuestas»
+--   ::: {.webex-solution} ... :::              solución plegable
+
+local counter = 0
+
+local function deps()
+  quarto.doc.add_html_dependency({
+    name = "webex",
+    version = "1.2.0",
+    stylesheets = {"resources/webex.css"},
+    scripts = {{ path = "resources/webex.js", afterBody = true }}
+  })
+end
+
+local function esc(s)
+  s = s:gsub("&", "&amp;"):gsub("<", "&lt;"):gsub(">", "&gt;"):gsub("'", "&apos;"):gsub('"', "&quot;")
+  return s
+end
+
+local function str(x) return pandoc.utils.stringify(x) end
+
+local function options(args)
+  local opts = {}
+  for _, a in ipairs(args) do
+    local t = str(a)
+    local correct = false
+    if t:sub(1,1) == "*" then correct = true; t = t:sub(2) end
+    table.insert(opts, { text = t, correct = correct })
+  end
+  return opts
+end
+
+local function raw(html)
+  if quarto.doc.is_format("html") then
+    deps()
+    return pandoc.RawInline("html", html)
+  end
+  return pandoc.Str("")
+end
+
+local function select_html(opts)
+  local o = { "<select class='webex-select'><option value='blank'></option>" }
+  for _, op in ipairs(opts) do
+    table.insert(o, string.format("<option value='%s'>%s</option>", op.correct and "answer" or "x", esc(op.text)))
+  end
+  table.insert(o, "</select>")
+  return table.concat(o)
+end
+
+local function torf(args)
+  local ans = str(args[1] or ""):lower()
+  local v = (ans == "true" or ans == "verdadero" or ans == "v")
+  return raw(select_html({ { text = "VERDADERO", correct = v }, { text = "FALSO", correct = not v } }))
+end
+
+local function mcq(args) return raw(select_html(options(args))) end
+
+local function longmcq(args)
+  counter = counter + 1
+  local qname = "radio_libro_" .. counter
+  local o = { "<div class='webex-radiogroup' id='" .. qname .. "'>" }
+  for _, op in ipairs(options(args)) do
+    table.insert(o, string.format('<label><input type="radio" autocomplete="off" name="%s" value="%s"></input> <span>%s</span></label>',
+      qname, op.correct and "answer" or "x", esc(op.text)))
+  end
+  table.insert(o, "</div>")
+  return raw(table.concat(o))
+end
+
+local function fitb(args, kwargs)
+  local answers, width = {}, 0
+  for _, a in ipairs(args) do
+    local t = str(a)
+    table.insert(answers, '"' .. t:gsub('\\', '\\\\'):gsub('"', '\\"') .. '"')
+    width = math.max(width, #t)
+  end
+  local cls = "webex-solveme nospaces"
+  if str(kwargs["ignorecase"] or "") == "true" then cls = cls .. " ignorecase" end
+  local w = str(kwargs["width"] or "")
+  if w ~= "" then width = tonumber(w) end
+  local tol = str(kwargs["tol"] or "")
+  local tolattr = tol ~= "" and (" data-tol='" .. tol .. "'") or ""
+  local json = "[" .. table.concat(answers, ",") .. "]"
+  return raw(string.format("<input class='%s'%s size='%d' data-answer='%s'/>", cls, tolattr, math.max(width, 3) + 2, json:gsub("'", "&apos;")))
+end
+
+return {
+  ["torf"] = torf,
+  ["mcq"] = mcq,
+  ["longmcq"] = longmcq,
+  ["fitb"] = fitb
+}

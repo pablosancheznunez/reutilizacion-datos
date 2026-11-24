@@ -5,6 +5,7 @@ project:
     - datos
     - webr
     - webr-repo
+    - plantillas
 
 book:
   title: "Reutilización de datos abiertos y documentos"
@@ -38,8 +39,12 @@ book:
   appendices:
     - 90-chuleta-r.qmd
     - 91-guia-docente.qmd
+    - 92-glosario.qmd
 
 lang: es
+
+filters:
+  - webex
 
 format:
   live-html:

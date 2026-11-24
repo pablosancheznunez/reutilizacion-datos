@@ -32,7 +32,10 @@ La versión en línea se publica copiando `_book/` a la carpeta `reutilizacion-d
 | `index.qmd` | Presentación, mapa del libro, autoría y cita |
 | `00a-primeros-pasos.qmd` | Introducción mínima a R |
 | `00-datos-abiertos.qmd` … `05-infomediarias.qmd` | Temas 0 a 5 |
-| `90-chuleta-r.qmd`, `91-guia-docente.qmd` | Apéndices |
+| `90-chuleta-r.qmd`, `91-guia-docente.qmd`, `92-glosario.qmd` | Apéndices: chuleta de R, guía docente y glosario por temas |
+| `plantillas/` | Scripts `.R` por capítulo, plantilla de informe `.qmd` y tema `.scss` descargables |
+| `_extensions/webex/` | Preguntas autoevaluables con el formato de webexercises |
+| `herramientas/extraer_r.py` | Genera los scripts `.R` a partir de los capítulos |
 | `datos/prestamos_bibliotecas_practica.csv` | CSV sintético de práctica con errores intencionados |
 | `_extensions/r-wasm/live/` | Extensión quarto-live (MIT), con la plantilla de arranque modificada |
 | `webr/`, `webr-repo/` | webR 0.6.0 y paquetes de R para WebAssembly |

@@ -6,6 +6,22 @@ engine: markdown
 
 No hace falta saber programar para seguir este libro. Este capítulo enseña lo mínimo para entender y modificar el código de los tutoriales: unos 30 minutos.
 
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del tema
+[R](92-glosario.qmd#gl-r) · [webR](92-glosario.qmd#gl-webr) · [Data frame](92-glosario.qmd#gl-dataframe) · [Valor ausente](92-glosario.qmd#gl-ausente)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del capítulo](plantillas/primeros_pasos.R){.btn .btn-outline-primary .btn-sm download="primeros_pasos.R"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+[CSV de práctica](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary .btn-sm download="prestamos_bibliotecas_practica.csv"}
+
+El script reúne todo el código del capítulo para trabajar en RStudio o Positron. La plantilla `.qmd` y su tema `.scss` sirven para redactar las prácticas opcionales: guárdalos en la misma carpeta.
+:::
+
+
 ## R como calculadora
 
 Escribe una operación y pulsa **Run Code**. R devuelve el resultado precedido de `[1]` (el número indica la posición del primer valor de la línea).
@@ -201,6 +217,28 @@ if (identical(as.integer(.result), as.integer(esperado))) {
   list(correct = FALSE, message = "Necesitas una función que cuente filas, no columnas.")
 }
 ```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. En R, `x <- 5` guarda el valor 5 en un objeto llamado `x`. {{< torf true >}}
+2. ¿Qué devuelve `length(c(3, 8, 1))`? {{< fitb "3" >}}
+3. Para leer un fichero CSV se usa la función {{< mcq "write.csv()" "*read.csv()" "csv()" "open()" >}}
+4. Completa el código para contar los meses con más de 2500 préstamos: `sum(prestamos` {{< fitb ">" width=2 >}} `2500)`
+5. ¿Qué operador selecciona una columna de un *data frame*?
+
+{{< longmcq "@" "*$" "#" "%in%" >}}
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- `<-` asigna; el valor queda guardado con ese nombre.
+- `length()` cuenta los elementos del vector: 3.
+- `read.csv()` lee; `write.csv()` escribe.
+- La comparación `>` devuelve TRUE/FALSE y `sum()` cuenta los TRUE.
+- `df$columna` devuelve la columna como vector.
+:::
 
 ::: {.callout-note}
 ## Para seguir

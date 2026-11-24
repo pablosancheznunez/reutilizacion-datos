@@ -13,6 +13,22 @@ engine: markdown
 - Conocer los principios básicos que favorecen la reutilización de la información.
 :::
 
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del tema
+[Datos abiertos](92-glosario.qmd#gl-datos-abiertos) · [Open Definition](92-glosario.qmd#gl-open-definition) · [Datos públicos](92-glosario.qmd#gl-datos-publicos) · [Gobierno abierto](92-glosario.qmd#gl-gobierno-abierto) · [Cinco estrellas](92-glosario.qmd#gl-cinco-estrellas) · [FAIR](92-glosario.qmd#gl-fair) · [Formato abierto](92-glosario.qmd#gl-formato-abierto) · [Legible por máquina](92-glosario.qmd#gl-legible-maquina) · [Licencia abierta](92-glosario.qmd#gl-licencia-abierta) · [Web Semántica](92-glosario.qmd#gl-web-semantica)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del capítulo](plantillas/tema0_datos_abiertos.R){.btn .btn-outline-primary .btn-sm download="tema0_datos_abiertos.R"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+[CSV de práctica](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary .btn-sm download="prestamos_bibliotecas_practica.csv"}
+
+El script reúne todo el código del capítulo para trabajar en RStudio o Positron. La plantilla `.qmd` y su tema `.scss` sirven para redactar las prácticas opcionales: guárdalos en la misma carpeta.
+:::
+
+
 ## Lectura obligatoria
 
 ::: {.lectura}
@@ -421,6 +437,31 @@ if (identical(r, esp)) {
   list(correct = FALSE, message = "Escribe cuatro valores entre comillas, separados por comas.")
 }
 ```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. Un conjunto de datos con licencia CC BY-NC 4.0 es abierto según la Open Definition. {{< torf false >}}
+2. Los datos FAIR son siempre datos abiertos. {{< torf false >}}
+3. Un CSV con licencia abierta, sin URI ni enlaces, tiene {{< fitb "3" >}} estrellas.
+4. Internet es la red de redes; la World Wide Web es {{< mcq "otro nombre de Internet" "*un servicio de documentos enlazados que funciona sobre Internet" "un protocolo de correo" >}}
+5. ¿Cuál de estos formatos es abierto **y** legible por máquina?
+
+{{< longmcq "PDF escaneado" "XLS (Excel antiguo)" "*JSON" "Imagen JPG de una tabla" >}}
+
+6. Completa el código para contar las licencias abiertas de un catálogo: `sum(catalogo$licencia` {{< fitb "%in%" width=4 >}} `licencias_abiertas)`
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- NC prohíbe el uso comercial, así que no cumple la Open Definition.
+- FAIR se refiere a cómo se describen y gestionan los datos; pueden ser FAIR con acceso restringido.
+- Licencia abierta (★), estructurado (★★) y formato no propietario (★★★); la cuarta exige URI.
+- La Web (URI, HTTP, HTML) es uno de los servicios de Internet, junto al correo o la transferencia de ficheros.
+- JSON tiene especificación pública y se procesa automáticamente; el PDF escaneado y la imagen no son legibles por máquina, y XLS es propietario.
+- `%in%` comprueba si cada licencia está en la lista de licencias abiertas.
+:::
 
 ## Para practicar fuera del libro
 

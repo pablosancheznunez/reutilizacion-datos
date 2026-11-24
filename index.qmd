@@ -10,7 +10,9 @@ Cada capítulo corresponde a un tema de la asignatura y combina tres cosas:
 
 1. **Una síntesis de los contenidos**, con la lectura obligatoria del tema y los recursos de referencia.
 2. **Tutoriales interactivos en R** que se ejecutan en el propio navegador gracias a [webR](https://docs.r-wasm.org/webr/latest/). No hay que instalar nada.
-3. **Ejercicios autocorregidos**, con pistas y solución, para practicar lo que después se evalúa en los cuestionarios de Aula Global.
+3. **Ejercicios autocorregidos**, con pistas y solución, para practicar lo que después se evalúa en los cuestionarios de Aula Global, y **preguntas de autoevaluación** (verdadero/falso, opción múltiple y completar) al final de cada tema.
+
+Cada capítulo enlaza además a su parte del [glosario](92-glosario.qmd) y ofrece **descargas**: el script `.R` del capítulo, una plantilla de informe `.qmd` y su tema de estilo `.scss`.
 
 ## Objetivos de la asignatura
 
@@ -79,7 +81,7 @@ ORCID: [0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Web: [pab
 
 > Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Zenodo. <https://doi.org/10.5281/zenodo.24500934>
 
-DOI de todas las versiones: [10.5281/zenodo.24500934](https://doi.org/10.5281/zenodo.24500934) (apunta siempre a la última). DOI de esta edición (v1.0.0): [10.5281/zenodo.24500935](https://doi.org/10.5281/zenodo.24500935).
+DOI de todas las versiones: [10.5281/zenodo.24500934](https://doi.org/10.5281/zenodo.24500934); apunta siempre a la última edición. Cada edición tiene además su propio DOI, que encontrarás en la [ficha de Zenodo](https://doi.org/10.5281/zenodo.24500934).
 
 ## Normativa básica de la asignatura
 

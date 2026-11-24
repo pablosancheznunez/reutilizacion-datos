@@ -1,0 +1,225 @@
+---
+engine: markdown
+---
+
+# Glosario {#sec-glosario}
+
+Términos técnicos del libro, agrupados por tema. Cada capítulo enlaza aquí desde su recuadro «Glosario del tema», y desde cada término puedes volver al capítulo donde se explica. Usa el buscador del libro (arriba a la izquierda) para localizar cualquier término.
+
+## Tema 0. Datos abiertos {#gl-tema0}
+
+### Datos abiertos {#gl-datos-abiertos}
+Datos que cualquiera puede usar, modificar y compartir libremente para cualquier fin, con como mucho la obligación de citar la fuente o de compartir en las mismas condiciones. → [Tema 0](00-datos-abiertos.qmd)
+
+### Open Definition {#gl-open-definition}
+Definición de «abierto» de la Open Knowledge Foundation (versión 2.1). Exige licencia abierta, acceso completo y formato legible por máquina y abierto. → [Tema 0](00-datos-abiertos.qmd)
+
+### Datos públicos {#gl-datos-publicos}
+Información producida o custodiada por el sector público. No toda es abierta: puede incluir datos personales o protegidos. → [Tema 0](00-datos-abiertos.qmd)
+
+### Gobierno abierto {#gl-gobierno-abierto}
+Forma de gobernar basada en la transparencia, la participación y la colaboración. Los datos abiertos son una de sus herramientas. → [Tema 0](00-datos-abiertos.qmd)
+
+### Modelo de cinco estrellas {#gl-cinco-estrellas}
+Escala acumulativa de Tim Berners-Lee para valorar la publicación de datos: de un documento con licencia abierta (★) a datos enlazados (★★★★★). → [Tema 0](00-datos-abiertos.qmd)
+
+### Principios FAIR {#gl-fair}
+Datos localizables (*Findable*), accesibles (*Accessible*), interoperables (*Interoperable*) y reutilizables (*Reusable*). No equivale a «abierto». → [Tema 0](00-datos-abiertos.qmd)
+
+### Formato abierto {#gl-formato-abierto}
+Formato con especificación pública que cualquiera puede implementar sin pagar ni pedir permiso (CSV, JSON, XML, ODS). Su contrario es el **formato propietario**. → [Tema 0](00-datos-abiertos.qmd)
+
+### Legible por máquina {#gl-legible-maquina}
+Formato del que un programa puede extraer los datos sin intervención humana. Un PDF escaneado no lo es; un CSV sí. → [Tema 0](00-datos-abiertos.qmd)
+
+### Licencia abierta {#gl-licencia-abierta}
+Licencia que permite usar, redistribuir y modificar para cualquier fin. Puede exigir atribución (CC BY) o compartir igual (CC BY-SA, ODbL), pero no prohibir el uso comercial (NC) ni las obras derivadas (ND). → [Tema 0](00-datos-abiertos.qmd)
+
+### Web Semántica {#gl-web-semantica}
+Extensión de la Web en la que los datos tienen un significado explícito y enlazado que las máquinas pueden procesar. → [Tema 0](00-datos-abiertos.qmd), [Tema 4](04-interoperabilidad.qmd)
+
+## Tema 1. Reutilización de la información del sector público {#gl-tema1}
+
+### Reutilización {#gl-reutilizacion}
+Uso de documentos del sector público con fines comerciales o no comerciales distintos del propósito inicial para el que se produjeron (Ley 37/2007). → [Tema 1](01-risp.qmd)
+
+### RISP {#gl-risp}
+Reutilización de la información del sector público. Nombre del marco normativo europeo y español sobre la materia. → [Tema 1](01-risp.qmd)
+
+### Derecho de acceso {#gl-derecho-acceso}
+Derecho de cualquier persona a solicitar y conocer la información pública (Ley 19/2013). Es previo a la reutilización, pero no la garantiza. → [Tema 1](01-risp.qmd)
+
+### Publicidad activa {#gl-publicidad-activa}
+Información que las administraciones deben publicar sin que nadie la pida: organización, contratos, subvenciones, presupuestos. → [Tema 1](01-risp.qmd)
+
+### Silencio administrativo negativo {#gl-silencio}
+Si la administración no resuelve en plazo, la solicitud se entiende desestimada. Rige tanto en el derecho de acceso como en las solicitudes de reutilización. → [Tema 1](01-risp.qmd)
+
+### Licencia tipo {#gl-licencia-tipo}
+Texto de licencia estándar, igual para todos los reutilizadores, publicado en el aviso legal de un portal. → [Tema 1](01-risp.qmd)
+
+### Conjuntos de datos de alto valor {#gl-alto-valor}
+Datos con gran beneficio social y económico, que deben ofrecerse gratis, por API y con licencia abierta. Seis categorías: geoespaciales, observación de la Tierra y medio ambiente, meteorológicos, estadísticos, sociedades y movilidad. → [Tema 1](01-risp.qmd)
+
+### Datos dinámicos {#gl-datos-dinamicos}
+Datos que se actualizan con frecuencia o en tiempo real, como los de tráfico o sensores. Deben ofrecerse mediante API. → [Tema 1](01-risp.qmd)
+
+### Transposición {#gl-transposicion}
+Incorporación de una directiva europea al derecho de un Estado miembro mediante una norma propia. Los reglamentos, en cambio, se aplican directamente. → [Tema 1](01-risp.qmd)
+
+### Agente infomediario {#gl-infomediario}
+Reutilizador que crea productos o servicios de valor añadido a partir de información, sobre todo pública. → [Tema 1](01-risp.qmd), [Tema 5](05-infomediarias.qmd)
+
+## Tema 2. Proyectos de reutilización {#gl-tema2}
+
+### Portal de datos abiertos {#gl-portal}
+Sitio web que cataloga y da acceso a conjuntos de datos abiertos, como datos.gob.es o data.europa.eu. → [Tema 2](02-proyectos.qmd)
+
+### Federación de catálogos {#gl-federacion}
+Recolección automática de los metadatos de varios portales en un catálogo común. datos.gob.es federa portales estatales, autonómicos, locales y universitarios. → [Tema 2](02-proyectos.qmd)
+
+### Open Data Maturity {#gl-odm}
+Informe anual que compara la madurez en datos abiertos de 36 países europeos en cuatro dimensiones: políticas, impacto, portal y calidad. → [Tema 2](02-proyectos.qmd)
+
+### Caso de uso {#gl-caso-uso}
+Proyecto concreto que reutiliza datos. Conviene describirlo con las dimensiones de Safarov et al.: tipo de utilización, condiciones, efectos y usuarios. → [Tema 2](02-proyectos.qmd)
+
+### B2G {#gl-b2g}
+*Business-to-government*: intercambio de datos de empresas con administraciones para fines de interés general. → [Tema 2](02-proyectos.qmd)
+
+### Altruismo de datos {#gl-altruismo}
+Cesión voluntaria de datos por ciudadanos o empresas para fines de interés general, regulada por el Reglamento de Gobernanza de Datos. → [Tema 2](02-proyectos.qmd)
+
+### Ciencia abierta {#gl-ciencia-abierta}
+Práctica de la investigación que hace accesibles publicaciones, datos, código y métodos para que puedan comprobarse y reutilizarse. → [Tema 2](02-proyectos.qmd)
+
+### Repositorio de datos {#gl-repositorio}
+Servicio que deposita, describe, preserva y da acceso a conjuntos de datos con un identificador persistente (Zenodo, e-Archivo). re3data es el registro mundial de repositorios. → [Tema 2](02-proyectos.qmd)
+
+### Data paper {#gl-data-paper}
+Artículo científico que describe un conjunto de datos —origen, método y estructura— para facilitar su reutilización. → [Tema 2](02-proyectos.qmd)
+
+## Tema 3. Gestión documental y *open data* {#gl-tema3}
+
+### Gestión documental {#gl-gestion-documental}
+Conjunto de procesos para controlar la creación, clasificación, valoración, conservación y eliminación de documentos (ISO 15489). → [Tema 3](03-calidad.qmd)
+
+### Ciclo de vida de los datos {#gl-ciclo-vida}
+Secuencia de fases por las que pasan los datos, desde su creación hasta su reutilización, preservación o eliminación (modelo del DCC). → [Tema 3](03-calidad.qmd)
+
+### Metadatos {#gl-metadatos}
+Datos que describen otros datos: qué son, quién los publica, con qué licencia, cómo están estructurados y cómo se conservan. → [Tema 3](03-calidad.qmd)
+
+### DCAT {#gl-dcat}
+Vocabulario del W3C para describir catálogos, conjuntos de datos (`dcat:Dataset`) y distribuciones (`dcat:Distribution`). DCAT-AP y DCAT-AP-ES son sus perfiles europeo y español. → [Tema 3](03-calidad.qmd)
+
+### Distribución {#gl-distribucion}
+Cada forma concreta de obtener un conjunto de datos: un fichero CSV, un JSON, una API. → [Tema 3](03-calidad.qmd)
+
+### Completitud {#gl-completitud}
+Característica de calidad que mide la proporción de celdas o filas sin valores ausentes. → [Tema 3](03-calidad.qmd)
+
+### Conformidad {#gl-conformidad}
+Característica de calidad que mide si los valores siguen el formato esperado (fechas, códigos, unidades). → [Tema 3](03-calidad.qmd)
+
+### Exactitud {#gl-exactitud}
+Característica de calidad que mide si los valores son correctos y plausibles. Un número de préstamos negativo es un error de exactitud. → [Tema 3](03-calidad.qmd)
+
+### Valor ausente {#gl-ausente}
+Celda sin dato. En R se representa con `NA`; en los ficheros aparece de muchas formas («», «n/d», «-»), lo que conviene unificar. → [Tema 3](03-calidad.qmd)
+
+### Suma de control (*checksum*) {#gl-checksum}
+Huella numérica de un fichero (MD5, SHA-256) que permite comprobar que no ha cambiado ni se ha corrompido. → [Tema 3](03-calidad.qmd)
+
+### OAIS {#gl-oais}
+Modelo de referencia para archivos digitales que deben preservar información a largo plazo (ISO 14721). → [Tema 3](03-calidad.qmd)
+
+### Identificador persistente {#gl-pid}
+Identificador que no cambia aunque cambie la ubicación del recurso, como un DOI, un ORCID o un Handle. → [Tema 3](03-calidad.qmd)
+
+## Tema 4. Normalización e interoperabilidad {#gl-tema4}
+
+### Estándar abierto {#gl-estandar-abierto}
+Especificación pública, desarrollada en un proceso abierto e implementable sin pagar derechos. → [Tema 4](04-interoperabilidad.qmd)
+
+### Interoperabilidad {#gl-interoperabilidad}
+Capacidad de sistemas y organizaciones para intercambiar información y usarla. El EIF distingue cuatro niveles: jurídico, organizativo, semántico y técnico. → [Tema 4](04-interoperabilidad.qmd)
+
+### ENI {#gl-eni}
+Esquema Nacional de Interoperabilidad: criterios que deben seguir las administraciones españolas para que sus sistemas interoperen. Se desarrolla en Normas Técnicas de Interoperabilidad (NTI). → [Tema 4](04-interoperabilidad.qmd)
+
+### URI {#gl-uri}
+Identificador uniforme de recursos: cadena que identifica algo de forma única en la Web, como `http://www.wikidata.org/entity/Q8802`. → [Tema 4](04-interoperabilidad.qmd)
+
+### RDF {#gl-rdf}
+Modelo del W3C que representa la información como tripletas sujeto–predicado–objeto. Se escribe en sintaxis como Turtle, RDF/XML o JSON-LD. → [Tema 4](04-interoperabilidad.qmd)
+
+### Tripleta {#gl-tripleta}
+Unidad mínima de RDF: un sujeto, un predicado y un objeto, por ejemplo «biblioteca — está en — Getafe». → [Tema 4](04-interoperabilidad.qmd)
+
+### Turtle {#gl-turtle}
+Sintaxis compacta y legible de RDF, con prefijos para abreviar las URI. → [Tema 4](04-interoperabilidad.qmd)
+
+### JSON-LD {#gl-jsonld}
+JSON con un `@context` que asigna a cada clave una URI de un vocabulario: RDF con aspecto de JSON. → [Tema 4](04-interoperabilidad.qmd)
+
+### Linked Open Data {#gl-lod}
+Datos enlazados publicados con licencia abierta: las cinco estrellas del modelo de Berners-Lee. → [Tema 4](04-interoperabilidad.qmd)
+
+### SPARQL {#gl-sparql}
+Lenguaje de consulta del W3C para datos RDF, basado en patrones de tripletas. → [Tema 4](04-interoperabilidad.qmd)
+
+### Vocabulario {#gl-vocabulario}
+Conjunto de clases y propiedades con URI para describir datos (schema.org, Dublin Core, DCAT). → [Tema 4](04-interoperabilidad.qmd)
+
+### Ontología {#gl-ontologia}
+Vocabulario con una semántica formal más rica (jerarquías, restricciones, reglas de inferencia), expresado en RDFS u OWL. → [Tema 4](04-interoperabilidad.qmd)
+
+### SKOS {#gl-skos}
+Vocabulario del W3C para publicar tesauros y clasificaciones en la Web, con relaciones como `skos:broader` y `skos:narrower`. → [Tema 4](04-interoperabilidad.qmd)
+
+## Tema 5. Infomediarios y negocio {#gl-tema5}
+
+### Sector infomediario {#gl-sector-infomediario}
+Conjunto de empresas que crean productos y servicios de valor añadido a partir de información, en buena parte pública. → [Tema 5](05-infomediarias.qmd)
+
+### Marco 6-V {#gl-6v}
+Seis componentes para describir cómo un negocio crea y captura valor con datos abiertos: propuesta de valor, proceso de creación, valor obtenido, captura, gestión y red de valor (Ahmadi Zeleti et al.). → [Tema 5](05-infomediarias.qmd)
+
+### Freemium {#gl-freemium}
+Modelo de negocio con un servicio básico gratuito y funciones avanzadas de pago. → [Tema 5](05-infomediarias.qmd)
+
+### Punto de equilibrio {#gl-equilibrio}
+Volumen de actividad a partir del cual los ingresos cubren los costes. → [Tema 5](05-infomediarias.qmd)
+
+### Servicio de valor añadido {#gl-valor-anadido}
+Producto que transforma los datos en algo más útil: agregación, limpieza, enriquecimiento, análisis, visualización o API. → [Tema 5](05-infomediarias.qmd)
+
+### Compartir igual (*share-alike*) {#gl-compartir-igual}
+Cláusula de licencia que obliga a distribuir las obras o bases de datos derivadas con la misma licencia (CC BY-SA, ODbL). → [Tema 5](05-infomediarias.qmd)
+
+### Minería de textos y datos {#gl-tdm}
+Análisis automatizado de textos y datos para extraer patrones. La Directiva (UE) 2019/790 regula sus excepciones de derechos de autor. → [Tema 5](05-infomediarias.qmd)
+
+### Espacio de datos {#gl-espacio-datos}
+Entorno de confianza para compartir datos, también privados, entre organizaciones de un sector con reglas comunes. → [Tema 5](05-infomediarias.qmd)
+
+### Datos sintéticos {#gl-datos-sinteticos}
+Datos generados artificialmente que imitan la estructura de los reales sin corresponder a casos reales. El CSV de este libro es un ejemplo. → [Tema 5](05-infomediarias.qmd)
+
+## Herramientas {#gl-herramientas}
+
+### R {#gl-r}
+Lenguaje y entorno libre para análisis estadístico y de datos. → [Primeros pasos](00a-primeros-pasos.qmd)
+
+### webR {#gl-webr}
+Versión de R compilada a WebAssembly que se ejecuta en el navegador, sin instalación. → [Presentación](index.qmd)
+
+### Quarto {#gl-quarto}
+Sistema de publicación científica de código abierto que combina texto y código para generar libros, artículos, presentaciones y webs. → [Presentación](index.qmd)
+
+### Data frame {#gl-dataframe}
+Tabla de datos en R: cada columna es un vector del mismo tamaño. → [Primeros pasos](00a-primeros-pasos.qmd)
+
+### OpenRefine {#gl-openrefine}
+Herramienta libre para limpiar y transformar datos, con agrupación (*clustering*) de valores similares. → [Tema 3](03-calidad.qmd)

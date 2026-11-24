@@ -26,6 +26,29 @@ El fichero `datos/prestamos_bibliotecas_practica.csv` de este libro es sintétic
 - Las columnas deben llamarse igual (`id`, `biblioteca`, `municipio`, `fecha`, `prestamos`, `usuarios_activos`).
 - La tabla de equivalencias de municipios (`forma_correcta`, en los Temas 3, 4 y 5) y la tabla de población ficticia del Tema 5 debe incluir todos los municipios del fichero.
 
+## Glosario, descargas y autoevaluación
+
+- **Glosario** (`92-glosario.qmd`): términos agrupados por tema, cada uno con un ancla `#gl-...`. Cada capítulo tiene un recuadro «Glosario del tema» con enlaces a sus términos. Para añadir uno, crea un encabezado `### Término {#gl-termino}` en la sección del tema y enlázalo como `[Término](92-glosario.qmd#gl-termino)`.
+- **Descargas** (carpeta `plantillas/`): un script `.R` limpio por capítulo, la plantilla de informe `informe_practica.qmd` y su tema `informe.scss`. Los scripts se generan a partir de los bloques `{webr}` de cada capítulo con `python3 herramientas/extraer_r.py .`; vuelve a ejecutarlo si cambias el código de un capítulo.
+- **Autoevaluación**: preguntas con el formato de [webexercises](https://github.com/PsyTeachR/webexercises), mediante la extensión local `_extensions/webex/`, que genera el mismo marcado sin necesidad de R al renderizar:
+
+````markdown
+::: {.webex-check .webex-box}
+1. Pregunta de verdadero o falso {{</* torf true */>}}
+2. Desplegable: {{</* mcq "*correcta" "incorrecta" "incorrecta" */>}}
+3. Hueco: {{</* fitb "respuesta" "alternativa" ignorecase=true */>}}
+4. Opciones en lista:
+
+{{</* longmcq "incorrecta" "*correcta" */>}}
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+Texto que se despliega con el botón.
+:::
+````
+
+El asterisco marca la opción correcta. Los huecos no pueden ir dentro de código en línea: escribe el código antes y después, por ejemplo `` `sum(x` {{</* fitb ">" */>}} `2)` ``.
+
 ## Publicar y actualizar el libro
 
 El libro es un proyecto de [Quarto](https://quarto.org) con la extensión [quarto-live](https://r-wasm.github.io/quarto-live/), que ya va incluida en la carpeta `_extensions/`. Los capítulos usan `engine: markdown`, así que para renderizar no hace falta R instalado: el código se ejecuta en el navegador del estudiante.

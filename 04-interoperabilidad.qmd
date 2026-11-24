@@ -10,6 +10,22 @@ engine: markdown
 - Comprender los fundamentos de la interoperabilidad técnica y semántica.
 :::
 
+::: {.callout-note appearance="simple" icon="false"}
+## Glosario del tema
+[Estándar abierto](92-glosario.qmd#gl-estandar-abierto) · [Interoperabilidad](92-glosario.qmd#gl-interoperabilidad) · [ENI](92-glosario.qmd#gl-eni) · [URI](92-glosario.qmd#gl-uri) · [RDF](92-glosario.qmd#gl-rdf) · [Tripleta](92-glosario.qmd#gl-tripleta) · [Turtle](92-glosario.qmd#gl-turtle) · [JSON-LD](92-glosario.qmd#gl-jsonld) · [Linked Open Data](92-glosario.qmd#gl-lod) · [SPARQL](92-glosario.qmd#gl-sparql) · [Vocabulario](92-glosario.qmd#gl-vocabulario) · [Ontología](92-glosario.qmd#gl-ontologia) · [SKOS](92-glosario.qmd#gl-skos)
+:::
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Descargas
+[Script R del capítulo](plantillas/tema4_interoperabilidad.R){.btn .btn-outline-primary .btn-sm download="tema4_interoperabilidad.R"}
+[Plantilla de informe (.qmd)](plantillas/informe_practica.qmd){.btn .btn-outline-primary .btn-sm download="informe_practica.qmd"}
+[Tema de estilo (.scss)](plantillas/informe.scss){.btn .btn-outline-primary .btn-sm download="informe.scss"}
+[CSV de práctica](datos/prestamos_bibliotecas_practica.csv){.btn .btn-outline-primary .btn-sm download="prestamos_bibliotecas_practica.csv"}
+
+El script reúne todo el código del capítulo para trabajar en RStudio o Positron. La plantilla `.qmd` y su tema `.scss` sirven para redactar las prácticas opcionales: guárdalos en la misma carpeta.
+:::
+
+
 ## Lectura obligatoria
 
 ::: {.lectura}
@@ -620,6 +636,33 @@ if (setequal(.result, c("Club de lectura", "Cuentacuentos"))) {
   list(correct = FALSE, message = "Filtra primero por skos:broader con valor ex:fomento_lectura y usa ese resultado con %in%.")
 }
 ```
+
+## Autoevaluación
+
+Responde a todas las preguntas y pulsa **Mostrar respuestas**: verás en verde las acertadas, en rojo las falladas y tu recuento. Puedes corregir y volver a comprobar. No cuenta para la nota.
+
+::: {.webex-check .webex-box}
+1. Usar el mismo vocabulario (por ejemplo, `schema:Library`) resuelve la interoperabilidad {{< mcq "técnica" "*semántica" "jurídica" "organizativa" >}}
+2. El ENI está previsto en el artículo 156 de la Ley 40/2015. {{< torf true >}}
+3. En JSON-LD, la clave que asigna a cada término una URI de un vocabulario es {{< fitb "@context" >}}
+4. ¿Cuál de estos es el cuarto principio de Linked Data?
+
+{{< longmcq "Usar formatos propietarios" "Publicar solo en PDF" "*Incluir enlaces a otras URI" "Evitar los identificadores" >}}
+
+5. La propiedad SKOS que apunta a un concepto más general es `skos:` {{< fitb "broader" >}}
+6. Una ontología es un vocabulario con semántica formal que permite inferencias. {{< torf true >}}
+7. Completa la tripleta Turtle: `<https://ejemplo.org/biblioteca/centro>` {{< fitb "a" width=2 >}} `schema:Library .`
+:::
+
+::: {.webex-solution boton="Ver explicaciones"}
+- La interoperabilidad semántica asegura que los datos signifiquen lo mismo para todos.
+- Así es: el ENI se regula en el Real Decreto 4/2010.
+- `@context` convierte las claves JSON en URI.
+- Los cuatro principios: URI, URI HTTP, información útil con estándares y enlaces a otras URI.
+- `skos:broader` apunta al concepto general; `skos:narrower`, al específico.
+- RDFS y OWL permiten expresar jerarquías y restricciones de las que se deduce información nueva.
+- En Turtle, `a` abrevia `rdf:type`.
+:::
 
 ## Para practicar fuera del libro
 
