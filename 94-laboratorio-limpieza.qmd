@@ -1,0 +1,120 @@
+---
+engine: markdown
+---
+
+# Laboratorio de limpieza de datos {#sec-lab-limpieza}
+
+Antes de reutilizar un conjunto de datos hay que **limpiarlo**: espacios sobrantes, mayúsculas inconsistentes, fechas en cinco formatos, números con separador de miles, valores imposibles y duplicados. Este laboratorio usa un CSV pequeño y deliberadamente sucio de préstamos en bibliotecas municipales (datos ficticios).
+
+## Los problemas del fichero
+
+| Problema | Ejemplo en el fichero | Por qué importa |
+|---|---|---|
+| Espacios sobrantes | `"  Biblioteca Sur"` | «Biblioteca Sur» y «  Biblioteca Sur» cuentan como dos bibliotecas |
+| Mayúsculas inconsistentes | `BIBLIOTECA OESTE`, `centro` | Rompen agrupaciones y uniones |
+| Variantes de un nombre | `Río` y `Rio` | Duplican categorías |
+| Fechas en varios formatos | `01/03/2024`, `3 mar 2024`, `2024/03/02` | No se pueden ordenar ni filtrar por periodo |
+| Separador de miles y texto | `1.250`, `n/d` | R los lee como texto, no como números |
+| Valores imposibles | `-12` préstamos | Sesgan medias y totales |
+| Duplicados | dos filas de la Biblioteca Central del 1 de marzo | Cuentan dos veces el mismo dato |
+
+## Laboratorio: limpia paso a paso {#lab-limpieza}
+
+::: {.laboratorio}
+::: {.laboratorio-etiqueta}
+Laboratorio · se ejecuta en tu navegador
+:::
+
+Activa las operaciones de limpieza. La tabla resalta con ⚠ las celdas que aún tienen problemas y, debajo, aparece el código de R equivalente, listo para copiarlo en la consola del final.
+
+```{ojs}
+//| echo: false
+{
+  const crudo = [["Biblioteca Central ", "2024-03-01", "1.250", "Centro"], ["biblioteca central", "01/03/2024", "1250", "centro"], ["Biblioteca Norte", "2024/03/02", "980", "Norte"], ["  Biblioteca Sur", "3 mar 2024", "1.020", "Sur"], ["Biblioteca Este", "2024-03-03", "n/d", "Este"], ["BIBLIOTECA OESTE", "04-03-2024", "875", "Oeste "], ["Biblioteca Río", "2024-03-04", "640", "Ribera"], ["Biblioteca Rio", "2024-03-04", "640", "Ribera"], ["Biblioteca Norte", "2024-03-05", "1.105", "Norte"], ["Biblioteca Centro Cívico", "05/03/2024", "-12", "Centro"]];
+  const ops = [
+    ["recortar", "Recortar espacios al principio y al final", "df[] <- lapply(df, trimws)"],
+    ["mayus", "Unificar mayúsculas (tipo título)", 'titulo <- function(x) gsub("(^|\\\\s)(\\\\p{L})", "\\\\1\\\\U\\\\2", tolower(x), perl = TRUE)\ndf$biblioteca <- titulo(df$biblioteca); df$distrito <- titulo(df$distrito)'],
+    ["variantes", "Unificar variantes del mismo nombre (Rio → Río)", 'df$biblioteca[df$biblioteca == "Biblioteca Rio"] <- "Biblioteca Río"'],
+    ["fechas", "Convertir las fechas a ISO 8601 (AAAA-MM-DD)", 'meses <- c(ene = 1, feb = 2, mar = 3, abr = 4, may = 5, jun = 6, jul = 7, ago = 8, sep = 9, oct = 10, nov = 11, dic = 12)\na_iso <- function(x) {\n  out <- rep(NA_character_, length(x))\n  f1 <- grepl("^\\\\d{4}[-/]\\\\d{2}[-/]\\\\d{2}$", x)\n  out[f1] <- gsub("/", "-", x[f1])\n  f2 <- grepl("^\\\\d{2}[-/]\\\\d{2}[-/]\\\\d{4}$", x)\n  out[f2] <- vapply(strsplit(x[f2], "[-/]"), function(v) paste(v[3], v[2], v[1], sep = "-"), "")\n  f3 <- grepl("^\\\\d{1,2} [a-z]{3} \\\\d{4}$", x)\n  out[f3] <- vapply(strsplit(x[f3], " "), function(v) sprintf("%s-%02d-%02d", v[3], meses[[v[2]]], as.integer(v[1])), "")\n  out\n}\ndf$fecha <- a_iso(df$fecha)'],
+    ["numeros", "Quitar el separador de miles y convertir a número («n/d» pasa a NA)", 'df$prestamos <- suppressWarnings(as.numeric(gsub(".", "", df$prestamos, fixed = TRUE)))'],
+    ["imposibles", "Marcar como NA los valores imposibles (préstamos negativos)", "df$prestamos[!is.na(df$prestamos) & df$prestamos < 0] <- NA"],
+    ["duplicados", "Eliminar filas duplicadas", "df <- df[!duplicated(df), ]"]];
+  const raiz = html`<div class="limpieza-lab"></div>`;
+  const caja = html`<fieldset class="mb-2"><legend class="h6">Operaciones</legend></fieldset>`;
+  const marcas = ops.map(([id, txt]) => { const u = id + Math.random().toString(36).slice(2, 6); const d = html`<div class="form-check"><input class="form-check-input" type="checkbox" id="${u}"><label class="form-check-label" for="${u}">${txt}</label></div>`; caja.append(d); return d.querySelector("input"); });
+  const salida = html`<div role="status" aria-live="polite"></div>`;
+  const titulo = (x) => x.toLowerCase().replace(/(^|\s)(\p{L})/gu, (m, a, b) => a + b.toUpperCase());
+  const meses = {ene: 1, feb: 2, mar: 3, abr: 4, may: 5, jun: 6, jul: 7, ago: 8, sep: 9, oct: 10, nov: 11, dic: 12};
+  const iso = (x) => { let m; if ((m = x.match(/^(\d{4})[-/](\d{2})[-/](\d{2})$/))) return `${m[1]}-${m[2]}-${m[3]}`; if ((m = x.match(/^(\d{2})[-/](\d{2})[-/](\d{4})$/))) return `${m[3]}-${m[2]}-${m[1]}`; if ((m = x.match(/^(\d{1,2}) ([a-z]{3}) (\d{4})$/)) && meses[m[2]]) return `${m[3]}-${String(meses[m[2]]).padStart(2, "0")}-${m[1].padStart(2, "0")}`; return null; };
+  const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({"&": "&amp;", "<": "&lt;", ">": "&gt;"}[c]));
+  function limpiar() {
+    const on = Object.fromEntries(ops.map(([id], i) => [id, marcas[i].checked]));
+    let df = crudo.map((f) => [...f]);
+    if (on.recortar) df = df.map((f) => f.map((v) => v.trim()));
+    if (on.mayus) df = df.map(([b, f, p, d]) => [titulo(b), f, p, titulo(d)]);
+    if (on.variantes) df = df.map(([b, ...r]) => [b === "Biblioteca Rio" ? "Biblioteca Río" : b, ...r]);
+    if (on.fechas) df = df.map(([b, f, p, d]) => [b, iso(f.trim()) ?? "NA", p, d]);
+    if (on.numeros) df = df.map(([b, f, p, d]) => { const n = Number(p.replace(/\./g, "")); return [b, f, Number.isFinite(n) && p.trim() !== "" ? n : "NA", d]; });
+    if (on.imposibles) df = df.map(([b, f, p, d]) => [b, f, typeof p === "number" && p < 0 ? "NA" : p, d]);
+    if (on.duplicados) { const vistos = new Set(); df = df.filter((f) => { const k = JSON.stringify(f); if (vistos.has(k)) return false; vistos.add(k); return true; }); }
+    const claves = df.map((f) => JSON.stringify(f));
+    const problemas = (f, j) => {
+      const v = f[j], s = String(v);
+      if (s !== s.trim()) return "espacios";
+      if ((j === 0 || j === 3) && s !== titulo(s)) return "mayúsculas";
+      if (j === 0 && s === "Biblioteca Rio") return "variante";
+      if (j === 1 && s !== "NA" && !/^\d{4}-\d{2}-\d{2}$/.test(s)) return "fecha";
+      if (j === 2 && typeof v !== "number" && s !== "NA") return "texto, no número";
+      if (j === 2 && typeof v === "number" && v < 0) return "imposible";
+      return null;
+    };
+    let n = 0;
+    const filas = df.map((f, i) => { const dup = claves.indexOf(claves[i]) !== i; return `<tr>${f.map((v, j) => { const p = problemas(f, j) || (dup && j === 0 ? "duplicado" : null); if (p) n++; return `<td${p ? ' class="table-warning"' : ""}>${p ? "⚠ " : ""}<code>${esc(typeof v === "number" ? v : JSON.stringify(v).slice(1, -1))}</code>${p ? `<span class="visually-hidden"> (${p})</span>` : ""}</td>`; }).join("")}</tr>`; }).join("");
+    const codigo = ['df <- read.csv("datos/bibliotecas_sucio.csv", colClasses = "character")', ...ops.filter((_, i) => marcas[i].checked).map((o) => o[2])].join("\n");
+    salida.innerHTML = `<p><strong>${df.length} filas · ${n} problemas pendientes</strong>${n === 0 ? " · ✓ ¡Datos listos para reutilizar!" : ""}</p><div class="table-responsive"><table class="table table-sm"><thead><tr><th scope="col">biblioteca</th><th scope="col">fecha</th><th scope="col">prestamos</th><th scope="col">distrito</th></tr></thead><tbody>${filas}</tbody></table></div><p class="small mb-1">Código de R equivalente:</p><pre class="sourceCode"><code>${esc(codigo)}</code></pre>`;
+  }
+  marcas.forEach((m) => m.addEventListener("input", limpiar));
+  raiz.append(caja, salida); limpiar();
+  return raiz;
+}
+```
+:::
+
+::: {.ordenar #ia-lab-limpieza-orden titulo="¿En qué orden conviene limpiar?"}
+Algunas operaciones dependen de otras: por ejemplo, los duplicados solo aparecen cuando las filas ya están normalizadas. Ordena los pasos.
+
+1. Recortar espacios
+2. Unificar mayúsculas y variantes de los nombres
+3. Convertir fechas a un formato común
+4. Convertir los números y marcar los valores imposibles
+5. Eliminar los duplicados
+6. Documentar en un registro qué se cambió y por qué
+
+Si eliminas duplicados al principio, «Biblioteca Central » y «biblioteca central» siguen pareciendo filas distintas. Y documentar los cambios es lo que hace la limpieza **reproducible**.
+:::
+
+## Hazlo tú en R
+
+Copia aquí el código que ha generado el laboratorio (o escríbelo tú) y ejecútalo. El fichero está en `datos/bibliotecas_sucio.csv`.
+
+```{webr}
+#| autorun: true
+df <- read.csv("datos/bibliotecas_sucio.csv", colClasses = "character")
+df
+```
+
+```{webr}
+# Escribe aquí tu limpieza y termina con:
+str(df)
+```
+
+::: {.callout-tip appearance="simple" icon="false"}
+## Para ir más allá
+Para conjuntos grandes o con muchas variantes de nombres, **OpenRefine** agrupa valores parecidos («Rio», «Río», «RIO») con algoritmos de *clustering* y guarda un historial de operaciones que puedes exportar y reaplicar a otro fichero.
+:::
+
+## Para ver y seguir aprendiendo
+
+Son enlaces, no vídeos incrustados: el vídeo se abre en la web de quien lo publica, así esta página no carga rastreadores de terceros. La mayoría está en inglés; activa los subtítulos si los necesitas.
+
+- **[The next web](https://www.ted.com/talks/tim_berners_lee_the_next_web)** — Tim Berners-Lee · TED2009. El creador de la web defiende publicar datos abiertos y enlazados (unos 16 minutos, con transcripción).

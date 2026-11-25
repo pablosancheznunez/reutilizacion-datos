@@ -51,6 +51,7 @@ book:
         - 05-infomediarias.qmd
         - 06-caso-practico.qmd
   appendices:
+    - 94-laboratorio-limpieza.qmd
     - 90-chuleta-r.qmd
     - 91-guia-docente.qmd
     - 92-glosario.qmd

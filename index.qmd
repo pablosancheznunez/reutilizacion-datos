@@ -97,8 +97,11 @@ Los ejercicios del libro **no cuentan para la nota**: son práctica. La evaluaci
 
 ## Autoría y cómo citar
 
-**Autor:** Pablo Sánchez-Núñez ([ORCID 0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506)), Universidad Carlos III de Madrid. **DOI:** [10.5281/zenodo.24500934](https://doi.org/10.5281/zenodo.24500934).
-ORCID: [0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506) · Web: [pablosancheznunez.com](https://pablosancheznunez.com)
+**Autor:** Pablo Sánchez-Núñez, Universidad Carlos III de Madrid\
+**ORCID:** [0000-0001-7845-9506](https://orcid.org/0000-0001-7845-9506)\
+**Web:** [pablosancheznunez.com](https://pablosancheznunez.com)
+
+**DOI:** [10.5281/zenodo.24500934](https://doi.org/10.5281/zenodo.24500934).
 
 > Sánchez-Núñez, P. (2026). *Reutilización de datos abiertos y documentos: tutoriales interactivos en R (webR)*. Universidad Carlos III de Madrid. Zenodo. <https://doi.org/10.5281/zenodo.24500934>
 
