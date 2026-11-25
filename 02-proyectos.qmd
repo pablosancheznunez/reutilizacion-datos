@@ -457,6 +457,30 @@ if (isTRUE(all.equal(as.numeric(.result), esperado))) {
 }
 ```
 
+## Actividades
+
+::: {.clasificar #ia-t2-portales titulo="¿De qué ámbito es cada portal?" categorias="España|Unión Europea|Internacional o de otro país"}
+- datos.gob.es → España
+- data.europa.eu → Unión Europea
+- data.gov → Internacional o de otro país
+- datos.madrid.es → España
+- Zenodo → Internacional o de otro país
+:::
+
+::: {.clasificar #ia-t2-usuarios titulo="¿Quién reutiliza y para qué?" categorias="Empresa|Ciudadanía|Investigación|Periodismo"}
+- Una aplicación de transporte que muestra los horarios en tiempo real → Empresa
+- Un vecino que consulta la calidad del aire de su barrio → Ciudadanía
+- Un estudio sobre la relación entre bibliotecas y nivel educativo → Investigación
+- Un reportaje que cruza contratos públicos y empresas adjudicatarias → Periodismo
+:::
+
+::: {.callout-warning appearance="simple" icon="false"}
+## Errores frecuentes
+- **Pensar que un portal es una fuente única**: muchos conjuntos se repiten en el portal local, el autonómico y el nacional; elige el original.
+- **No mirar la fecha de actualización** antes de basar un proyecto en un conjunto de datos.
+- **Confundir «publicado» con «reutilizable»**: comprueba la licencia y el formato.
+:::
+
 ## Reto evaluable {#reto-t2}
 
 ::: {.callout-important appearance="simple" icon="false"}

@@ -445,6 +445,40 @@ if (identical(r, esp)) {
 }
 ```
 
+![Los principios FAIR (Wilkinson et al., 2016).](figuras/v14_fair.svg){#fig-v14-fair fig-alt="Cuatro tarjetas. F, localizables: identificador persistente y metadatos ricos, indexados en un catálogo. A, accesibles: se recuperan por su identificador con un protocolo abierto. I, interoperables: formatos y vocabularios compartidos que las máquinas entienden. R, reutilizables: licencia clara, procedencia y normas de la comunidad."}
+
+## Actividades
+
+::: {.clasificar #ia-t0-estrellas titulo="¿Cuántas estrellas tiene este conjunto de datos?" categorias="★|★★|★★★|★★★★|★★★★★"}
+- Un PDF escaneado con una tabla de préstamos y licencia abierta → ★ // Disponible en la web con licencia abierta, pero no estructurado.
+- Una hoja de Excel (.xlsx) con licencia abierta → ★★ // Estructurado, pero en formato propietario.
+- El mismo fichero en CSV → ★★★ // Formato abierto y no propietario.
+- Un RDF en el que cada biblioteca tiene su propio URI → ★★★★
+- Ese RDF, además, enlazado con Wikidata y con el callejero oficial → ★★★★★
+:::
+
+::: {.clasificar #ia-t0-fair titulo="¿Qué principio FAIR mejora?" categorias="Localizable|Accesible|Interoperable|Reutilizable"}
+- Asignar un DOI al conjunto de datos → Localizable
+- Publicarlo en datos.gob.es con metadatos completos → Localizable
+- Ofrecer la descarga por HTTPS sin registro → Accesible
+- Usar el vocabulario DCAT-AP y códigos INE de municipio → Interoperable
+- Indicar la licencia CC BY 4.0 y quién generó los datos → Reutilizable
+:::
+
+::: {.clasificar #ia-t0-formatos titulo="¿Formato abierto o propietario?" categorias="Abierto|Propietario"}
+- CSV → Abierto
+- JSON → Abierto
+- SAV (SPSS) → Propietario
+- GeoJSON → Abierto
+- DWG (AutoCAD) → Propietario
+:::
+
+::: {.ordenar #ia-t0-web titulo="La evolución de la Web"}
+1. Web 1.0: páginas estáticas para leer
+2. Web 2.0: participación y contenidos de las personas usuarias
+3. Web semántica: datos enlazados que entienden las máquinas
+:::
+
 ## Reto evaluable {#reto-t0}
 
 ::: {.callout-important appearance="simple" icon="false"}

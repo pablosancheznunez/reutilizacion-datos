@@ -97,6 +97,12 @@ Cada tema termina con un **reto evaluable** pensado para la evaluación continua
 
 Las soluciones de referencia y los criterios de corrección de cada reto **no están en el repositorio público**: se entregan aparte al profesorado. Si las guardas en el repositorio, hazlo en una rama o un repositorio privado.
 
+## Actividades interactivas y laboratorios
+
+Desde la versión 1.4, cada tema incluye **actividades de corrección inmediata** (ordenar, clasificar y escenarios con decisiones) y **laboratorios** que se usan sin programar: compatibilidad de licencias, comprobador de calidad de un CSV (que también acepta los ficheros del estudiante, sin que salgan de su navegador) y conversión de CSV a JSON y a RDF. En el PDF y el EPUB las actividades aparecen en papel, con su solución. Las actividades están escritas en Markdown con la extensión `interactivos` (`_extensions/interactivos/interactivos.lua`), así que se pueden añadir o cambiar sin programar.
+
+Cada tema tiene además **diapositivas de clase** (objetivos, figuras, tablas principales, lectura, preguntas para debatir y reto) en [diapositivas/](diapositivas/index.html){target="_blank"}; se generan con `python3 herramientas/diapositivas.py` después de `quarto render`.
+
 ## Progreso, uso sin conexión y modo oscuro
 
 - **Progreso del estudiante** (`progreso.html`): cada capítulo muestra cuántos ejercicios ha resuelto y cuántas preguntas ha acertado el estudiante, y la presentación resume todos los capítulos. Se guarda en el almacenamiento local del navegador (`localStorage`), sin cookies ni envío a ningún servidor: el profesorado no lo ve. Sirve de autorregulación, no de evaluación.

@@ -467,6 +467,52 @@ if (identical(.result, FALSE) && grepl("CC BY-NC 4.0", .user_code, fixed = TRUE)
 }
 ```
 
+![La cadena de valor de los datos abiertos.](figuras/v14_valor.svg){#fig-v14-valor fig-alt="Cinco recuadros en fila unidos por flechas: datos públicos en abierto, captura y limpieza, integración con otras fuentes, análisis y visualización, producto o servicio. Debajo: cada eslabón añade valor; ahí está el modelo de negocio de una infomediaria."}
+
+## Actividades
+
+::: {.clasificar #ia-t5-modelos titulo="¿Qué modelo de negocio es?" categorias="Freemium|Suscripción|Servicios a medida|Publicidad|Venta de informes"}
+- Consulta básica gratuita y funciones avanzadas de pago → Freemium
+- Una cuota mensual por acceder a una API con datos limpios → Suscripción
+- Un ayuntamiento encarga un cuadro de mando de sus bibliotecas → Servicios a medida
+- Una aplicación gratuita de horarios que muestra anuncios → Publicidad
+- Un estudio sectorial anual elaborado con datos públicos → Venta de informes
+:::
+
+::: {.escenario #ia-t5-emprender titulo="Una idea de negocio con datos abiertos"}
+Quieres crear una aplicación que recomiende la biblioteca más cercana con salas libres, combinando datos municipales.
+
+### La idea {#t5e-inicio}
+¿Qué compruebas primero?
+
+- [Si hay personas dispuestas a usarla y qué necesitan](#t5e-usuarios)
+- [Cómo programar la aplicación](#t5e-codigo)
+
+### Empezar por el código {#t5e-codigo .final .regular}
+Sin saber si alguien la necesita ni si los datos lo permiten, corres el riesgo de construir algo que nadie usará.
+
+### Las personas usuarias {#t5e-usuarios}
+Las entrevistas confirman el interés. Ahora miras los datos.
+
+- [Compruebo la licencia, la frecuencia de actualización y si los datos de ocupación existen](#t5e-datos)
+- [Doy por hecho que, si están en el portal, sirven](#t5e-supuesto)
+
+### Supuesto arriesgado {#t5e-supuesto .final .mal}
+Descubres después que la ocupación de las salas no se publica y que el conjunto se actualiza una vez al año: la idea no es viable tal como estaba planteada.
+
+### Datos revisados {#t5e-datos}
+Los horarios y ubicaciones están en abierto (CC BY 4.0), pero la ocupación en tiempo real no se publica.
+
+- [Pido al ayuntamiento que publique la ocupación y, mientras, lanzo una versión con horarios y ubicaciones](#t5e-bien)
+- [Copio la ocupación de su web con un programa sin preguntar](#t5e-scraping)
+
+### Sin permiso {#t5e-scraping .final .mal}
+Extraer datos de una web sin revisar sus condiciones puede incumplirlas y hace tu servicio frágil: un cambio en la web lo rompe.
+
+### Producto mínimo viable {#t5e-bien .final .bien}
+Empiezas con lo que los datos permiten, citas la fuente como exige la licencia y conviertes la carencia en una petición de datos: así funciona el ecosistema de la reutilización.
+:::
+
 ## Reto evaluable {#reto-t5}
 
 ::: {.callout-important appearance="simple" icon="false"}

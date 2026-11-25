@@ -513,11 +513,16 @@ Marca y desmarca municipios: la gráfica se recalcula en tu navegador con R.
 
 ```{ojs}
 //| echo: false
-viewof municipios_sel = Inputs.checkbox(
-  ["Getafe", "Leganés", "Alcorcón", "Móstoles", "Fuenlabrada"],
-  { value: ["Leganés", "Alcorcón", "Móstoles", "Fuenlabrada"], label: "Municipios:" }
-)
-viewof por_biblioteca = Inputs.toggle({ label: "Media por biblioteca", value: false })
+viewof municipios_sel = {
+  const ms = ["Getafe", "Leganés", "Alcorcón", "Móstoles", "Fuenlabrada"], ini = new Set(["Leganés", "Alcorcón", "Móstoles", "Fuenlabrada"]);
+  const c = html`<fieldset class="mb-2"><legend class="form-label fs-6">Municipios:</legend></fieldset>`;
+  const cs = ms.map(m => { const k = window.Lab.casilla(m, {value: ini.has(m)});
+    k.addEventListener("input", e => { e.stopPropagation(); c.value = ms.filter((_, i) => cs[i].value); c.dispatchEvent(new Event("input", {bubbles: true})); });
+    c.append(k); return k; });
+  c.value = ms.filter((_, i) => cs[i].value);
+  return c;
+}
+viewof por_biblioteca = window.Lab.casilla("Media por biblioteca", {value: false})
 ```
 
 ```{webr}
@@ -689,6 +694,101 @@ if (isTRUE(.result) && grepl("prestamos_bibliotecas_practica.csv", .user_code, f
   list(correct = FALSE, message = "Compara las dos sumas con ==.")
 }
 ```
+
+![El ciclo de vida de los datos: cada fase tiene responsables y documentos propios.](figuras/v14_ciclo.svg){#fig-v14-ciclo fig-alt="Seis fases en círculo unidas por flechas: planificar, recoger o crear, describir con metadatos, publicar, reutilizar, y preservar y actualizar, que vuelve a planificar. En el centro, ciclo de vida de los datos."}
+
+## Laboratorio: comprueba la calidad de un CSV {#lab-t3-calidad}
+
+::: {.laboratorio}
+::: {.laboratorio-etiqueta}
+Laboratorio · se ejecuta en tu navegador; tus datos no salen de él
+:::
+
+Pega un CSV (o abre uno de tu ordenador) y pulsa **Revisar**. El laboratorio detecta el separador y revisa cinco dimensiones de calidad: **completitud** (celdas vacías), **unicidad** (filas duplicadas), **validez** (números y fechas mal escritos), **consistencia** (variantes de un mismo valor) y **formato** (espacios sobrantes).
+
+```{ojs}
+//| echo: false
+area = window.Lab.area
+viewof csv_txt = area("CSV", {rows: 8, submit: "Revisar", value: `municipio;biblioteca;prestamos;fecha
+Madrid;Biblioteca Eugenio Trías;12450;2024-01-31
+madrid ;Biblioteca Eugenio Trías;12450;2024-01-31
+Getafe;Biblioteca Ricardo de la Vega;;2024-01-31
+Getafe;Biblioteca Ricardo de la Vega;3.210;31/01/2024
+Leganés;Biblioteca Central;n/d;2024-01-31`})
+```
+
+```{ojs}
+//| echo: false
+viewof fichero = {
+  const c = html`<div class="mb-2"><label class="form-label" for="lab-csv-f">…o abre un CSV de tu ordenador</label><input id="lab-csv-f" type="file" accept=".csv,text/csv" class="form-control form-control-sm"></div>`;
+  c.value = null;
+  c.querySelector("input").onchange = async e => { const f = e.target.files[0]; if (!f) return; c.value = await f.text(); c.dispatchEvent(new Event("input", {bubbles: true})); };
+  return c;
+}
+```
+
+```{ojs}
+//| echo: false
+{
+  const txt = (fichero ?? csv_txt).replace(/^﻿/, "");
+  const lineas = txt.split(/\r?\n/).filter(l => l.trim() !== "");
+  if (lineas.length < 2) return html`<p role="status">Hacen falta una cabecera y al menos una fila.</p>`;
+  const sep = [";", ",", "\t", "|"].map(s => [s, lineas[0].split(s).length]).sort((a, b) => b[1] - a[1])[0][0];
+  const filas = lineas.map(l => l.split(sep));
+  const cab = filas[0].map(x => x.trim()), datos = filas.slice(1);
+  const nomSep = {";": "punto y coma", ",": "coma", "\t": "tabulador", "|": "barra vertical"}[sep];
+  const problemas = [];
+  const largas = datos.filter(f => f.length !== cab.length).length;
+  if (largas) problemas.push(["Estructura", `${largas} filas no tienen ${cab.length} columnas`]);
+  const vacios = cab.map((c, j) => [c, datos.filter(f => !(f[j] ?? "").trim() || /^(n\/?d|na|null|-|\?)$/i.test((f[j] ?? "").trim())).length]).filter(x => x[1]);
+  vacios.forEach(([c, n]) => problemas.push(["Completitud", `«${c}»: ${n} valores vacíos o del tipo «n/d»`]));
+  const norm = f => f.map(x => x.trim().toLowerCase()).join("¦");
+  const vistos = new Map(); let dup = 0; datos.forEach(f => { const k = norm(f); if (vistos.has(k)) dup++; else vistos.set(k, 1); });
+  if (dup) problemas.push(["Unicidad", `${dup} filas duplicadas (sin distinguir mayúsculas ni espacios)`]);
+  cab.forEach((c, j) => {
+    const v = datos.map(f => (f[j] ?? "").trim()).filter(x => x && !/^(n\/?d|na|null|-|\?)$/i.test(x));
+    const nums = v.filter(x => /^-?\d+([.,]\d+)*$/.test(x));
+    if (nums.length >= v.length * 0.6 && nums.length) {
+      const miles = nums.filter(x => /^\d{1,3}([.]\d{3})+$/.test(x)).length;
+      if (miles) problemas.push(["Validez", `«${c}»: ${miles} números con punto de miles (p. ej. 3.210): ¿tres mil o tres?`]);
+      const raros = v.length - nums.length; if (raros) problemas.push(["Validez", `«${c}»: ${raros} valores no numéricos en una columna numérica`]);
+    }
+    const iso = v.filter(x => /^\d{4}-\d{2}-\d{2}$/.test(x)).length, dmy = v.filter(x => /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(x)).length;
+    if (iso && dmy) problemas.push(["Consistencia", `«${c}»: fechas en dos formatos (${iso} AAAA-MM-DD y ${dmy} DD/MM/AAAA)`]);
+    const grupos = new Map(); v.forEach(x => { const k = x.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").trim(); grupos.set(k, (grupos.get(k) || new Set()).add(x)); });
+    const variantes = [...grupos.values()].filter(s => s.size > 1);
+    if (variantes.length) problemas.push(["Consistencia", `«${c}»: variantes de un mismo valor: ${variantes.slice(0, 3).map(s => [...s].map(x => "«" + x + "»").join(" / ")).join("; ")}`]);
+    const esp = datos.filter(f => f[j] !== undefined && f[j] !== f[j].trim()).length;
+    if (esp) problemas.push(["Formato", `«${c}»: ${esp} valores con espacios al principio o al final`]);
+  });
+  const d = html`<div role="status"></div>`;
+  d.innerHTML = `<p>Separador: <strong>${nomSep}</strong> · ${cab.length} columnas · ${datos.length} filas.</p>` +
+    (problemas.length ? `<table class="table table-sm"><thead><tr><th scope="col">Dimensión</th><th scope="col">Problema</th></tr></thead><tbody>${problemas.map(([a, b]) => `<tr><td>${a}</td><td>${b.replace(/</g, "&lt;")}</td></tr>`).join("")}</tbody></table>`
+      : `<p class="lab-bien" style="font-weight:600">No se han detectado problemas con estas comprobaciones.</p>`) +
+    `<p class="small">Son comprobaciones automáticas básicas: no sustituyen a revisar el significado de los datos. En R, el capítulo usa <code>datareuseR</code> para hacer lo mismo de forma reproducible.</p>`;
+  return d;
+}
+```
+:::
+
+## Actividades
+
+::: {.clasificar #ia-t3-dimensiones titulo="¿Qué dimensión de la calidad falla?" categorias="Completitud|Exactitud|Consistencia|Actualidad|Unicidad|Validez"}
+- La columna de préstamos tiene celdas vacías → Completitud
+- «Madrid», «madrid » y «MADRID» aparecen como municipios distintos → Consistencia
+- El conjunto se actualizó por última vez en 2019 → Actualidad
+- La misma biblioteca aparece dos veces en el mismo mes → Unicidad
+- Una fecha dice 31/02/2024 → Validez
+- Los préstamos de una biblioteca están multiplicados por diez por un error de carga → Exactitud
+:::
+
+::: {.ordenar #ia-t3-publicar titulo="Ordena la publicación de un conjunto de datos"}
+1. Revisar la calidad y la protección de datos personales
+2. Elegir el formato abierto y la licencia
+3. Describir el conjunto con metadatos DCAT-AP
+4. Publicarlo en el portal y federarlo en datos.gob.es
+5. Mantener la periodicidad de actualización anunciada
+:::
 
 ## Reto evaluable {#reto-t3}
 

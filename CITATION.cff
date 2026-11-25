@@ -7,7 +7,7 @@ authors:
     given-names: "Pablo"
     orcid: "https://orcid.org/0000-0001-7845-9506"
     affiliation: "Universidad Carlos III de Madrid"
-version: "1.3.0"
+version: "1.4.0"
 doi: "10.5281/zenodo.24500934"
 identifiers:
   - type: doi
@@ -16,7 +16,7 @@ identifiers:
   - type: doi
     value: "10.5281/zenodo.24500935"
     description: "DOI de la versión 1.0.0"
-date-released: "2026-11-24"
+date-released: "2026-11-25"
 license: CC-BY-4.0
 url: "https://pablosancheznunez.com/reutilizacion-datos/"
 repository-code: "https://github.com/pablosancheznunez/reutilizacion-datos"

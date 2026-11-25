@@ -465,6 +465,68 @@ if (identical(tipo, "leve") && isTRUE(multa == 10000)) {
 }
 ```
 
+## Laboratorio: ¿puedo combinar estos datos? {#lab-t1-licencias}
+
+::: {.laboratorio}
+::: {.laboratorio-etiqueta}
+Laboratorio · orientativo, no es asesoramiento jurídico
+:::
+
+Quieres crear un conjunto de datos nuevo combinando dos fuentes. Elige sus licencias y el uso que harás: el laboratorio te dice si, en principio, puedes combinarlas y con qué licencia tendrías que publicar el resultado.
+
+```{ojs}
+//| echo: false
+seleccion = window.Lab.seleccion
+licencias = [["cc0", "CC0 (dominio público)"], ["by", "CC BY 4.0"], ["bysa", "CC BY-SA 4.0"], ["odbl", "ODbL 1.0"], ["bync", "CC BY-NC 4.0"], ["aviso", "Aviso legal de datos.gob.es (reutilización con cita)"]]
+viewof lic_a = seleccion("Licencia de la fuente A", licencias, {value: "by"})
+viewof lic_b = seleccion("Licencia de la fuente B", licencias, {value: "bysa"})
+viewof uso = seleccion("Uso previsto", [["nc", "Sin fines comerciales"], ["com", "Comercial"]], {value: "com"})
+```
+
+```{ojs}
+//| echo: false
+{
+  const nombre = Object.fromEntries(licencias);
+  const sa = new Set(["bysa", "odbl"]);
+  let res, clase = "lab-bien", nota = "";
+  const par = [lic_a, lic_b];
+  if (par.includes("bync") && uso === "com") { res = "No: una de las fuentes prohíbe el uso comercial."; clase = "lab-mal"; }
+  else if (par.includes("bysa") && par.includes("odbl")) { res = "En principio no: CC BY-SA y ODbL son dos licencias «copyleft» distintas y cada una exige publicar el resultado con la suya."; clase = "lab-mal"; nota = "Algunas combinaciones se resuelven con permisos expresos de quien publica los datos."; }
+  else if (par.includes("bync") && par.some(x => sa.has(x))) { res = "Problemático: la licencia copyleft exige compartir igual y la NC añade una restricción que esta no admite."; clase = "lab-mal"; }
+  else {
+    const fuerte = par.includes("odbl") ? "odbl" : par.includes("bysa") ? "bysa" : par.includes("bync") ? "bync" : par.includes("by") || par.includes("aviso") ? "by" : "cc0";
+    const final = {odbl: "ODbL 1.0", bysa: "CC BY-SA 4.0", bync: "CC BY-NC 4.0 (solo usos no comerciales)", by: "una licencia que mantenga el reconocimiento (por ejemplo, CC BY 4.0)", cc0: "cualquier licencia (incluso CC0)"}[fuerte];
+    res = `Sí. El resultado debería publicarse con ${final}, citando las dos fuentes.`;
+    if (fuerte === "bync") clase = "lab-medio";
+  }
+  const d = html`<div role="status"></div>`;
+  d.innerHTML = `<p><strong>${nombre[lic_a]}</strong> + <strong>${nombre[lic_b]}</strong>, uso ${uso === "com" ? "comercial" : "no comercial"}:</p>
+   <p class="${clase}" style="font-weight:600">${res}</p>${nota ? `<p class="small">${nota}</p>` : ""}
+   <p class="small">Regla general: el resultado hereda la condición más exigente (reconocimiento, compartir igual, no comercial). Las licencias NC no se consideran abiertas según la Open Definition. Ante un caso real, consulta las condiciones completas.</p>`;
+  return d;
+}
+```
+:::
+
+## Actividades
+
+::: {.ordenar #ia-t1-normas titulo="Ordena cronológicamente las normas"}
+1. Directiva 2003/98/CE sobre reutilización de la información del sector público
+2. Ley 37/2007, sobre reutilización de la información del sector público
+3. Ley 19/2013, de transparencia, acceso a la información pública y buen gobierno
+4. Directiva (UE) 2019/1024, de datos abiertos
+5. Reglamento de Ejecución (UE) 2023/138, de conjuntos de datos de alto valor
+:::
+
+::: {.clasificar #ia-t1-derechos titulo="¿Obligación de la Administración o de quien reutiliza?" categorias="Administración|Reutilizador"}
+- Citar la fuente de los datos → Reutilizador
+- Publicar los datos en formatos abiertos cuando sea posible → Administración
+- No desnaturalizar el sentido de la información → Reutilizador
+- Indicar la fecha de la última actualización → Reutilizador
+- Responder a las solicitudes de reutilización en plazo → Administración
+- No sugerir que la Administración patrocina el uso → Reutilizador
+:::
+
 ## Reto evaluable {#reto-t1}
 
 ::: {.callout-important appearance="simple" icon="false"}

@@ -213,5 +213,77 @@ def tema5():
     ax.xaxis.set_major_formatter(f); ax.yaxis.set_major_formatter(f)
     guardar(fig, "tema5_punto_equilibrio.svg")
 
-for fn in (tema0, tema1, tema2, tema3, tema4, tema5):
+
+# ====================================================================== v1.4
+from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Circle
+CAJA_, CAJA2_ = "#eef0f6", "#c9cfe0"
+
+
+def _caja(ax, x, y, w, h, t, ec=CAJA2_, fc=CAJA_, fs=9.5, peso="normal", tc=TINTA):
+    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0,rounding_size=0.08", fc=fc, ec=ec, lw=1.4))
+    if t: ax.text(x + w / 2, y + h / 2, t, ha="center", va="center", fontsize=fs, color=tc, fontweight=peso, linespacing=1.2)
+
+
+def _flecha(ax, a, b, color=TINTA2):
+    ax.add_patch(FancyArrowPatch(a, b, arrowstyle="-|>", mutation_scale=12, color=color, lw=1.3, shrinkA=2, shrinkB=2))
+
+
+def v14_fair():
+    fig, ax = plt.subplots(figsize=(10, 3.4)); ax.set_xlim(0, 16); ax.set_ylim(0, 5.2); ax.axis("off")
+    ps = [("F", "Localizables", "identificador persistente\ny metadatos ricos,\nindexados en un catálogo"),
+          ("A", "Accesibles", "se recuperan por su\nidentificador con un\nprotocolo abierto"),
+          ("I", "Interoperables", "formatos y vocabularios\ncompartidos que\nlas máquinas entienden"),
+          ("R", "Reutilizables", "licencia clara,\nprocedencia y normas\nde la comunidad")]
+    for i, (l, t, d) in enumerate(ps):
+        x = 0.2 + i * 4.0
+        _caja(ax, x, 0.3, 3.6, 4.5, None, fc=SUP, ec=S[i])
+        ax.add_patch(Circle((x + 1.8, 4.0), 0.45, fc=S[i], ec="none"))
+        ax.text(x + 1.8, 4.0, l, ha="center", va="center", fontsize=15, fontweight="bold", color=TINTA)
+        ax.text(x + 1.8, 3.05, t, ha="center", va="center", fontsize=11, fontweight="bold", color=TINTA)
+        ax.text(x + 1.8, 1.6, d, ha="center", va="center", fontsize=9, color=TINTA2)
+    guardar(fig, "v14_fair.svg")
+
+
+def v14_ciclo():
+    import math
+    fig, ax = plt.subplots(figsize=(7, 5.4)); ax.set_xlim(-6, 6); ax.set_ylim(-4.6, 4.6); ax.set_aspect("equal"); ax.axis("off")
+    fases = ["Planificar", "Recoger o crear", "Describir\n(metadatos)", "Publicar", "Reutilizar", "Preservar\ny actualizar"]
+    pos = []
+    for i, f in enumerate(fases):
+        a = math.pi / 2 - i * 2 * math.pi / len(fases); x, y = 3.4 * math.cos(a), 3.4 * math.sin(a); pos.append((x, y))
+        _caja(ax, x - 1.25, y - 0.6, 2.5, 1.2, f, ec=S[i % 5], fc=SUP, fs=9.5, peso="bold")
+    for i in range(len(fases)):
+        (x1, y1), (x2, y2) = pos[i], pos[(i + 1) % len(fases)]
+        _flecha(ax, (x1 + (x2 - x1) * .32, y1 + (y2 - y1) * .32), (x1 + (x2 - x1) * .68, y1 + (y2 - y1) * .68))
+    ax.text(0, 0, "Ciclo de vida\nde los datos", ha="center", va="center", fontsize=12, color=TINTA2)
+    guardar(fig, "v14_ciclo.svg")
+
+
+def v14_dcat():
+    fig, ax = plt.subplots(figsize=(10, 3.6)); ax.set_xlim(0, 16); ax.set_ylim(0, 5.4); ax.axis("off")
+    nodos = [(0.3, "dcat:Catalog", "Catálogo\n(datos.gob.es)", S[0]), (5.6, "dcat:Dataset", "Conjunto de datos\n(préstamos de bibliotecas)", S[1]),
+             (10.9, "dcat:Distribution", "Distribución\n(fichero CSV, API JSON…)", S[2])]
+    for x, c, d, col in nodos:
+        _caja(ax, x, 2.4, 4.8, 1.8, None, fc=SUP, ec=col)
+        ax.text(x + 2.4, 3.65, c, ha="center", va="center", fontsize=10.5, fontweight="bold", color=TINTA, family="monospace")
+        ax.text(x + 2.4, 2.95, d, ha="center", va="center", fontsize=9, color=TINTA2)
+    _flecha(ax, (5.1, 3.3), (5.6, 3.3)); ax.text(5.35, 4.45, "dcat:dataset", ha="center", fontsize=8.5, color=TINTA2, family="monospace")
+    _flecha(ax, (10.4, 3.3), (10.9, 3.3)); ax.text(10.65, 4.45, "dcat:distribution", ha="center", fontsize=8.5, color=TINTA2, family="monospace")
+    props = ["dct:title · dct:description · dct:publisher · dct:license · dcat:theme · dct:modified", "", "dcat:accessURL · dcat:downloadURL · dct:format · dcat:mediaType"]
+    ax.text(8.0, 1.5, "Propiedades del conjunto: " + props[0], ha="center", fontsize=8.5, color=TINTA, family="monospace")
+    ax.text(8.0, 0.8, "Propiedades de la distribución: " + props[2], ha="center", fontsize=8.5, color=TINTA, family="monospace")
+    guardar(fig, "v14_dcat.svg")
+
+
+def v14_valor():
+    fig, ax = plt.subplots(figsize=(10, 2.8)); ax.set_xlim(0, 16); ax.set_ylim(0, 4); ax.axis("off")
+    pasos = [("Datos públicos\nen abierto", S[0]), ("Captura y\nlimpieza", S[1]), ("Integración\ncon otras fuentes", S[2]), ("Análisis y\nvisualización", S[3]), ("Producto o\nservicio", S[4])]
+    for i, (t, c) in enumerate(pasos):
+        x = 0.2 + i * 3.2
+        _caja(ax, x, 1.2, 2.7, 1.6, t, ec=c, fc=SUP, fs=9.5, peso="bold")
+        if i < 4: _flecha(ax, (x + 2.72, 2.0), (x + 3.18, 2.0))
+    ax.text(8, 0.45, "Cada eslabón añade valor: ahí está el modelo de negocio de una infomediaria.", ha="center", fontsize=9, color=TINTA2)
+    guardar(fig, "v14_valor.svg")
+
+for fn in (tema0, tema1, tema2, tema3, tema4, tema5, v14_fair, v14_ciclo, v14_dcat, v14_valor):
     fn()

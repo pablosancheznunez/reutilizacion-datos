@@ -643,6 +643,69 @@ if (setequal(.result, c("Club de lectura", "Cuentacuentos"))) {
 }
 ```
 
+![El modelo DCAT: un catálogo contiene conjuntos de datos, y cada conjunto, una o varias distribuciones.](figuras/v14_dcat.svg){#fig-v14-dcat fig-alt="Tres recuadros unidos por flechas: dcat:Catalog (catálogo, datos.gob.es) se relaciona por dcat:dataset con dcat:Dataset (conjunto de datos de préstamos de bibliotecas), que se relaciona por dcat:distribution con dcat:Distribution (fichero CSV, API JSON). Debajo, propiedades del conjunto: dct:title, dct:description, dct:publisher, dct:license, dcat:theme, dct:modified; y de la distribución: dcat:accessURL, dcat:downloadURL, dct:format, dcat:mediaType."}
+
+## Laboratorio: del CSV al JSON y al RDF {#lab-t4-formatos}
+
+::: {.laboratorio}
+::: {.laboratorio-etiqueta}
+Laboratorio · se ejecuta en tu navegador
+:::
+
+Los mismos datos en tres formatos. Edita el CSV y mira cómo cambian el **JSON** (para las API) y el **RDF en Turtle** (para los datos enlazados, con un URI para cada biblioteca y el municipio enlazado con Wikidata).
+
+```{ojs}
+//| echo: false
+area = window.Lab.area
+viewof csv_f = area("CSV (separado por comas)", {rows: 4, value: `id,biblioteca,municipio,wikidata_municipio,prestamos
+eugenio-trias,Biblioteca Eugenio Trías,Madrid,Q2807,12450
+ricardo-vega,Biblioteca Ricardo de la Vega,Getafe,Q8802,3210`})
+```
+
+```{ojs}
+//| echo: false
+{
+  const l = csv_f.trim().split(/\r?\n/).map(x => x.split(","));
+  const cab = l[0].map(x => x.trim()), filas = l.slice(1).filter(f => f.length === cab.length);
+  const objs = filas.map(f => Object.fromEntries(cab.map((c, i) => [c, /^\d+$/.test(f[i].trim()) ? +f[i] : f[i].trim()])));
+  const json = JSON.stringify(objs, null, 2);
+  const esc = s => String(s).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  const ttl = ["@prefix ex: <https://example.org/biblioteca/> .", "@prefix schema: <https://schema.org/> .", "@prefix wd: <http://www.wikidata.org/entity/> .", ""]
+    .concat(objs.map(o => `ex:${o.id ?? "sin-id"} a schema:Library ;\n    schema:name "${esc(o.biblioteca ?? "")}"@es ;\n    schema:location ${o.wikidata_municipio ? "wd:" + o.wikidata_municipio : `"${esc(o.municipio ?? "")}"`} ;\n    ex:prestamos ${Number.isFinite(o.prestamos) ? o.prestamos : `"${esc(o.prestamos ?? "")}"`} .`)).join("\n\n");
+  const pre = (t, s) => `<div style="flex:1;min-width:16rem"><p class="small fw-semibold mb-1">${t}</p><pre style="font-size:.8rem;max-height:20rem;overflow:auto" tabindex="0"><code>${s.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</code></pre></div>`;
+  const d = html`<div role="status" style="display:flex;gap:1rem;flex-wrap:wrap"></div>`;
+  d.innerHTML = pre("JSON", json) + pre("RDF (Turtle)", ttl);
+  return d;
+}
+```
+
+En el RDF, `wd:Q2807` no es un texto: es el identificador de Madrid en Wikidata. Esa es la diferencia entre la tercera estrella (un CSV) y la quinta (datos enlazados). Los URI `example.org` son de ejemplo.
+:::
+
+## Actividades
+
+::: {.clasificar #ia-t4-formato titulo="¿Qué formato es?" categorias="CSV|JSON|XML|RDF (Turtle)"}
+- `municipio;prestamos` seguido de `Madrid;12450` → CSV
+- `{"municipio": "Madrid", "prestamos": 12450}` → JSON
+- `<biblioteca><municipio>Madrid</municipio></biblioteca>` → XML
+- `ex:eugenio-trias schema:location wd:Q2807 .` → RDF (Turtle)
+:::
+
+::: {.clasificar #ia-t4-dcat titulo="¿A qué propiedad DCAT-AP corresponde?" categorias="dct:title|dct:publisher|dct:license|dct:modified|dcat:downloadURL"}
+- «Préstamos en las bibliotecas públicas municipales» → dct:title
+- «Ayuntamiento de Madrid» → dct:publisher
+- «https://creativecommons.org/licenses/by/4.0/» → dct:license
+- «2024-02-15» como fecha de la última actualización → dct:modified
+- Enlace directo al fichero CSV → dcat:downloadURL
+:::
+
+::: {.clasificar #ia-t4-interop titulo="¿Qué nivel de interoperabilidad?" categorias="Técnica|Semántica|Organizativa"}
+- Usar HTTPS y codificación UTF-8 → Técnica
+- Usar los códigos de municipio del INE en todos los conjuntos → Semántica
+- Un convenio entre ayuntamientos para publicar con la misma periodicidad → Organizativa
+- Describir los datos con el vocabulario DCAT-AP → Semántica
+:::
+
 ## Reto evaluable {#reto-t4}
 
 ::: {.callout-important appearance="simple" icon="false"}

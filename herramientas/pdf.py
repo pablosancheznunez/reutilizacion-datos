@@ -82,7 +82,7 @@ cabecera = {
     "lang": "es",
     "doi": libro.get("doi"),
     "engine": "markdown",
-    "filters": ["webex", "libro-pdf"],
+    "filters": ["webex", "interactivos", "libro-pdf"],
     "format": {"typst": {
         "toc": True, "toc-depth": 1, "toc-title": "Índice",
         "papersize": "a4", "fontsize": "10.5pt",
@@ -104,7 +104,7 @@ cabecera = {
 if BUILD.exists():
     shutil.rmtree(BUILD)
 (BUILD / "_extensions").mkdir(parents=True)
-for ext in ("webex", "libro-pdf"):
+for ext in ("webex", "interactivos", "libro-pdf"):
     shutil.copytree(RAIZ / "_extensions" / ext, BUILD / "_extensions" / ext)
 shutil.copytree(RAIZ / "figuras", BUILD / "figuras")
 (BUILD / "_quarto.yml").write_text("project:\n  type: default\n")

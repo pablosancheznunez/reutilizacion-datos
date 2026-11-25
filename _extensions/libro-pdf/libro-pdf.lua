@@ -54,6 +54,15 @@ function Div(el)
   if (el.classes:includes("solution") or el.classes:includes("solucion-ejercicio")) and el.attributes["exercise"] then
     return callout("tip", "Solución", el.content)
   end
+  if el.classes:includes("laboratorio") then
+    local c = pandoc.Blocks({})
+    for _, b in ipairs(el.content) do
+      if not (b.t == "Div" and b.classes:includes("laboratorio-etiqueta")) then c:insert(b) end
+    end
+    c:insert(pandoc.Para({ pandoc.Str("Este laboratorio es interactivo en la versión web: "),
+      pandoc.Link("pablosancheznunez.com/reutilizacion-datos", WEB) }))
+    return callout("note", "Laboratorio interactivo", c)
+  end
   if el.classes:includes("webex-solution") then
     return callout("tip", "Explicaciones", el.content)
   end

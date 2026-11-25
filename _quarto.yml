@@ -2,6 +2,8 @@ project:
   type: book
   output-dir: _book
   resources:
+    - laboratorio.js
+    - fuentes
     - datos
     - webr
     - webr-repo
@@ -60,6 +62,7 @@ crossref:
 
 filters:
   - webex
+  - interactivos
 
 format:
   live-html:
@@ -71,8 +74,12 @@ format:
     toc-depth: 3
     number-sections: false
     code-copy: true
+    lightbox: auto
+    css: fuentes/fuentes.css
     link-external-newwindow: true
     callout-appearance: simple
+    include-in-header:
+      - laboratorio.html
     include-after-body:
       - accesibilidad.html
       - progreso.html
