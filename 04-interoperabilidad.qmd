@@ -682,6 +682,39 @@ ricardo-vega,Biblioteca Ricardo de la Vega,Getafe,Q8802,3210`})
 En el RDF, `wd:Q2807` no es un texto: es el identificador de Madrid en Wikidata. Esa es la diferencia entre la tercera estrella (un CSV) y la quinta (datos enlazados). Los URI `example.org` son de ejemplo.
 :::
 
+## Caso práctico resuelto
+
+::: {.callout-note appearance="simple" icon="false"}
+## Describir un catálogo con DCAT-AP
+Para que un portal intercambie metadatos con datos.gob.es y con el portal europeo, cada conjunto se describe con el vocabulario **DCAT-AP** (en España, el perfil DCAT-AP-ES):
+
+| Concepto | Clase DCAT | Ejemplo |
+|---|---|---|
+| Catálogo | `dcat:Catalog` | Portal de datos del ayuntamiento |
+| Conjunto de datos | `dcat:Dataset` | Préstamos en bibliotecas, 2024 |
+| Distribución | `dcat:Distribution` | El CSV y el JSON de ese conjunto |
+| Servicio | `dcat:DataService` | La API que da acceso a los datos |
+
+Propiedades habituales del conjunto: `dct:title`, `dct:description`, `dct:publisher`, `dcat:keyword`, `dcat:theme`, `dct:temporal`, `dct:spatial`, `dct:accrualPeriodicity`. De la distribución: `dcat:accessURL` o `dcat:downloadURL`, `dct:format`, `dct:license`.
+
+Al usar vocabularios controlados (por ejemplo, los temas del sector público), los buscadores de los portales agregadores clasifican bien los datos.
+:::
+
+## Ejercicios graduados
+
+**Básico.** ¿Es una distribución o un conjunto de datos el archivo CSV con los préstamos de 2024?
+
+::: {.webex-solution boton="Ver solución"}
+Una distribución: es una forma concreta (formato, URL) de acceder al conjunto de datos «Préstamos en bibliotecas, 2024», que puede tener otras distribuciones (JSON, API).
+:::
+
+**Avanzado.** Escribe en Turtle la descripción DCAT de un conjunto con dos distribuciones.
+
+::: {.webex-solution boton="Ver solución"}
+Debe declarar un `dcat:Dataset` con título, descripción, publicador, licencia y periodicidad, y dos `dcat:Distribution` enlazadas con `dcat:distribution`, cada una con formato y URL de descarga.
+:::
+
+
 ## Actividades
 
 ::: {.clasificar #ia-t4-formato titulo="¿Qué formato es?" categorias="CSV|JSON|XML|RDF (Turtle)"}

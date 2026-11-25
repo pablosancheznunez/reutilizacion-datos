@@ -457,6 +457,38 @@ if (isTRUE(all.equal(as.numeric(.result), esperado))) {
 }
 ```
 
+## Caso práctico resuelto
+
+::: {.callout-note appearance="simple" icon="false"}
+## Analizar un proyecto de reutilización como un caso de negocio
+Proyecto de ejemplo: un servicio que combina datos abiertos de calidad del aire y de tráfico para recomendar rutas en bicicleta. Análisis:
+
+| Elemento | Respuesta |
+|---|---|
+| **Datos de origen** | Calidad del aire (ayuntamiento, por horas), intensidad de tráfico, carril bici (geoespacial) |
+| **Valor añadido** | Integración, cálculo de rutas, alertas personalizadas |
+| **Usuarios** | Ciclistas urbanos; también ayuntamientos interesados en la información agregada |
+| **Modelo de ingresos** | App gratuita con informes de pago para administraciones |
+| **Riesgos** | Cambios en el formato de los datos de origen, interrupciones del servicio, calidad desigual entre ciudades |
+
+La dependencia de datos externos se mitiga con contratos de servicio, si existen, supervisión de las fuentes y validación automática al cargar.
+:::
+
+## Ejercicios graduados
+
+**Básico.** Identifica los datos de origen y el valor añadido de un servicio que muestra en tiempo real la llegada de autobuses.
+
+::: {.webex-solution boton="Ver solución"}
+Datos: posiciones de los vehículos y horarios publicados por el operador (por ejemplo, en GTFS y GTFS-Realtime). Valor añadido: cálculo de tiempos de llegada, interfaz cómoda, avisos y combinación con otras redes.
+:::
+
+**Avanzado.** Elige un proyecto real de reutilización del catálogo de datos.gob.es y analízalo con la tabla del caso.
+
+::: {.webex-solution boton="Ver solución"}
+Documenta las fuentes reales que usa, cómo genera valor, quiénes son sus usuarios, cómo se financia y qué riesgos tiene por depender de datos públicos.
+:::
+
+
 ## Actividades
 
 ::: {.clasificar #ia-t2-portales titulo="¿De qué ámbito es cada portal?" categorias="España|Unión Europea|Internacional o de otro país"}

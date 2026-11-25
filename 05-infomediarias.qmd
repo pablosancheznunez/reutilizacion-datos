@@ -469,6 +469,35 @@ if (identical(.result, FALSE) && grepl("CC BY-NC 4.0", .user_code, fixed = TRUE)
 
 ![La cadena de valor de los datos abiertos.](figuras/v14_valor.svg){#fig-v14-valor fig-alt="Cinco recuadros en fila unidos por flechas: datos públicos en abierto, captura y limpieza, integración con otras fuentes, análisis y visualización, producto o servicio. Debajo: cada eslabón añade valor; ahí está el modelo de negocio de una infomediaria."}
 
+## Caso práctico resuelto
+
+::: {.callout-note appearance="simple" icon="false"}
+## Diseñar un servicio infomediario viable
+Una empresa infomediaria quiere ofrecer a bibliotecas informes comparativos de uso basados en datos abiertos de varias comunidades autónomas.
+
+1. **Necesidad:** las bibliotecas quieren compararse con otras parecidas, pero los datos están dispersos y en formatos distintos.
+2. **Datos:** estadísticas de bibliotecas públicas abiertas, población por municipio (INE), equipamientos.
+3. **Proceso:** extracción automática, normalización de nombres y unidades, control de calidad, cálculo de indicadores comparables.
+4. **Producto:** panel e informe anual con municipios similares (por población y presupuesto).
+5. **Modelo:** suscripción para redes de bibliotecas; versión gratuita con indicadores básicos.
+6. **Diferenciación:** el valor no está en los datos (abiertos para todos), sino en la integración, la limpieza y el análisis.
+:::
+
+## Ejercicios graduados
+
+**Básico.** ¿Por qué una empresa puede cobrar por un servicio basado en datos abiertos gratuitos?
+
+::: {.webex-solution boton="Ver solución"}
+Porque cobra por el valor añadido: integración de fuentes, limpieza, actualización continua, análisis, visualización y soporte, que tienen un coste y ahorran trabajo al cliente.
+:::
+
+**Avanzado.** Esboza el modelo de negocio (lienzo de propuesta de valor) de un servicio infomediario para el sector de la información.
+
+::: {.webex-solution boton="Ver solución"}
+Debe describir el segmento de clientes, sus problemas, la propuesta de valor, los datos abiertos que se usan, los recursos y actividades clave, los ingresos y los costes, y los riesgos de dependencia de las fuentes.
+:::
+
+
 ## Actividades
 
 ::: {.clasificar #ia-t5-modelos titulo="¿Qué modelo de negocio es?" categorias="Freemium|Suscripción|Servicios a medida|Publicidad|Venta de informes"}

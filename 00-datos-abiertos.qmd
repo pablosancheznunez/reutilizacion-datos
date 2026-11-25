@@ -447,6 +447,35 @@ if (identical(r, esp)) {
 
 ![Los principios FAIR (Wilkinson et al., 2016).](figuras/v14_fair.svg){#fig-v14-fair fig-alt="Cuatro tarjetas. F, localizables: identificador persistente y metadatos ricos, indexados en un catálogo. A, accesibles: se recuperan por su identificador con un protocolo abierto. I, interoperables: formatos y vocabularios compartidos que las máquinas entienden. R, reutilizables: licencia clara, procedencia y normas de la comunidad."}
 
+## Caso práctico resuelto
+
+::: {.callout-note appearance="simple" icon="false"}
+## Valorar un conjunto con las cinco estrellas de Berners-Lee
+Un ayuntamiento publica el calendario de actividades culturales de sus bibliotecas. Revisión paso a paso:
+
+1. **¿Licencia abierta?** La página dice «Reutilización permitida citando la fuente» y remite al aviso legal con CC BY 4.0: sí, ★.
+2. **¿Estructurado?** Se publica en PDF: legible por personas, no por máquinas. Se queda en ★.
+3. **Mejora propuesta:** publicarlo también en XLSX (★★) y en CSV o JSON (★★★, formato no propietario).
+4. **Siguiente paso:** dar URI a cada biblioteca y actividad (★★★★) y enlazarlas con otros conjuntos, por ejemplo con el directorio de equipamientos municipales (★★★★★).
+
+Cada estrella facilita la reutilización, pero ya con tres (CSV con licencia abierta) se pueden construir servicios útiles.
+:::
+
+## Ejercicios graduados
+
+**Básico.** ¿Cuántas estrellas tiene una hoja de cálculo XLSX con licencia CC BY?
+
+::: {.webex-solution boton="Ver solución"}
+Dos: datos estructurados con licencia abierta, pero en un formato propietario. En CSV tendría tres.
+:::
+
+**Avanzado.** Elige un conjunto de datos de un portal autonómico y valóralo con las cinco estrellas, proponiendo mejoras concretas para subir dos niveles.
+
+::: {.webex-solution boton="Ver solución"}
+La valoración debe justificar cada estrella con evidencias (licencia, formato, uso de URI, enlaces) y las mejoras deben ser realistas para el organismo (por ejemplo, añadir CSV y un identificador estable).
+:::
+
+
 ## Actividades
 
 ::: {.clasificar #ia-t0-estrellas titulo="¿Cuántas estrellas tiene este conjunto de datos?" categorias="★|★★|★★★|★★★★|★★★★★"}

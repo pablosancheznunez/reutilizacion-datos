@@ -771,6 +771,39 @@ viewof fichero = {
 ```
 :::
 
+## Caso práctico resuelto
+
+::: {.callout-note appearance="simple" icon="false"}
+## Una ficha de metadatos que permite reutilizar
+Conjunto: «Préstamos en bibliotecas municipales, 2024». Metadatos mínimos para que alguien pueda reutilizarlo sin preguntar:
+
+- **Título y descripción** clara: qué se cuenta (préstamos, no usuarios), unidad y periodo.
+- **Organismo publicador** y contacto.
+- **Licencia** (CC BY 4.0).
+- **Frecuencia de actualización** (mensual) y **fecha de la última actualización**.
+- **Cobertura temporal y geográfica.**
+- **Formato y distribución** (CSV, UTF-8, separador «;»).
+- **Diccionario de datos**: cada columna con su significado, tipo y valores permitidos.
+- **Calidad**: limitaciones conocidas (por ejemplo, la biblioteca X cerró por obras en marzo).
+
+Sin diccionario de datos, una columna llamada «TIPO» con valores 1, 2 y 3 es inutilizable.
+:::
+
+## Ejercicios graduados
+
+**Básico.** ¿Qué información falta si un CSV no indica su codificación ni su separador?
+
+::: {.webex-solution boton="Ver solución"}
+Cómo leerlo correctamente: sin la codificación (UTF-8, Latin-1) pueden corromperse las tildes y la «ñ»; sin el separador (coma, punto y coma) las columnas se leen mal, sobre todo cuando se usa la coma decimal.
+:::
+
+**Avanzado.** Redacta el diccionario de datos completo de un conjunto que hayas usado en el curso.
+
+::: {.webex-solution boton="Ver solución"}
+Cada columna con nombre, descripción, tipo, unidad, valores permitidos o rango, tratamiento de los valores perdidos y ejemplo.
+:::
+
+
 ## Actividades
 
 ::: {.clasificar #ia-t3-dimensiones titulo="¿Qué dimensión de la calidad falla?" categorias="Completitud|Exactitud|Consistencia|Actualidad|Unicidad|Validez"}

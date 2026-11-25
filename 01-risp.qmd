@@ -508,6 +508,35 @@ viewof uso = seleccion("Uso previsto", [["nc", "Sin fines comerciales"], ["com",
 ```
 :::
 
+## Caso práctico resuelto
+
+::: {.callout-note appearance="simple" icon="false"}
+## ¿Se puede reutilizar este conjunto para un servicio comercial?
+Una empresa quiere crear una app de pago con los datos de aparcamientos de un ayuntamiento. Comprobaciones según la normativa de reutilización (Ley 37/2007 y la Directiva (UE) 2019/1024):
+
+1. **Condiciones de uso:** el portal aplica las condiciones generales de reutilización con licencia CC BY 4.0. Permiten el uso comercial con atribución.
+2. **Datos personales:** los datos de ocupación son agregados por aparcamiento; no hay datos personales.
+3. **Tarifas:** la regla general es la reutilización gratuita o limitada a los costes marginales.
+4. **Obligaciones:** citar la fuente, no desnaturalizar los datos, no sugerir que el ayuntamiento patrocina la app e indicar la fecha de la última actualización.
+
+Conclusión: puede reutilizarlos comercialmente si cumple las condiciones de atribución.
+:::
+
+## Ejercicios graduados
+
+**Básico.** ¿Qué tipo de datos promueve especialmente la Directiva (UE) 2019/1024 por su alto potencial económico y social?
+
+::: {.webex-solution boton="Ver solución"}
+Los conjuntos de datos de alto valor (*high-value datasets*), definidos por un reglamento de ejecución de 2023 en seis categorías: geoespaciales, observación de la Tierra y medio ambiente, meteorológicos, estadísticos, sociedades y propiedad de sociedades, y movilidad.
+:::
+
+**Avanzado.** Analiza las condiciones de reutilización de dos portales de datos (uno estatal y uno municipal) y compáralas en una tabla.
+
+::: {.webex-solution boton="Ver solución"}
+Compara licencia, uso comercial, atribución exigida, existencia de tarifas, exclusiones (por ejemplo, datos con derechos de terceros) y cómo se comunican las actualizaciones.
+:::
+
+
 ## Actividades
 
 ::: {.ordenar #ia-t1-normas titulo="Ordena cronológicamente las normas"}
