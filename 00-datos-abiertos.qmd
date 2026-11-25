@@ -112,6 +112,49 @@ FAIR no es sinónimo de abierto: describe datos **localizables** (*Findable*), *
 | Interoperable | Lenguaje formal y vocabularios compartidos; referencias a otros datos |
 | Reutilizable | Licencia clara, procedencia documentada y normas de la comunidad |
 
+
+### Laboratorio: autoevaluación FAIR {#lab-t0-fair}
+
+::: {.laboratorio}
+::: {.laboratorio-etiqueta}
+Laboratorio · se ejecuta en tu navegador
+:::
+
+Piensa en un conjunto de datos que conozcas (de un portal, de tu trabajo o de un TFM) y responde. El perfil muestra qué principio está más flojo y qué hacer para mejorarlo. Es una orientación inspirada en los subprincipios de GO FAIR, no una certificación.
+
+```{ojs}
+//| echo: false
+{
+  const P = [
+    ["F", "Tiene un identificador persistente (DOI, Handle, URI estable)", "Deposítalo en un repositorio que asigne DOI (Zenodo, e-cienciaDatos)."],
+    ["F", "Está descrito con metadatos ricos (título, autoría, fechas, temas)", "Completa los metadatos con un esquema común (DCAT-AP, DataCite)."],
+    ["F", "Aparece en un catálogo o buscador (portal de datos, repositorio)", "Publícalo o enlázalo desde un catálogo como datos.gob.es."],
+    ["A", "Se descarga por su identificador con un protocolo abierto (HTTP/HTTPS)", "Ofrece una URL de descarga directa o una API documentada."],
+    ["A", "Los metadatos siguen disponibles aunque los datos se retiren", "Usa un repositorio con política de preservación de metadatos."],
+    ["I", "Está en un formato abierto y legible por máquina (CSV, JSON, RDF)", "Evita PDF o formatos propietarios; ofrece CSV o JSON."],
+    ["I", "Usa vocabularios o códigos compartidos (INE, ISO, tesauros)", "Codifica municipios, países o materias con listas oficiales."],
+    ["R", "Tiene una licencia clara (CC BY, CC0, ODbL)", "Declara la licencia en los metadatos y en el propio fichero."],
+    ["R", "Documenta su procedencia y su método de creación", "Añade un fichero LEEME o un diccionario de datos."],
+    ["R", "Sigue las normas de su comunidad (formatos, unidades, calidad)", "Revisa las guías del sector (por ejemplo, la Norma Técnica de Interoperabilidad)."]];
+  const raiz = html`<div class="fair-lab"></div>`;
+  const opts = ["No", "En parte", "Sí"];
+  const sels = P.map(([l, q], i) => { const d = html`<div class="row g-2 align-items-center mb-1"><div class="col-sm-8 small"><span class="badge text-bg-secondary me-1">${l}</span><label for="fair${i}">${q}</label></div><div class="col-sm-4"><select id="fair${i}" class="form-select form-select-sm">${opts.map((o, k) => `<option value="${k}">${o}</option>`).join("")}</select></div></div>`; raiz.append(d); return d.querySelector("select"); });
+  const salida = html`<div role="status" aria-live="polite" class="mt-3"></div>`;
+  const nombres = {F: "Localizable", A: "Accesible", I: "Interoperable", R: "Reutilizable"};
+  function act() {
+    const v = sels.map((s) => +s.value);
+    const pct = Object.fromEntries("FAIR".split("").map((l) => { const idx = P.map((p, i) => p[0] === l ? i : -1).filter((i) => i >= 0); return [l, Math.round(100 * idx.reduce((a, i) => a + v[i], 0) / (2 * idx.length))]; }));
+    const peor = Object.entries(pct).sort((a, b) => a[1] - b[1])[0];
+    const consejos = P.map((p, i) => [p, v[i]]).filter(([p, x]) => p[0] === peor[0] && x < 2).map(([p]) => p[2]);
+    const barras = Object.entries(pct).map(([l, x], i) => `<g transform="translate(0 ${i * 32})"><text x="0" y="18" font-size="13" fill="currentColor">${l} · ${nombres[l]}</text><rect x="140" y="4" width="300" height="20" rx="4" fill="var(--bs-secondary-bg)"/><rect x="140" y="4" width="${x * 3}" height="20" rx="4" fill="${x < 50 ? "#b3261e" : "#1c6b3a"}"/><text x="${146 + x * 3}" y="19" font-size="12" fill="currentColor">${x} %${x < 50 ? " ⚠" : ""}</text></g>`).join("");
+    salida.innerHTML = `<svg viewBox="0 0 500 128" width="100%" style="max-width:540px" role="img" aria-label="Perfil FAIR: ${Object.entries(pct).map(([l, x]) => nombres[l] + " " + x + " %").join(", ")}">${barras}</svg>${peor[1] < 100 ? `<p>Lo más flojo es <strong>${nombres[peor[0]]}</strong>. Para mejorarlo:</p><ul>${consejos.map((c) => `<li>${c}</li>`).join("")}</ul>` : "<p>✓ Cumple bien los cuatro principios.</p>"}`;
+  }
+  raiz.addEventListener("input", act); raiz.append(salida); act();
+  return raiz;
+}
+```
+:::
+
 ## 7. Datos abiertos y datos públicos
 
 **Público** no significa **abierto**. Un dato es *público* cuando lo produce o custodia una administración (o es accesible al público); es *abierto* cuando, además, cumple la Open Definition. Las dos categorías se cruzan:
