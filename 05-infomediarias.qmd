@@ -34,9 +34,9 @@ Ahmadi Zeleti, F.; Ojo, A.; Curry, E. (2016). [Exploring the economic value of o
 
 ### Lecturas complementarias {.unnumbered}
 
-- Magalhaes, G.; Roseira, C. (2020). [Open government data and the private sector: An empirical view on business models and value creation](https://doi.org/10.1016/j.giq.2017.08.004). *Government Information Quarterly*, 37(3), 101248. Modelos de negocio de empresas que usan datos abiertos de gobierno.
-- Abella, A.; Ortiz-de-Urbina-Criado, M.; De-Pablos-Heredero, C. (2017). [A model for the analysis of data-driven innovation and value generation in smart cities' ecosystems](https://doi.org/10.1016/j.cities.2017.01.011). *Cities*, 64, 47-53. Innovación y generación de valor con datos en ecosistemas urbanos.
-- Jetzek, T.; Avital, M.; Bjørn-Andersen, N. (2014). [Data-driven innovation through open government data](https://doi.org/10.4067/S0718-18762014000200008). *Journal of Theoretical and Applied Electronic Commerce Research*, 9(2). Mecanismos por los que los datos abiertos generan valor.
+- @magalhaes2020 — Modelos de negocio de empresas que usan datos abiertos de gobierno.
+- @abella2017 — Innovación y generación de valor con datos en ecosistemas urbanos.
+- @jetzek2014 — Mecanismos por los que los datos abiertos generan valor.
 
 ## 1. El sector infomediario
 

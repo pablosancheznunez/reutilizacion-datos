@@ -34,7 +34,7 @@ Bizer, C.; Heath, T.; Berners-Lee, T. (2009). [Linked Data – The Story So Far]
 
 ### Lecturas complementarias {.unnumbered}
 
-- Hallo, M.; Luján-Mora, S.; Maté, A.; Trujillo, J. (2016). [Current state of Linked Data in digital libraries](https://doi.org/10.1177/0165551515594729). *Journal of Information Science*, 42(2), 117-127. Estado de los datos enlazados en bibliotecas digitales.
+- @hallo2016 — Estado de los datos enlazados en bibliotecas digitales.
 
 ## 1. Estándares abiertos
 

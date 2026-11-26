@@ -36,7 +36,7 @@ El artículo es anterior a la Directiva (UE) 2019/1024. Léelo junto con la norm
 
 ### Lecturas complementarias {.unnumbered}
 
-- Janssen, K. (2011). [The influence of the PSI directive on open government data: An overview of recent developments](https://doi.org/10.1016/j.giq.2011.01.004). *Government Information Quarterly*, 28(4), 446-456. Cómo la primera directiva de reutilización se relaciona con el movimiento de datos abiertos.
+- @janssen2011 — Cómo la primera directiva de reutilización se relaciona con el movimiento de datos abiertos.
 
 ## 1. Conceptos básicos de reutilización de la información
 

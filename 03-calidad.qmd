@@ -36,8 +36,8 @@ Norma de referencia: [ISO/IEC 25012:2008](https://www.iso.org/standard/35736.htm
 
 ### Lecturas complementarias {.unnumbered}
 
-- Batini, C.; Cappiello, C.; Francalanci, C.; Maurino, A. (2009). [Methodologies for data quality assessment and improvement](https://doi.org/10.1145/1541880.1541883). *ACM Computing Surveys*, 41(3). Revisión clásica de metodologías de evaluación de la calidad de datos.
-- Umbrich, J.; Neumaier, S.; Polleres, A. (2015). [Quality assessment and evolution of open data portals](https://doi.org/10.1109/FiCloud.2015.82). En *2015 3rd International Conference on Future Internet of Things and Cloud*, 404-411. Métricas de calidad aplicadas a portales de datos abiertos.
+- @batini2009 — Revisión clásica de metodologías de evaluación de la calidad de datos.
+- @umbrich2015 — En *2015 3rd International Conference on Future Internet of Things and Cloud*, 404-411. Métricas de calidad aplicadas a portales de datos abiertos.
 
 ## 1. Gestión documental aplicada a los datos abiertos
 
